@@ -1,0 +1,20 @@
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS intolerances CASCADE;
+
+
+-- CREATE USERS
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255)
+);
+
+
+-- CREATE INTOLERANCES
+CREATE TABLE intolerances (
+  id SERIAL PRIMARY KEY,
+  intolerance TEXT,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+);

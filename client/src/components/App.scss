@@ -1,0 +1,49 @@
+@import "~bootstrap/scss/bootstrap";
+
+// .App{
+//   display:flex;
+//   justify-content: space-around;
+//   text-align: center;
+// }
+
+// .App-header{
+//   display:flex;
+//   flex-direction: column;
+//   align-items:stretch;
+//   height: 300px;
+//   width: 400px;
+// }
+
+.nav {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 0rem;
+  background-color: #fff;
+  color: black;
+  justify-content: space-around;
+
+  img{
+    width: 80vw;
+    height: 10vh;
+  }
+  
+}
+
+.ocr {
+  display:flex;
+  flex-direction: column;
+  margin-top: 50px;
+  img{
+    width: 70vw;
+    height: 50vh;
+  }
+  .cam_buttons{
+    margin-top: 15px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-around;
+  }
+}

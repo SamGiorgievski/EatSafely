@@ -11,48 +11,23 @@ function App(props) {
       <section className="nav">
         <img src="images/eatsafely_logo.png"></img>
         
-        
-        {/* <Container>
-          <Form>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control type="email" placeholder="example.gmail.com" />
-            </Form.Group>
-            <Form.Group controlId="formPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="passexample" />
-            </Form.Group>
-            <Button variant="secondary" type="submit">Submit</Button>
-          </Form>
-
-
-          <Breadcrumb>
-            <Breadcrumb.Item>Feature 1</Breadcrumb.Item>
-            <Breadcrumb.Item>Feature 2</Breadcrumb.Item>
-            <Breadcrumb.Item>Feature 3</Breadcrumb.Item>
-          </Breadcrumb>
-          <Card>
-            <Card.Img src="https://picsum.photos/id/18/1000/500" />
-            <Card.Body>
-              <Card.Title>
-                Image Results
-              </Card.Title>
-              <Alert variant="danger">Danger!</Alert>
-              <Card.Text>
-                Wheat contains gluten!
-              </Card.Text>
-              <Button variant="secondary">Read More</Button>
-            </Card.Body>
-          </Card>
-          <Button>Next</Button>
-        </Container> */}
       </section>
 
       <section className = "ocr">
         <img src="/images/yogurt.jpg"></img>
         <div className = "cam_buttons">
-          <button type="button">Upload</button>
-          <button type="button">Camera</button>
+          <button type="button" class="btn btn-primary">Upload</button>
+          <button type="button" class="btn btn-primary">Camera</button>
+        </div>
+        <div className="scanner">
+          <alert class="alert alert-secondary" role="alert">Upload your image</alert>
+        </div>
+        <div className="user_ingredients">
+          <p>Searching image for...</p>
+        </div>
+        <div className="navigation">
+          <button type="button" class="btn btn-primary">Back</button>
+          <button type="button" class="btn btn-primary" disabled>Next</button>
         </div>
       </section>
 

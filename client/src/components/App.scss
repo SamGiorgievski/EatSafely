@@ -36,6 +36,7 @@
   display:flex;
   flex-direction: column;
   margin-top: 50px;
+
   img{
     width: 70vw;
     height: 50vh;
@@ -45,5 +46,19 @@
     display:flex;
     flex-direction:row;
     justify-content: space-around;
+  }
+  .scanner{
+    margin-top: 30px;
+
+    .alert{
+      display:flex;
+      align-items: center;
+
+    }
+  }
+
+  .navigation{
+    display:flex;
+    justify-content:space-around;
   }
 }

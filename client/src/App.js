@@ -5,13 +5,14 @@ import {Button, Alert, Breadcrumb, Card} from 'react-bootstrap';
 function App() {
   return (
     <div className="App">
+      <header className="App-header">
       <Breadcrumb>
         <Breadcrumb.Item>Login</Breadcrumb.Item>
         <Breadcrumb.Item>Register</Breadcrumb.Item>
         <Breadcrumb.Item>Logout</Breadcrumb.Item>
       </Breadcrumb>
       <Card>
-        <Card.Img/>
+        <Card.Img src="https://picsum.photos/id/18/1000/500" />
         <Card.Body>
           <Card.Title>
             Image Results
@@ -25,6 +26,7 @@ function App() {
       </Card>
       <Alert variant="primary">This is a button</Alert>
       <Button>Next</Button>
+      </header>
     </div>
   );
 }

@@ -23,7 +23,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Register />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/scanimage" element={<ScanImage />} />
           <Route path="/login" element={<Login />} />
         </Route>

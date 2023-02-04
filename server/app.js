@@ -5,6 +5,10 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+const { Pool } = require("pg");
+const dbParams = require("./lib/db.js");
+const db = new Pool(dbParams);
+db.connect();
 
 const catsRoutes = require('./routes/catsRoutes');
 
@@ -15,17 +19,43 @@ const app = express();
 app.use(morgan(ENVIROMENT));
 app.use(bodyParser.json());
 
-// app.use('/cats', catsRoutes);
+app.use('/data', catsRoutes);
 
 // app.get('/', (req, res) => {
 //   res.json({ data });
 // });
 
-app.get('/api/data', (req, res) => {
-  client.query('SELECT * FROM users', (err, result) => {
-    if (err) throw err;
-    res.send(result.rows);
-  });
+// app.get('/api/data', (req, res) => {
+//   client.query('SELECT * FROM users', (err, result) => {
+//     if (err) throw err;
+//     res.send(result.rows);
+//   });
+// });
+
+app.get("/register", (req, res) => {
+  const user = req.session.id;
+  // res.render("register", { user: user });
+});
+
+app.post("/register", (req, res) => {
+  first_name = req.body.first_name;
+  last_name = req.body.last_name;
+  email = req.body.email;
+  password = req.body.password;
+
+  db.query(
+    `
+  INSERT INTO users (first_name,last_name, email, password)
+  VALUES ($1, $2, $3,$4)
+  RETURNING *
+  `, [first_name, last_name, email, password])
+
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  // res.redirect("/login");
 });
 
 

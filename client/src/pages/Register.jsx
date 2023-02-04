@@ -22,10 +22,12 @@ function Register() {
                       <div class="form-outline">
                         <input
                           type="text"
+                          name="first_name"
+                          for="first_name"
                           id="form3Example1"
                           class="form-control"
                         />
-                        <label class="form-label" for="form3Example1">
+                        <label class="form-label" for="first_name">
                           First name
                         </label>
                       </div>
@@ -34,10 +36,12 @@ function Register() {
                       <div class="form-outline">
                         <input
                           type="text"
+                          name="last_name"
+                          for="last_name"
                           id="form3Example2"
                           class="form-control"
                         />
-                        <label class="form-label" for="form3Example2">
+                        <label class="form-label" for="last_name">
                           Last name
                         </label>
                       </div>
@@ -47,10 +51,12 @@ function Register() {
                   <div class="form-outline mb-4">
                     <input
                       type="email"
+                      name="email"
+                      for="email"
                       id="form3Example3"
                       class="form-control"
                     />
-                    <label class="form-label" for="form3Example3">
+                    <label class="form-label" for="email">
                       Email address
                     </label>
                   </div>
@@ -58,10 +64,12 @@ function Register() {
                   <div class="form-outline mb-4">
                     <input
                       type="password"
+                      name="password"
+                      for="password"
                       id="form3Example4"
                       class="form-control"
                     />
-                    <label class="form-label" for="form3Example4">
+                    <label class="form-label" for="password">
                       Password
                     </label>
                   </div>

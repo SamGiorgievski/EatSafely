@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
+const dbParams = require("./configs/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
@@ -33,7 +33,7 @@ app.use('/data', catsRoutes);
 // });
 
 app.get("/register", (req, res) => {
-  const user = req.session.id;
+  // const user = req.session.id;
   // res.render("register", { user: user });
 });
 
@@ -42,6 +42,8 @@ app.post("/register", (req, res) => {
   last_name = req.body.last_name;
   email = req.body.email;
   password = req.body.password;
+
+  console.log(req.body);
 
   db.query(
     `

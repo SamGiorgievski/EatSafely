@@ -1,6 +1,6 @@
 // db/queries/users.js
 
-const db = require('../../configs/db.config');
+const db = require('../../configs/db');
 
 const getAllUsers = () => {
   return db.query("SELECT * FROM users;").then(data => {

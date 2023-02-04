@@ -25,6 +25,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Register />} />
           <Route path="/scanimage" element={<ScanImage />} />
+          <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>

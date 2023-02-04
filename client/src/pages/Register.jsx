@@ -1,5 +1,4 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
 import "./Register.scss";
 
 function Register() {
@@ -69,9 +68,6 @@ function Register() {
                   <button type="submit" class="btn btn-primary btn-block mb-4">
                     Sign up
                   </button>
-                  <button type="submit" class="btn btn-primary btn-block mb-4">
-                    Login
-                  </button>
                 </form>
               </div>
             </div>
@@ -86,16 +82,6 @@ function Register() {
           </div>
         </div>
       </div>
-
-      <nav>
-        <ul>
-          <li>
-            <Link to="/scanimage">Scan Image</Link>
-          </li>
-        </ul>
-      </nav>
-
-      <Outlet />
     </section>
   );
 }

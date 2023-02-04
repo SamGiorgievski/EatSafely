@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet, Link } from "react-router-dom";
 import "./ScanImage.scss";
 
 function ScanImage() {

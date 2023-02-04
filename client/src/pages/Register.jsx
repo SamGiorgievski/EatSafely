@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet, Link } from "react-router-dom";
 import "./Register.scss";
 
 function Register() {
@@ -85,6 +86,16 @@ function Register() {
           </div>
         </div>
       </div>
+
+      <nav>
+        <ul>
+          <li>
+            <Link to="/scanimage">Scan Image</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Outlet />
     </section>
   );
 }

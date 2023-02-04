@@ -4,7 +4,6 @@ const { ENVIROMENT, PORT } = process.env;
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const router = express.Router();
 
 const { Pool } = require("pg");
 const dbParams = require("./configs/db.js");
@@ -38,27 +37,36 @@ app.get("/register", (req, res) => {
   // res.render("register", { user: user });
 });
 
+app.get("/login", (req, res) => {
+  console.log("login!");
+  // const user = req.session.id;
+  // res.render("register", { user: user });
+});
+
 app.post("/register", (req, res) => {
-console.log("hello")
   first_name = req.body.first_name;
   last_name = req.body.last_name;
   email = req.body.email;
   password = req.body.password;
 
-  
+  console.log(` req body: ${req.body}`);
 
+  
   db.query(
     `
   INSERT INTO users (first_name,last_name, email, password)
   VALUES ($1, $2, $3,$4)
   RETURNING *
   `, [first_name, last_name, email, password])
-
+    .then((result) => {
+      console.log(` result: ${result}`);
+    })
     .catch(err => {
       res
         .status(500)
         .json({ error: err.message });
     });
+  
   res.redirect("/login");
 });
 

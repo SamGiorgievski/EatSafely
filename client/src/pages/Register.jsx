@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Register.scss";
+import axios from "axios";
 
 function Register(props) {
 
@@ -14,6 +15,18 @@ function Register(props) {
     const password = user.userPassword;
 
     console.log(user);
+
+    return axios
+    .post('/register', {
+        first_name: user.firstName,
+        last_name: user.lastName,
+        email: user.userEmail,
+        password: user.userPassword
+      }
+    )
+    .then((response) => {
+      console.log(response);
+    })
   
 
   }

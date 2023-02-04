@@ -15,10 +15,18 @@ const app = express();
 app.use(morgan(ENVIROMENT));
 app.use(bodyParser.json());
 
-app.use('/cats', catsRoutes);
+// app.use('/cats', catsRoutes);
 
-app.get('/', (req, res) => {
-  res.json({ users: data });
+// app.get('/', (req, res) => {
+//   res.json({ data });
+// });
+
+app.get('/api/data', (req, res) => {
+  client.query('SELECT * FROM users', (err, result) => {
+    if (err) throw err;
+    res.send(result.rows);
+  });
 });
+
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

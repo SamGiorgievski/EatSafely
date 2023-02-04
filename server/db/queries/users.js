@@ -15,8 +15,7 @@ const getUserById = id => {
 };
 
 const getAllIntolerances = () => {
-  return db.query("SELECT * FROM intolerances;").then(data => {
-    console.log(data.rows.intolerance);
+  return db.query("SELECT intolerance FROM intolerances;").then(data => {
     return data.rows;
   });
 };

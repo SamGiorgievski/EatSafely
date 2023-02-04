@@ -4,8 +4,7 @@ const users = require('../db/queries/users');
 
 router.get('/', (req, res) => {
   users.getAllIntolerances().then(data => {
-    console.log(data);
-    res.json({ users: data });
+    res.json({ data });
   });
 });
 

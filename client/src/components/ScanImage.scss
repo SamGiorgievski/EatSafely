@@ -14,6 +14,10 @@
 //   width: 400px;
 // }
 
+main {
+  background-color: #e6e2d6;
+}
+
 .nav {
   height: 60px;
   width: 100%;
@@ -25,40 +29,38 @@
   color: black;
   justify-content: space-around;
 
-  img{
+  img {
     width: 80vw;
     height: 10vh;
   }
-  
 }
 
 .ocr {
-  display:flex;
+  display: flex;
   flex-direction: column;
   margin-top: 50px;
 
-  img{
+  img {
     width: 70vw;
     height: 50vh;
   }
-  .cam_buttons{
+  .cam_buttons {
     margin-top: 15px;
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
   }
-  .scanner{
+  .scanner {
     margin-top: 30px;
 
-    .alert{
-      display:flex;
+    .alert {
+      display: flex;
       align-items: center;
-
     }
   }
 
-  .navigation{
-    display:flex;
-    justify-content:space-around;
+  .navigation {
+    display: flex;
+    justify-content: space-around;
   }
 }

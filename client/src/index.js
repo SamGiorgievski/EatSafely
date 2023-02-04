@@ -17,6 +17,7 @@ import Layout from "./pages/Layout";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ScanImage from './pages/ScanImage';
+import Profile from './pages/Profile'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/scanimage" element={<ScanImage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>

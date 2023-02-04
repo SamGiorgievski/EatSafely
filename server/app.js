@@ -20,6 +20,8 @@ app.use(morgan(ENVIROMENT));
 app.use(bodyParser.json());
 
 app.use('/data', catsRoutes);
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 // app.get('/', (req, res) => {
 //   res.json({ data });
@@ -49,18 +51,15 @@ app.post("/register", (req, res) => {
   email = req.body.email;
   password = req.body.password;
 
-  console.log(` req body: ${req.body}`);
+  console.log(first_name);
+
 
   
   db.query(
     `
   INSERT INTO users (first_name,last_name, email, password)
   VALUES ($1, $2, $3,$4)
-  RETURNING *
   `, [first_name, last_name, email, password])
-    .then((result) => {
-      console.log(` result: ${result}`);
-    })
     .catch(err => {
       res
         .status(500)
@@ -68,6 +67,7 @@ app.post("/register", (req, res) => {
     });
   
   res.redirect("/login");
+  // res.redirect("/profile");
 });
 
 

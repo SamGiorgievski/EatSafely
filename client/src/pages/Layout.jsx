@@ -42,6 +42,11 @@ const Layout = () => {
                   Scan Image
                 </Link>
               </li>
+              <li class="nav-item">
+                <Link className="nav-link" to="/profile">
+                  Profile
+                </Link>
+              </li>
             </ul>
           </div>
 

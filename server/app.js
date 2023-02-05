@@ -78,7 +78,9 @@ app.post("/profile", (req, res) => {
 
   db.query(
     `
-  SELECT * FROM users WHERE id = 1
+    SELECT users.*, intolerances.*
+    FROM users
+    LEFT JOIN intolerances ON users.id = intolerances.user_id
   `)
     .then(response => {
       res.json(response);

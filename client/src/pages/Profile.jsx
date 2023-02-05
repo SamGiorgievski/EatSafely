@@ -58,7 +58,7 @@ const Profile = (props) => {
                         <span className="display-26 text-secondary me-2 font-weight-600">
                           Intolerances:
                         </span>{" "}
-                        [This will be the intolerances]
+                        {userData.intolerance}
                       </li>
                       <li className="display-28">
                         <button className="btn btn-primary">

@@ -19,13 +19,14 @@ const Layout = () => {
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a href="/">
             <img
               src="images/eatsafely_logo.png"
               height="30"
-              alt="EatSafely Logo"
+              alt="EatSafely Logo" 
               loading="lazy"
             />
-
+            </a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <Link className="nav-link" to="/register">

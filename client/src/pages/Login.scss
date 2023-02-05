@@ -1,0 +1,26 @@
+.cascading-right {
+  margin-right: -50px;
+  border:2px solid red;
+}
+
+@media (max-width: 991.98px) {
+  .cascading-right {
+    margin-right: 0;
+  }
+}
+
+section {
+  background-color: rgba(230, 226, 214, 255);
+  height: 100vh;
+  border:2px solid blue
+
+}
+
+.logo {
+  display: flex;
+  margin: auto;
+  padding-top: 3em;
+  padding-bottom: 2em;
+  border:2px solid green
+
+}

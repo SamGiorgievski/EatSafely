@@ -4,12 +4,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Register(props) {
-
   const [user, setUser] = useState(props.user || "");
 
-
   function registerUser() {
-
     const first_name = user.firstName;
     const last_name = user.lastName;
     const email = user.userEmail;
@@ -18,18 +15,15 @@ function Register(props) {
     console.log(user);
 
     return axios
-      .post('/register', {
+      .post("/register", {
         first_name: user.firstName,
         last_name: user.lastName,
         email: user.userEmail,
-        password: user.userPassword
-      }
-      )
+        password: user.userPassword,
+      })
       .then((response) => {
         console.log(response);
-      })
-
-
+      });
   }
 
   return (
@@ -47,13 +41,11 @@ function Register(props) {
               <div className="card-body p-5 shadow-5 text-center">
                 <h2 className="fw-bold mb-5">Sign up now</h2>
 
-
                 {/* Form */}
                 <form method="POST" action="/register">
                   <div className="row">
                     <div className="col-md-6 mb-4">
                       <div className="form-outline">
-
                         {/* First name */}
                         <input
                           type="text"
@@ -61,11 +53,12 @@ function Register(props) {
                           for="first_name"
                           id="form3Example1"
                           className="form-control"
-                          onChange={(event) => setUser(prev => ({
-                            ...prev,
-                            firstName: event.target.value
-                          })
-                          )}
+                          onChange={(event) =>
+                            setUser((prev) => ({
+                              ...prev,
+                              firstName: event.target.value,
+                            }))
+                          }
                         />
                         <label className="form-label" for="first_name">
                           First name
@@ -74,7 +67,6 @@ function Register(props) {
                     </div>
                     <div className="col-md-6 mb-4">
                       <div className="form-outline">
-
                         {/* Last Name */}
                         <input
                           type="text"
@@ -82,11 +74,12 @@ function Register(props) {
                           for="last_name"
                           id="form3Example2"
                           className="form-control"
-                          onChange={(event) => setUser(prev => ({
-                            ...prev,
-                            lastName: event.target.value
-                          })
-                          )}
+                          onChange={(event) =>
+                            setUser((prev) => ({
+                              ...prev,
+                              lastName: event.target.value,
+                            }))
+                          }
                         />
                         <label className="form-label" for="last_name">
                           Last name
@@ -95,8 +88,6 @@ function Register(props) {
                     </div>
                   </div>
                   <div className="form-outline mb-4">
-
-
                     {/* Email */}
                     <input
                       type="email"
@@ -104,11 +95,12 @@ function Register(props) {
                       for="email"
                       id="form3Example3"
                       className="form-control"
-                      onChange={(event) => setUser(prev => ({
-                        ...prev,
-                        userEmail: event.target.value
-                      })
-                      )}
+                      onChange={(event) =>
+                        setUser((prev) => ({
+                          ...prev,
+                          userEmail: event.target.value,
+                        }))
+                      }
                     />
                     <label className="form-label" for="email">
                       Email address
@@ -123,11 +115,12 @@ function Register(props) {
                       for="password"
                       id="form3Example4"
                       className="form-control"
-                      onChange={(event) => setUser(prev => ({
-                        ...prev,
-                        userPassword: event.target.value
-                      })
-                      )}
+                      onChange={(event) =>
+                        setUser((prev) => ({
+                          ...prev,
+                          userPassword: event.target.value,
+                        }))
+                      }
                     />
                     <label className="form-label" for="password">
                       Password
@@ -138,13 +131,14 @@ function Register(props) {
                   <button
                     type="submit"
                     className="btn btn-primary btn-block mb-4"
-                    onClick={registerUser}>
+                    onClick={registerUser}
+                  >
                     Sign up
                   </button>
                 </form>
-                <Link to="/login" variant = "body2">
-                    Already have an account? Log In here</Link>
-
+                <Link to="/login" variant="body2">
+                  Already have an account? Log In here
+                </Link>
               </div>
             </div>
           </div>

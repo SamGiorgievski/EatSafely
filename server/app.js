@@ -19,12 +19,15 @@ app.use(bodyParser.json());
 
 app.use('/data', catsRoutes);
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
+});
+
+app.get("/profile", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
@@ -43,7 +46,7 @@ app.post("/register", (req, res) => {
         .status(500)
         .json({ error: err.message });
     });
-  
+
   res.redirect("/profile");
 });
 
@@ -56,20 +59,36 @@ app.post("/login", (req, res) => {
     `SELECT * FROM users WHERE email = $1`
     , [userEmail])
     .then(response => {
-      if(userPassword === response.rows[0].password){
-        res.redirect("/profile")
-        console.log("Success")
+      if (userPassword === response.rows[0].password) {
+        res.redirect("/profile");
+        console.log("Success");
       } else {
-       res.redirect("/login")
-       console.log("Fail")
+        res.redirect("/login");
+        console.log("Fail");
       }
     })
     .catch(err => {
       res
         .status(500)
-        .json({error: err.message});
+        .json({ error: err.message });
     });
-})
+});
+
+app.post("/profile", (req, res) => {
+
+  db.query(
+    `
+  SELECT * FROM users WHERE id = 1
+  `)
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
 
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

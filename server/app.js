@@ -70,17 +70,17 @@ app.post("/register", (req, res) => {
   res.redirect("/profile");
 });
 
-app.post("./login", (req, res) => {
+app.post("/login", (req, res) => {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
-
+  console.log("hello");
 
   db.query(
 
     `SELECT email FROM users WHERE email = $1 RETURNING password`
     , [userEmail])
-    .then(res => {
-      if(userPassword === res){
+    .then(response => {
+      if(userPassword === response){
         res.redirect("/profile")
         console.log("Success")
         console.log(user.userPassword)

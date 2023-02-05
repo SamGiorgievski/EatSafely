@@ -13,12 +13,9 @@ function Login(props) {
   
   // console.log("email", email)
   
-  function handleSubmit(event) {
-    event.preventDefault();
-    // const email = user.userEmail;
-    // const password = user.userPassword;
+  function handleSubmit() {
 
-    // console.log(email);
+    console.log(user.email);
 
     return axios
       .post('/login', {
@@ -53,15 +50,15 @@ function Login(props) {
 
                 {/* Form */}
                 <form method="POST" action="/login">
-    <div className="row">
-      <div className="col-md-6 mb-4">
-        <div className="form-outline">
+                  <div className="row">
+                    <div className="col-md-6 mb-4">
+                      <div className="form-outline">
 
 
-        </div>
-      </div>
-    </div>
-    <div className="form-outline mb-4">
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-outline mb-4">
 
 
                     {/* Email */}
@@ -107,10 +104,9 @@ function Login(props) {
 
                   {/* Form Event Handler */}
                   <button 
-                  type="submit" 
+                  type="submit"
                   className="btn btn-primary btn-block mb-4"
-                  onSubmit={handleSubmit}
-                  // onClick={handleSubmit}
+                  onClick={handleSubmit}
                   >
                     Login
                   </button>

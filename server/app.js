@@ -51,7 +51,7 @@ app.post("/register", (req, res) => {
   email = req.body.email;
   password = req.body.password;
 
-  console.log(first_name);
+  // console.log(first_name);
 
 
   
@@ -71,15 +71,24 @@ app.post("/register", (req, res) => {
 });
 
 app.post("./login", (req, res) => {
-  email = req.body.email;
-  password = req.body.password;
+  const userEmail = req.body.email;
+  const userPassword = req.body.password;
 
-  console.log("EMAIL", email);
 
   db.query(
 
-    `INSERT INTO users (email, password) VALUES ($1, $2)`
-    , [email, password])
+    `SELECT email FROM users WHERE email = $1 RETURNING password`
+    , [userEmail])
+    .then(res => {
+      if(userPassword === res){
+        res.redirect("/profile")
+        console.log("Success")
+        console.log(user.userPassword)
+      } else {
+       res.redirect("/login")
+       console.log("Fail")
+      }
+    })
     .catch(err => {
       res
         .status(500)

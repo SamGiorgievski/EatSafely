@@ -4,10 +4,10 @@ import { Outlet, Link } from "react-router-dom";
 const Layout = () => {
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <div class="container-fluid">
+      <nav className="navbar navbar-expand-lg navbar-light bg-white">
+        <div className="container-fluid">
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-mdb-toggle="collapse"
             data-mdb-target="#navbarSupportedContent"
@@ -15,10 +15,10 @@ const Layout = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <i class="fas fa-bars"></i>
+            <i className="fas fa-bars"></i>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <a href="/">
             <img
               src="images/eatsafely_logo.png"
@@ -27,23 +27,23 @@ const Layout = () => {
               loading="lazy"
             />
             </a>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
                 <Link className="nav-link" to="/register">
                   Register
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link className="nav-link" to="/login">
                   Login
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link className="nav-link" to="/scanimage">
                   Scan Image
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link className="nav-link" to="/profile">
                   Profile
                 </Link>
@@ -51,9 +51,9 @@ const Layout = () => {
             </ul>
           </div>
 
-          <div class="d-flex align-items-center">
-            <a class="link-secondary me-3" href="#">
-              <i class="fas fa-shopping-cart"></i>
+          <div className="d-flex align-items-center">
+            <a className="link-secondary me-3" href="#">
+              <i className="fas fa-shopping-cart"></i>
             </a>
           </div>
         </div>

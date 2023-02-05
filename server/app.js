@@ -58,7 +58,7 @@ app.post("/register", (req, res) => {
   db.query(
     `
   INSERT INTO users (first_name,last_name, email, password)
-  VALUES ($1, $2, $3,$4)
+  VALUES ($1, $2, $3, $4)
   `, [first_name, last_name, email, password])
     .catch(err => {
       res
@@ -66,9 +66,28 @@ app.post("/register", (req, res) => {
         .json({ error: err.message });
     });
   
-  res.redirect("/login");
-  // res.redirect("/profile");
+  // res.redirect("/login");
+  res.redirect("/profile");
 });
+
+app.post("./login", (req, res) => {
+  email = req.body.email;
+  password = req.body.password;
+
+  console.log("EMAIL", email);
+
+  db.query(
+
+    `INSERT INTO users (email, password) VALUES ($1, $2)`
+    , [email, password])
+    .catch(err => {
+      res
+        .status(500)
+        .json({error: err.message});
+    });
+    res.redirect("/profile");
+
+})
 
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

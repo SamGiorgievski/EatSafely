@@ -53,13 +53,12 @@ app.post("/login", (req, res) => {
 
   db.query(
 
-    `SELECT email FROM users WHERE email = $1 RETURNING password`
+    `SELECT * FROM users WHERE email = $1`
     , [userEmail])
     .then(response => {
-      if(userPassword === response){
+      if(userPassword === response.rows[0].password){
         res.redirect("/profile")
         console.log("Success")
-        console.log(user.userPassword)
       } else {
        res.redirect("/login")
        console.log("Fail")
@@ -70,7 +69,6 @@ app.post("/login", (req, res) => {
         .status(500)
         .json({error: err.message});
     });
-    res.redirect("/profile");
 })
 
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
 
@@ -11,9 +11,9 @@ const Layout = () => {
   
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const {isLoggedIn, setIsLoggedIn} = useGlobalContext();
-  const location = useLocation();
+  // const location = useLocation();
 
-  const page = location.pathname;
+  // const page = location.pathname;
 
   const navigate = useNavigate();
 

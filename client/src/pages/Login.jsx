@@ -1,25 +1,31 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios";
 
 // import { useNavigate } from "react-router-dom";
 
 
 
+
+
 import "./Login.scss";
+import { useGlobalContext } from "../context";
 
 function Login(props) {
 
   const [user, setUser] = useState("");
 
-  // const navigate = useNavigate();
-  console.log(window.location)
-  
-  function handleSubmit() {
+  const {isLoggedIn, setIsLoggedIn} = useGlobalContext();
 
-    // navigate("/profile");
-    
+
+
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log("LoginHandle");
     return axios
     .post('/login', {
       email: user.userEmail,
@@ -27,7 +33,15 @@ function Login(props) {
     }
     )
     .then((response) => {
+      console.log("---------------");
         console.log(response);
+        setIsLoggedIn(true);
+        navigate("/profile");
+
+      })
+      .catch(err => {
+        console.log("*****", err);
+
       })
 
   }
@@ -51,7 +65,8 @@ function Login(props) {
 
 
                 {/* Form */}
-                <form method="POST" action="/login">
+                <form onSubmit={handleSubmit}
+>
                   <div className="row">
                     <div className="col-md-6 mb-4">
                       <div className="form-outline">
@@ -108,7 +123,6 @@ function Login(props) {
                   <button
                     type="submit"
                     className="btn btn-primary btn-block mb-4"
-                    onClick={handleSubmit}
                   >
                     Login
                   </button>

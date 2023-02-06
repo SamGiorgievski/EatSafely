@@ -1,19 +1,25 @@
 import axios from "axios";
 import React from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "../context";
+
+
 
 
 const Layout = () => {
   
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {isLoggedIn, setIsLoggedIn} = useGlobalContext();
   const location = useLocation();
 
   const page = location.pathname;
 
+  const navigate = useNavigate();
 
 
-  console.log(page);
+
+  console.log(isLoggedIn);
 
   function handleLogout() {
     
@@ -25,9 +31,15 @@ const Layout = () => {
         )
         .then((response) => {
           console.log(response);
+          setIsLoggedIn(false);
+          navigate("/login");
+
+        })
+        .catch(err => {
+          console.log("*****", err);
+  
         })
         
-        setIsLoggedIn(false)
   
   };
 
@@ -59,7 +71,7 @@ const Layout = () => {
             
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 {              
-            page === "/login" &&
+            !isLoggedIn &&
               <>
               <li className="nav-item">
                 <Link className="nav-link" to="/register">
@@ -74,7 +86,7 @@ const Layout = () => {
               </li>
               </>
 }
-{              page !== "/login" && 
+{              isLoggedIn && 
               <>
               <li className="nav-item">
                 <Link className="nav-link" to="/scanimage">

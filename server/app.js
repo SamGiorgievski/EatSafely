@@ -72,12 +72,12 @@ app.post("/login", (req, res) => {
       if(userPassword === user.password){
         // console.log("req.session", req.session.userEmail)
         console.log("Success")
-        res.redirect("/profile")
-        // return res.status(200).json({ message: "Login Succesful", user })
+        // res.redirect("/profile")
+        return res.status(200).json({ message: "Login Succesful", user })
       } else {
         console.log("Fail")
-        res.redirect("/login")
-      //  return res.status(400).json({ message: "Login Unsuccesful" })
+        // res.redirect("/login")
+       return res.status(400).json({ message: "Login Unsuccesful" })
 
       }
     })
@@ -91,7 +91,9 @@ app.post("/login", (req, res) => {
 app.post("/logout", (req, res) => {
   res.clearCookie('session');
     console.log("Cookie Cleared!")
-    res.redirect("/login");
+    // res.redirect("/login");
+    return res.status(200).json({ message: "Logout Succesful"});
+
 
 })
 

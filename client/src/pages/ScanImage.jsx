@@ -30,6 +30,11 @@ function ScanImage() {
         console.error(err);
       })
       .then((result) => {
+
+        console.log(result);
+
+        console.log(confidentText (result));
+
         // Get Confidence score
         let confidenceResult = result.data.confidence;
         setConfidence(confidenceResult);
@@ -79,6 +84,24 @@ function ScanImage() {
           });
         }
       });
+  };
+
+  function confidentText (result) {
+    const returnArray = [];
+
+    const wordArray = result.data.words;
+
+    wordArray.forEach(word => {
+      if (word.confidence >= 65) {
+        returnArray.push(word.text);
+      } 
+    })
+
+    const returnString = returnArray.join(' ');
+
+    console.log(returnString);
+    console.log(returnArray)
+
   };
 
   

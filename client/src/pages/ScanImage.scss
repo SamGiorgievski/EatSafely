@@ -33,6 +33,12 @@ main {
     width: 80vw;
     height: 10vh;
   }
+
+  button {
+    display: flex;
+    justify-content: flex-end;
+    border: red solid 2px;
+  }
 }
 
 .ocr {
@@ -63,4 +69,6 @@ main {
     display: flex;
     justify-content: space-around;
   }
+
+ 
 }

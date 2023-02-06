@@ -66,14 +66,19 @@ app.post("/login", (req, res) => {
     `SELECT * FROM users WHERE email = $1`
     , [userEmail])
     .then(response => {
+      const user = response.rows[0]
+
       req.session.userEmail = userEmail
-      if(userPassword === response.rows[0].password){
+      if(userPassword === user.password){
         // console.log("req.session", req.session.userEmail)
-        res.redirect("/profile")
         console.log("Success")
+        res.redirect("/profile")
+        // return res.status(200).json({ message: "Login Succesful", user })
       } else {
-       res.redirect("/login")
-       console.log("Fail")
+        console.log("Fail")
+        res.redirect("/login")
+      //  return res.status(400).json({ message: "Login Unsuccesful" })
+
       }
     })
     .catch(err => {

@@ -7,20 +7,6 @@ import { useEffect, useState } from "react";
 
 const Layout = () => {
   
-  // function logout() {
-  //   // const [loading, setLoading] = useState(false);
-  //   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
-  
-  //   // localStorage.clear();
-  //   // navigate.push('/login');
-  //   useEffect(() => {
-  //     dispatch(Logout())
-  //     .then(() => {
-  //       navigate("/login", { replace: true });
-  //     });
-  //   }, []);
-  // }
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function handleLogout() {
@@ -88,7 +74,7 @@ const Layout = () => {
               <li className="nav-item">
                 {/* Double Check This! */}
                 <Link to={'./login'}>
-                <button type="submit" onClick={handleLogout}>
+                <button className="logout-button" type="submit" onClick={handleLogout}>
                  Logout
                 </button>
                 </Link>

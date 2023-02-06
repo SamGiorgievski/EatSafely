@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom"
 import axios from "axios";
 
+// import { useNavigate } from "react-router-dom";
+
+
 
 import "./Login.scss";
 
@@ -10,15 +13,19 @@ function Login(props) {
 
   const [user, setUser] = useState("");
 
+  // const navigate = useNavigate();
+
   function handleSubmit() {
 
+    // navigate("/profile");
+    
     return axios
-      .post('/login', {
-        email: user.userEmail,
-        password: user.userPassword
-      }
-      )
-      .then((response) => {
+    .post('/login', {
+      email: user.userEmail,
+      password: user.userPassword
+    }
+    )
+    .then((response) => {
         console.log(response);
       })
 

@@ -134,15 +134,15 @@ const EditProfile = (props) => {
           </div>
         </form>
         <div className="modal-footer">
-          <button onClick={props.toggle} className="btn btn-primary">
-            Close
-          </button>
           <button
             type="submit"
             className="btn btn-primary"
             onClick={updateUser}
           >
             Save Changes
+          </button>
+          <button onClick={props.toggle} className="btn btn-primary">
+            Close
           </button>
         </div>
       </div>

@@ -14,7 +14,8 @@ function Login(props) {
   const [user, setUser] = useState("");
 
   // const navigate = useNavigate();
-
+  console.log(window.location)
+  
   function handleSubmit() {
 
     // navigate("/profile");

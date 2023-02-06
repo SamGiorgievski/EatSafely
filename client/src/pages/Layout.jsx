@@ -1,13 +1,19 @@
 import axios from "axios";
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
-// import { useNavigate, useDispatch } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
 const Layout = () => {
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
+
+  const page = location.pathname;
+
+
+
+  console.log(page);
 
   function handleLogout() {
     
@@ -21,7 +27,7 @@ const Layout = () => {
           console.log(response);
         })
         
-        setIsLoggedIn(true)
+        setIsLoggedIn(false)
   
   };
 
@@ -50,7 +56,11 @@ const Layout = () => {
               loading="lazy"
             />
             </a>
+            
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+{              
+            page === "/login" &&
+              <>
               <li className="nav-item">
                 <Link className="nav-link" to="/register">
                   Register
@@ -60,7 +70,12 @@ const Layout = () => {
                 <Link className="nav-link" to="/login">
                   Login
                 </Link>
+         
               </li>
+              </>
+}
+{              page !== "/login" && 
+              <>
               <li className="nav-item">
                 <Link className="nav-link" to="/scanimage">
                   Scan Image
@@ -71,6 +86,7 @@ const Layout = () => {
                   Profile
                 </Link>
               </li>
+       
               <li className="nav-item">
                 {/* Double Check This! */}
                 <Link to={'./login'}>
@@ -79,6 +95,8 @@ const Layout = () => {
                 </button>
                 </Link>
               </li>
+              </>
+}             
             </ul>
           </div>
 

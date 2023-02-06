@@ -28,7 +28,7 @@ const Profile = (props) => {
       <div class="card">
         <img
           class="card-img-top"
-          src="https://files.worldwildlife.org/wwfcmsprod/images/Takeaway_graphic_Summer_2019/story_full_width/4mhxvgukpd_Takeaway_graphic_Summer_2019.png"
+          src="https://t3.ftcdn.net/jpg/02/94/69/02/360_F_294690239_ydek2JMXB9aeQcYY05jVewc0xocZrCNg.jpg"
           alt="veg"
         />
         <div class="card-body">

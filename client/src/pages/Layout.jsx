@@ -1,10 +1,11 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
+import "./Layout.scss";
 
 const Layout = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-white">
+      <nav className="navbar navbar-expand-lg all--content">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -20,12 +21,12 @@ const Layout = () => {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <a href="/">
-            <img
-              src="images/eatsafely_logo.png"
-              height="30"
-              alt="EatSafely Logo" 
-              loading="lazy"
-            />
+              <img
+                src="images/eatsafely_logo.png"
+                height="30"
+                alt="EatSafely Logo"
+                loading="lazy"
+              />
             </a>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">

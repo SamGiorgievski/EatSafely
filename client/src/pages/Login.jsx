@@ -105,6 +105,13 @@ function Login(props) {
               </div>
             </div>
           </div>
+          <div className="col-lg-6 mb-5 mb-lg-0">
+            <img
+              src="https://my-doc.com/wp-content/uploads/2020/08/harvardhealth.jpg"
+              className="w-100 rounded-4 shadow-4"
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </section>

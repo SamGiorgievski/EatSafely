@@ -1,6 +1,6 @@
 .cascading-right {
   margin-right: -50px;
-  border:2px solid red;
+  border: 2px solid red;
 }
 
 @media (max-width: 991.98px) {
@@ -12,8 +12,7 @@
 section {
   background-color: rgba(230, 226, 214, 255);
   height: 100vh;
-  border:2px solid blue
-
+  border: 2px solid rgba(230, 226, 214, 255);
 }
 
 .logo {
@@ -21,6 +20,5 @@ section {
   margin: auto;
   padding-top: 3em;
   padding-bottom: 2em;
-  border:2px solid green
-
+  border: 2px solid rgba(230, 226, 214, 255);
 }

@@ -16,11 +16,12 @@
 
 main {
   background-color: #e6e2d6;
+  text-align: center;
 }
 
 .nav {
   height: 60px;
-  width: 100%;
+  width: 60vmin;
   display: flex;
   align-items: center;
   position: relative;
@@ -28,6 +29,7 @@ main {
   background-color: #fff;
   color: black;
   justify-content: space-around;
+  
 
   img {
     width: 80vw;
@@ -39,17 +41,34 @@ main {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
+  align-items: center;
+
+  .text-box {
+    display:flex;
+    align-items: center;
+    text-align:center;
+  }
 
   img {
-    width: 70vw;
+    width: 30vw;
     height: 50vh;
   }
+
   .cam_buttons {
     margin-top: 15px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    .scan_clear {
+      display: flex;
+      justify-content: space-around;
+      height:40px;
+    }
   }
+
+  .user_ingredients {
+    height: 100px;
+  }
+  
   .scanner {
     margin-top: 30px;
 

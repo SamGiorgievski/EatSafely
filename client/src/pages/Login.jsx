@@ -9,13 +9,8 @@ import "./Login.scss";
 function Login(props) {
 
   const [user, setUser] = useState("");
-  // const [password, setPassword] = useState("");
-  
-  // console.log("email", email)
-  
-  function handleSubmit() {
 
-    console.log(user.email);
+  function handleSubmit() {
 
     return axios
       .post('/login', {
@@ -30,15 +25,14 @@ function Login(props) {
   }
 
 
-
   return (
-      <section className="text-center text-lg-start">
-    <img
-      src="images/eatsafely_logo.png"
-      alt="page-img"
-      className="logo"
-      
-    ></img>
+    <section className="text-center text-lg-start">
+      <img
+        src="images/eatsafely_logo.png"
+        alt="page-img"
+        className="logo"
+
+      ></img>
 
       <div className="container py-4">
         <div className="row g-0 align-items-center">
@@ -95,24 +89,24 @@ function Login(props) {
                         ...prev,
                         userPassword: event.target.value
                       })
-                      )}                    
-                      />
+                      )}
+                    />
                     <label className="form-label" for="password">
                       Password
                     </label>
                   </div>
 
                   {/* Form Event Handler */}
-                  <button 
-                  type="submit"
-                  className="btn btn-primary btn-block mb-4"
-                  onClick={handleSubmit}
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block mb-4"
+                    onClick={handleSubmit}
                   >
                     Login
                   </button>
                 </form>
-                  <Link to="/register" variant = "body2">
-                    Don't have an account? Sign up here</Link>
+                <Link to="/register" variant="body2">
+                  Don't have an account? Sign up here</Link>
               </div>
             </div>
           </div>
@@ -121,7 +115,7 @@ function Login(props) {
       </div>
     </section>
 
-    
+
   )
 }
 

@@ -1,7 +1,44 @@
+import axios from "axios";
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
+// import { useNavigate, useDispatch } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 
 const Layout = () => {
+  
+  // function logout() {
+  //   // const [loading, setLoading] = useState(false);
+  //   const navigate = useNavigate();
+  //   const dispatch = useDispatch();
+  
+  //   // localStorage.clear();
+  //   // navigate.push('/login');
+  //   useEffect(() => {
+  //     dispatch(Logout())
+  //     .then(() => {
+  //       navigate("/login", { replace: true });
+  //     });
+  //   }, []);
+  // }
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  function handleLogout() {
+    
+      axios
+        .post('/logout', {
+          email: isLoggedIn.userEmail,
+          password: isLoggedIn.userPassword
+        }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        
+        setIsLoggedIn(true)
+  
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-white">
@@ -48,6 +85,14 @@ const Layout = () => {
                   Profile
                 </Link>
               </li>
+              <li className="nav-item">
+                {/* Double Check This! */}
+                <Link to={'./login'}>
+                <button type="submit" onClick={handleLogout}>
+                 Logout
+                </button>
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -64,4 +109,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default  Layout;

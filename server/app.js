@@ -66,7 +66,7 @@ app.post("/login", (req, res) => {
     `SELECT * FROM users WHERE email = $1`
     , [userEmail])
     .then(response => {
-      // req.session.userEmail = userEmail
+      req.session.userEmail = userEmail
       if(userPassword === response.rows[0].password){
         // console.log("req.session", req.session.userEmail)
         res.redirect("/profile")

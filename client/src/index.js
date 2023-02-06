@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ScanImage from './pages/ScanImage';
 import Profile from './pages/Profile';
+import EditProfile from "./componetns/EditProfile";
 
 
 export default function App() {
@@ -19,7 +20,10 @@ export default function App() {
           <Route path="/scanimage" element={<ScanImage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+
         </Route>
+
+
       </Routes>
     </BrowserRouter>
   );

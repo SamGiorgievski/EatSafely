@@ -109,6 +109,13 @@ function ScanImage() {
     <main className="layout">
       <section className="ocr">
         <h3>Please upload an image to scan</h3>
+        
+        <div >
+          {imagePath &&
+          <img src={imagePath}/>
+          }
+        </div>
+
         {!loading ? (
           <div className="text-box">
             <p className="results" id="inner">

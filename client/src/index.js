@@ -32,7 +32,7 @@ export default function App() {
           <Route path="/scanimage" element={<ScanImage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/logout" element={<Login />} />
+          {/* <Route path="/logout" element={<Login />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

@@ -8,6 +8,8 @@ const Profile = (props) => {
   const [userData, setUserData] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const storedData = JSON.parse(sessionStorage.getItem("userData"));
+
   useEffect(() => {
     axios
       .post("/profile")
@@ -25,22 +27,24 @@ const Profile = (props) => {
 
   return (
     <section>
-      <div class="card">
+      <div className="card">
         <img
-          class="card-img-top"
+          className="card-img-top"
           src="https://t3.ftcdn.net/jpg/02/94/69/02/360_F_294690239_ydek2JMXB9aeQcYY05jVewc0xocZrCNg.jpg"
           alt="veg"
         />
-        <div class="card-body">
+        <div className="card-body">
           <h3 className="h2 text-black mb-0 user--name">{`${userData.first_name} ${userData.last_name}`}</h3>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">First Name: {userData.first_name}</li>
-          <li class="list-group-item">Last Name: {userData.last_name}</li>
-          <li class="list-group-item">Email: {userData.email}</li>
-          <li class="list-group-item">Intolerances: {userData.intolerance}</li>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">First Name: {userData.first_name}</li>
+          <li className="list-group-item">Last Name: {userData.last_name}</li>
+          <li className="list-group-item">Email: {userData.email}</li>
+          <li className="list-group-item">
+            Intolerances: {userData.intolerance}
+          </li>
         </ul>
-        <div class="card-body">
+        <div className="card-body">
           <div>
             <button onClick={toggleModal} className="btn btn-primary">
               Edit

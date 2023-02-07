@@ -75,12 +75,12 @@ const Layout = () => {
               {isLoggedIn && (
                 <>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/scanimage">
+                    <Link className="btn btn-primary" to="/scanimage">
                       Scan Image
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/profile">
+                    <Link className="btn btn-primary" to="/profile">
                       Profile
                     </Link>
                   </li>
@@ -89,7 +89,7 @@ const Layout = () => {
                     {/* Double Check This! */}
                     <Link to={"./login"}>
                       <button
-                        className="logout-button"
+                        className="btn btn-primary"
                         type="submit"
                         onClick={handleLogout}
                       >

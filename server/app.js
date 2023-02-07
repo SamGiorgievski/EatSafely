@@ -32,6 +32,7 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
+  console.log(req.session.id);
 });
 
 app.get("/profile", (req, res) => {
@@ -70,7 +71,7 @@ app.post("/login", (req, res) => {
 
       req.session.userEmail = userEmail;
       if (userPassword === user.password) {
-        // console.log("req.session", req.session.userEmail)
+        console.log("req.session", req.session.userEmail);
         console.log("Success");
 
         return res.status(200).json({ message: "Login Succesful", user });
@@ -108,6 +109,7 @@ app.post("/profile", (req, res) => {
 app.post("/logout", (req, res) => {
   res.clearCookie('session');
   console.log("Cookie Cleared!");
+
   res.redirect("/login");
   return res.status(200).json({ message: "Logout Succesful" });
 });

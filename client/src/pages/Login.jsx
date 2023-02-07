@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -26,14 +26,17 @@ function Login(props) {
       })
       .then((response) => {
         console.log("---------------");
-        console.log(response);
+        // console.log(response);
         setIsLoggedIn(true);
+        sessionStorage.setItem("userData", JSON.stringify(response));
         navigate("/profile");
       })
       .catch((err) => {
         console.log("*****", err);
       });
   }
+
+  // console.log(userData.user);
 
   return (
     <section className="text-center text-lg-start">

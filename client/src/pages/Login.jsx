@@ -15,6 +15,12 @@ function Login(props) {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    sessionStorage.clear();
+    setIsLoggedIn(false);
+  }, []);
+
+
   function handleSubmit(e) {
     e.preventDefault();
 

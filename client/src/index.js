@@ -7,7 +7,6 @@ import Register from './pages/Register';
 import ScanImage from './pages/ScanImage';
 import Profile from './pages/Profile';
 import EditProfile from "./componetns/EditProfile";
-;
 import { AppProvider } from "./context";
 
 

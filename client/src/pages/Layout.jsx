@@ -5,15 +5,9 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
 
 const Layout = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
-  // const location = useLocation();
-
-  // const page = location.pathname;
 
   const navigate = useNavigate();
-
-  console.log(isLoggedIn);
 
   function handleLogout() {
     axios
@@ -23,6 +17,7 @@ const Layout = () => {
       })
       .then((response) => {
         console.log(response);
+        sessionStorage.clear();
         setIsLoggedIn(false);
         navigate("/login");
       })

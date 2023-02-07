@@ -3,12 +3,19 @@ import EditProfile from "../componetns/EditProfile";
 import Modal from "react-modal";
 import axios from "axios";
 import "./Profile.scss";
+import { useGlobalContext } from "../context";
 
 const Profile = (props) => {
   const [userData, setUserData] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
+  let storedData;
 
-  const storedData = JSON.parse(sessionStorage.getItem("userData"));
+  if (isLoggedIn) {
+    storedData = JSON.parse(sessionStorage.getItem("userData"));
+  }
+
+  console.log(storedData.data.user);
 
   useEffect(() => {
     axios

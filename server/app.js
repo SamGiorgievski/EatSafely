@@ -107,10 +107,11 @@ app.post("/profile", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
+  req.session = null;
   res.clearCookie('session');
   console.log("Cookie Cleared!");
 
-  res.redirect("/login");
+  // res.redirect("/login");
   return res.status(200).json({ message: "Logout Succesful" });
 });
 

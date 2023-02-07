@@ -7,25 +7,30 @@ import Register from './pages/Register';
 import ScanImage from './pages/ScanImage';
 import Profile from './pages/Profile';
 import EditProfile from "./componetns/EditProfile";
+;
+import { AppProvider } from "./context";
+
 
 
 export default function App() {
 
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/register" element={<Register />} />
-          <Route path="/scanimage" element={<ScanImage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/register" element={<Register />} />
+            <Route path="/scanimage" element={<ScanImage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
 
-        </Route>
+          </Route>
 
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AppProvider >
   );
 }
 

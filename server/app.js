@@ -4,6 +4,8 @@ const { ENVIROMENT, PORT } = process.env;
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
+
 
 const { Pool } = require("pg");
 const dbParams = require("./configs/db.js");
@@ -20,6 +22,11 @@ app.use(bodyParser.json());
 app.use('/data', catsRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1, key2']
+}));
 
 app.get("/register", (req, res) => {
 });
@@ -59,14 +66,18 @@ app.post("/login", (req, res) => {
     `SELECT * FROM users WHERE email = $1`
     , [userEmail])
     .then(response => {
-      if (userPassword === response.rows[0].password) {
+      const user = response.rows[0];
 
-
-        res.redirect("/profile");
+      req.session.userEmail = userEmail;
+      if (userPassword === user.password) {
+        // console.log("req.session", req.session.userEmail)
         console.log("Success");
+
+        return res.status(200).json({ message: "Login Succesful", user });
       } else {
-        res.redirect("/login");
         console.log("Fail");
+        return res.status(400).json({ message: "Login Unsuccesful" });
+
       }
     })
     .catch(err => {
@@ -94,22 +105,14 @@ app.post("/profile", (req, res) => {
     });
 });
 
-app.put("/update", (req, res) => {
-  first_name = req.body.first_name;
-  last_name = req.body.last_name;
-  email = req.body.email;
-  password = req.body.password;
-  db.query(`
-UPDATE users (first_name,last_name, email, password)
-  VALUES ($1, $2, $3, $4)
-`)
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+app.post("/logout", (req, res) => {
+  res.clearCookie('session');
+  console.log("Cookie Cleared!");
+  res.redirect("/login");
+  return res.status(200).json({ message: "Logout Succesful" });
+});
 
-  res.redirect("/profile");
+res.redirect("/profile");
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

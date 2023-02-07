@@ -1,8 +1,37 @@
+import axios from "axios";
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
 import "./Layout.scss";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "../context";
 
 const Layout = () => {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
+  // const location = useLocation();
+
+  // const page = location.pathname;
+
+  const navigate = useNavigate();
+
+  console.log(isLoggedIn);
+
+  function handleLogout() {
+    axios
+      .post("/logout", {
+        email: isLoggedIn.userEmail,
+        password: isLoggedIn.userPassword,
+      })
+      .then((response) => {
+        console.log(response);
+        setIsLoggedIn(false);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log("*****", err);
+      });
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg all--content">
@@ -28,27 +57,45 @@ const Layout = () => {
                 loading="lazy"
               />
             </a>
+
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">
-                  Register
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/scanimage">
-                  Scan Image
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">
-                  Profile
-                </Link>
-              </li>
+              {!isLoggedIn && (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/register">
+                      Register
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/scanimage">
+                      Scan Image
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/profile">
+                      Profile
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    {/* Double Check This! */}
+                    <Link to={"./login"}>
+                      <button
+                        className="logout-button"
+                        type="submit"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 

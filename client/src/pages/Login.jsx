@@ -1,29 +1,39 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Profile from "./Profile";
+
+// import { useNavigate } from "react-router-dom";
 
 import "./Login.scss";
+import { useGlobalContext } from "../context";
 
 function Login(props) {
   const [user, setUser] = useState("");
-  // const [password, setPassword] = useState("");
 
-  // console.log("email", email)
+  const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
 
-  function handleSubmit() {
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log("LoginHandle");
     return axios
       .post("/login", {
         email: user.userEmail,
         password: user.userPassword,
       })
       .then((response) => {
+        console.log("---------------");
         console.log(response);
+        setIsLoggedIn(true);
+        navigate("/profile");
+      })
+      .catch((err) => {
+        console.log("*****", err);
       });
   }
-
-  console.log(user);
 
   return (
     <section className="text-center text-lg-start">
@@ -41,7 +51,7 @@ function Login(props) {
                 <h2 className="fw-bold mb-5">Please Log In</h2>
 
                 {/* Form */}
-                <form method="POST" action="/login">
+                <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-md-6 mb-4">
                       <div className="form-outline"></div>
@@ -94,7 +104,6 @@ function Login(props) {
                   <button
                     type="submit"
                     className="btn btn-primary btn-block mb-4"
-                    onClick={handleSubmit}
                   >
                     Login
                   </button>

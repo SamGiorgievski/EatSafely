@@ -1,44 +1,60 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios";
+
+// import { useNavigate } from "react-router-dom";
+
+
+
 
 
 import "./Login.scss";
+import { useGlobalContext } from "../context";
 
 function Login(props) {
 
   const [user, setUser] = useState("");
-  // const [password, setPassword] = useState("");
-  
-  // console.log("email", email)
-  
-  function handleSubmit() {
 
-    console.log(user.email);
+  const {isLoggedIn, setIsLoggedIn} = useGlobalContext();
 
+
+
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log("LoginHandle");
     return axios
-      .post('/login', {
-        email: user.userEmail,
-        password: user.userPassword
-      }
-      )
-      .then((response) => {
+    .post('/login', {
+      email: user.userEmail,
+      password: user.userPassword
+    }
+    )
+    .then((response) => {
+      console.log("---------------");
         console.log(response);
+        setIsLoggedIn(true);
+        navigate("/profile");
+
+      })
+      .catch(err => {
+        console.log("*****", err);
+
       })
 
   }
 
 
-
   return (
-      <section className="text-center text-lg-start">
-    <img
-      src="images/eatsafely_logo.png"
-      alt="page-img"
-      className="logo"
-      
-    ></img>
+    <section className="text-center text-lg-start">
+      <img
+        src="images/eatsafely_logo.png"
+        alt="page-img"
+        className="logo"
+
+      ></img>
 
       <div className="container py-4">
         <div className="row g-0 align-items-center">
@@ -49,7 +65,8 @@ function Login(props) {
 
 
                 {/* Form */}
-                <form method="POST" action="/login">
+                <form onSubmit={handleSubmit}
+>
                   <div className="row">
                     <div className="col-md-6 mb-4">
                       <div className="form-outline">
@@ -95,24 +112,23 @@ function Login(props) {
                         ...prev,
                         userPassword: event.target.value
                       })
-                      )}                    
-                      />
+                      )}
+                    />
                     <label className="form-label" for="password">
                       Password
                     </label>
                   </div>
 
                   {/* Form Event Handler */}
-                  <button 
-                  type="submit"
-                  className="btn btn-primary btn-block mb-4"
-                  onClick={handleSubmit}
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block mb-4"
                   >
                     Login
                   </button>
                 </form>
-                  <Link to="/register" variant = "body2">
-                    Don't have an account? Sign up here</Link>
+                <Link to="/register" variant="body2">
+                  Don't have an account? Sign up here</Link>
               </div>
             </div>
           </div>
@@ -121,7 +137,7 @@ function Login(props) {
       </div>
     </section>
 
-    
+
   )
 }
 

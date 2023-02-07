@@ -17,10 +17,14 @@ import Layout from "./pages/Layout";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ScanImage from './pages/ScanImage';
-import Profile from './pages/Profile'
+import Profile from './pages/Profile';
+import { AppProvider } from "./context";
+
+
 
 export default function App() {
   return (
+    <AppProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -28,9 +32,11 @@ export default function App() {
           <Route path="/scanimage" element={<ScanImage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/logout" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>
+    </AppProvider>
   );
 }
 

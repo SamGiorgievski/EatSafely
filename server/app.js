@@ -112,7 +112,4 @@ app.post("/logout", (req, res) => {
   return res.status(200).json({ message: "Logout Succesful" });
 });
 
-res.redirect("/profile");
-});
-
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

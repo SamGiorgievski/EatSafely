@@ -60,6 +60,8 @@ app.post("/login", (req, res) => {
     , [userEmail])
     .then(response => {
       if (userPassword === response.rows[0].password) {
+
+
         res.redirect("/profile");
         console.log("Success");
       } else {
@@ -92,5 +94,22 @@ app.post("/profile", (req, res) => {
     });
 });
 
+app.put("/update", (req, res) => {
+  first_name = req.body.first_name;
+  last_name = req.body.last_name;
+  email = req.body.email;
+  password = req.body.password;
+  db.query(`
+UPDATE users (first_name,last_name, email, password)
+  VALUES ($1, $2, $3, $4)
+`)
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+
+  res.redirect("/profile");
+});
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

@@ -5,7 +5,7 @@ import "./EditProfile.scss";
 const EditProfile = (props) => {
   const [user, setUser] = useState(props.user || "");
 
-  function updateUser() {
+  const updateUser = async () => {
     const first_name = user.firstName;
     const last_name = user.lastName;
     const email = user.userEmail;
@@ -23,7 +23,7 @@ const EditProfile = (props) => {
       .then((response) => {
         console.log(response);
       });
-  }
+  };
 
   return (
     <div className="modal-overlay">

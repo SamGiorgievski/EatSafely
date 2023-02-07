@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react";
-import "./Layout.scss";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
@@ -34,7 +33,7 @@ const Layout = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg all--content">
+      <nav className="navbar navbar-expand-lg navbar-light bg-white">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -71,6 +70,10 @@ const Layout = () => {
                       Login
                     </Link>
                   </li>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/scanimage">
                       Scan Image

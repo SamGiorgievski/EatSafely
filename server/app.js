@@ -55,7 +55,7 @@ app.post("/register", (req, res) => {
         .json({ error: err.message });
     });
 
-  res.redirect("/profile");
+  res.redirect("/login");
 });
 
 app.post("/login", (req, res) => {
@@ -92,7 +92,7 @@ app.post("/profile", (req, res) => {
 
   db.query(
     `
-    SELECT users.*, intolerances.*
+    SELECT intolerances.*
     FROM users
     LEFT JOIN intolerances ON users.id = intolerances.user_id
   `)

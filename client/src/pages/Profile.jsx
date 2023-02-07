@@ -6,8 +6,8 @@ import "./Profile.scss";
 import { useGlobalContext } from "../context";
 
 const Profile = (props) => {
-  const [userData, setUserData] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [intolerances, setIntolerances] = useState([]);
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
   let storedData;
 
@@ -15,13 +15,11 @@ const Profile = (props) => {
     storedData = JSON.parse(sessionStorage.getItem("userData"));
   }
 
-  console.log(storedData.data.user);
-
   useEffect(() => {
     axios
       .post("/profile")
       .then((response) => {
-        setUserData(response.data.rows[0]);
+        setIntolerances(response.data.rows[0].intolerance);
       })
       .catch((error) => {
         console.error(error.response.data);
@@ -41,15 +39,19 @@ const Profile = (props) => {
           alt="veg"
         />
         <div className="card-body">
-          <h3 className="h2 text-black mb-0 user--name">{`${userData.first_name} ${userData.last_name}`}</h3>
+          <h3 className="h2 text-black mb-0 user--name">{`${storedData.data.user.first_name} ${storedData.data.user.last_name}`}</h3>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">First Name: {userData.first_name}</li>
-          <li className="list-group-item">Last Name: {userData.last_name}</li>
-          <li className="list-group-item">Email: {userData.email}</li>
           <li className="list-group-item">
-            Intolerances: {userData.intolerance}
+            First Name: {storedData.data.user.first_name}
           </li>
+          <li className="list-group-item">
+            Last Name: {storedData.data.user.last_name}
+          </li>
+          <li className="list-group-item">
+            Email: {storedData.data.user.email}
+          </li>
+          <li className="list-group-item">Intolerances: {intolerances}</li>
         </ul>
         <div className="card-body">
           <div>

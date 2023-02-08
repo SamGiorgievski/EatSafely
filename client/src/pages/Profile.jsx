@@ -20,17 +20,25 @@ const Profile = (props) => {
     setShowModal(!showModal);
   };
 
+  useEffect(() => {
+    axios
+      .get("/intolerances", {
+        sessionData: storedData.data.user.id,
+      })
+      .then((res) => {
+        setIntolerances(res.data.rows[0].intolerance);
+      })
+      .catch((err) => console.error(err.response.data));
+  });
+
   axios
     .post("/intolerances", {
       sessionData: storedData.data.user.id,
     })
     .then((res) => {
       setIntolerances(res.data.rows[0].intolerance);
-      console.log(res.data);
     })
-    .catch((err) => console.error(err));
-
-  console.log(intolerances);
+    .catch((err) => console.error(err.response.data));
 
   return (
     <section>
@@ -67,6 +75,7 @@ const Profile = (props) => {
               toggle={toggleModal}
               state={(showModal, setShowModal)}
               storedData={storedData}
+              setIntolerances={setIntolerances}
             />
           )}
         </div>

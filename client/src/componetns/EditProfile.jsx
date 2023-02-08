@@ -2,7 +2,12 @@ import React, { useState, useEffect, useNavigate } from "react";
 import axios from "axios";
 import "./EditProfile.scss";
 
-const EditProfile = ({ storedData, setStoredData, toggle }) => {
+const EditProfile = ({
+  toggle,
+  setIntolerances,
+  storedData,
+  setStoredData,
+}) => {
   // let [storedData, setStoredData] = useState({});
 
   const [celiacChecked, setCeliacChecked] = useState(false);
@@ -36,12 +41,15 @@ const EditProfile = ({ storedData, setStoredData, toggle }) => {
         sessionData: storedData.data.user.id,
         intolerances: intolerancesArr.join(", "),
       })
+
       .then((res) => {
         sessionStorage.setItem("userData", JSON.stringify(res.data));
         setStoredData(res.data);
         toggle();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err.response.data));
+
+    console.log(storedData);
   };
 
   return (
@@ -126,7 +134,6 @@ const EditProfile = ({ storedData, setStoredData, toggle }) => {
             type="submit"
             className="btn btn-primary"
             onClick={() => {
-              // handleCeliacCheck();
               updateUser();
               toggle();
             }}

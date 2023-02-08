@@ -129,6 +129,7 @@ app.use(
 
 app.post('/update', (req, res) => {
   let intolerance = req.body.intolerances;
+  console.log(req.body);
   let dataID = req.body.sessionData;
   console.log(dataID);
   console.log(intolerance);
@@ -138,14 +139,34 @@ app.post('/update', (req, res) => {
 INSERT INTO intolerances (intolerance, user_id)
   VALUES ($1, $2)
   `,
-    [intolerance, dataID],
-    (err, result) => {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
+    [intolerance, dataID])
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
 
-    }
-  );
+
+
+app.get('/intolerances', (req, res) => {
+  let dataID = req.body.sessionData;
+  console.log(dataID);
+  db.query(
+    `
+    SELECT * FROM intolerances WHERE user_id=$1
+    `, [dataID])
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
 });
 
 app.post('/intolerances', (req, res) => {
@@ -154,15 +175,15 @@ app.post('/intolerances', (req, res) => {
   db.query(
     `
     SELECT * FROM intolerances WHERE user_id=$1
-    `, [dataID],
-    (err, result) => {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      res.json(result);
-      console.log(result);
-    }
-  );
+    `, [dataID])
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
 });
 
 

@@ -5,6 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const session = require("express-session");
 
 
 const { Pool } = require("pg");
@@ -114,5 +115,56 @@ app.post("/logout", (req, res) => {
   // res.redirect("/login");
   return res.status(200).json({ message: "Logout Succesful" });
 });
+
+
+app.use(express.json());
+app.use(
+  session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+
+app.post('/update', (req, res) => {
+  let intolerance = req.body.intolerances;
+  let dataID = req.body.sessionData;
+  console.log(dataID);
+  console.log(intolerance);
+
+  db.query(
+    `
+  INSERT INTO intolerances (intolerance, user_id)
+  VALUES ($1, $2)
+  `,
+    [intolerance, dataID],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+
+    }
+  );
+});
+
+app.post('/intolerances', (req, res) => {
+  let dataID = req.body.sessionData;
+  console.log(dataID);
+  db.query(
+    `
+    SELECT * FROM intolerances WHERE user_id=$1
+    `, [dataID],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json(result);
+      console.log(result);
+    }
+  );
+});
+
+
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

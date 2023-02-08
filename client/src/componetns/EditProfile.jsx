@@ -1,147 +1,141 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useNavigate } from "react";
 import axios from "axios";
 import "./EditProfile.scss";
 
-const EditProfile = (props) => {
-  const [user, setUser] = useState(props.user || "");
+const EditProfile = ({ storedData, setStoredData, toggle }) => {
+  // let [storedData, setStoredData] = useState({});
 
-  const updateUser = async () => {
-    const first_name = user.firstName;
-    const last_name = user.lastName;
-    const email = user.userEmail;
-    const password = user.userPassword;
+  const [celiacChecked, setCeliacChecked] = useState(false);
+  const [peanutsChecked, setPeanutsChecked] = useState(false);
 
-    console.log(user);
+  const handleCeliacCheck = (event) => {
+    setCeliacChecked(event.target.checked);
+  };
+  
+  const handlePeanutCheck = (event) => {
+    setPeanutsChecked(event.target.checked);
+  };
 
-    return axios
-      .post("/update", {
-        first_name: user.firstName,
-        last_name: user.lastName,
-        email: user.userEmail,
-        password: user.userPassword,
-      })
-      .then((response) => {
-        console.log(response);
-      });
+  const updateUser = (event) => {
+    if (celiacChecked) {
+      const intolerances = "Wheat, Rye, Barley";
+      axios
+        .post("/update", {
+          sessionData: storedData.data.user.id,
+          intolerances: intolerances,
+        })
+        .then((res) => {
+          sessionStorage.setItem("userData", JSON.stringify(res.data));
+          setStoredData(res.data);
+          toggle();
+        })
+        .catch((err) => console.error(err));
+    }
+    if (peanutsChecked) {
+      const intolerances = "Peanuts";
+      axios
+        .post("/update", {
+          sessionData: storedData.data.user.id,
+          intolerances: intolerances,
+        })
+        .then((res) => {
+          sessionStorage.setItem("userData", JSON.stringify(res.data));
+          setStoredData(res.data);
+          toggle();
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
-          <h3>Edit Profile</h3>
+          <h3>Edit Intolerances</h3>
         </div>
         <form method="POST" action="/register">
           <div className="row">
-            <div className="col-md-6 mb-4">
-              <div className="form-outline">
-                {/* First name */}
-                <input
-                  type="text"
-                  name="first_name"
-                  for="first_name"
-                  id="form3Example1"
-                  className="form-control"
-                  onChange={(event) =>
-                    setUser((prev) => ({
-                      ...prev,
-                      firstName: event.target.value,
-                    }))
-                  }
-                />
-                <label className="form-label" for="first_name">
-                  First name
-                </label>
-              </div>
-            </div>
-            <div className="col-md-6 mb-4">
-              <div className="form-outline">
-                {/* Last Name */}
-                <input
-                  type="text"
-                  name="last_name"
-                  for="last_name"
-                  id="form3Example2"
-                  className="form-control"
-                  onChange={(event) =>
-                    setUser((prev) => ({
-                      ...prev,
-                      lastName: event.target.value,
-                    }))
-                  }
-                />
-                <label className="form-label" for="last_name">
-                  Last name
-                </label>
-              </div>
-            </div>
+            <div className="col-md-6 mb-4"></div>
           </div>
-          <div className="form-outline mb-4">
-            {/* Email */}
-            <input
-              type="email"
-              name="email"
-              for="email"
-              id="form3Example3"
-              className="form-control"
-              onChange={(event) =>
-                setUser((prev) => ({
-                  ...prev,
-                  userEmail: event.target.value,
-                }))
-              }
-            />
-            <label className="form-label" for="email">
-              Email address
-            </label>
-          </div>
-
-          {/* Password */}
-          <div className="form-outline mb-4">
-            <input
-              type="password"
-              name="password"
-              for="password"
-              id="form3Example4"
-              className="form-control"
-              onChange={(event) =>
-                setUser((prev) => ({
-                  ...prev,
-                  userPassword: event.target.value,
-                }))
-              }
-            />
-            <label className="form-label" for="password">
-              Password
-            </label>
-          </div>
-
           {/* Intolerances */}
           <div className="form-outline mb-4">
             <input
-              id="form3Example4"
+              id="intolerance--edit"
+              placeholder="Please put any special ingredients here.."
               className="form-control"
-              onChange={(event) =>
-                setUser((prev) => ({
-                  ...prev,
-                  userPassword: event.target.value,
-                }))
-              }
             />
             <label className="form-label" for="password">
               Intolerances
             </label>
+          </div>
+
+          {/* List of premade intolerances */}
+          <label className="form-label">
+            Please select any of the pre-defined list of intolerances or
+            allergies:
+          </label>
+          <div className="form-outline mb-4">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                onChange={handleCeliacCheck}
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Celiac Disease - (Wheat, Rye, Barley)
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                onChange={handlePeanutCheck}
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Peanut Allergy
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Vegetarian -(Beef, Pork, Chicken, Seafood)
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Dairy-Free (Lactose, Milk, Cheese, Yogurt)
+              </label>
+            </div>
           </div>
         </form>
         <div className="modal-footer">
           <button
             type="submit"
             className="btn btn-primary"
-            onClick={updateUser}
+            onClick={() => {
+              // handleCeliacCheck();
+              updateUser();
+              toggle();
+            }}
           >
             Save Changes
           </button>
-          <button onClick={props.toggle} className="btn btn-primary">
+          <button onClick={toggle} className="btn btn-primary">
             Close
           </button>
         </div>

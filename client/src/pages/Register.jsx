@@ -12,9 +12,7 @@ function Register(props) {
     const email = user.userEmail;
     const password = user.userPassword;
 
-    console.log(user);
-
-    return axios
+    axios
       .post("/register", {
         first_name: user.firstName,
         last_name: user.lastName,
@@ -131,7 +129,10 @@ function Register(props) {
                   <button
                     type="submit"
                     className="btn btn-primary btn-block mb-4"
-                    onClick={registerUser}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      registerUser();
+                    }}
                   >
                     Sign up
                   </button>

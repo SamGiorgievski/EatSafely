@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import EditProfile from "../componetns/EditProfile";
-import Modal from "react-modal";
 import axios from "axios";
 import "./Profile.scss";
 import { useGlobalContext } from "../context";
@@ -9,26 +8,29 @@ const Profile = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [intolerances, setIntolerances] = useState([]);
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
-  let storedData;
-
-  if (isLoggedIn) {
-    storedData = JSON.parse(sessionStorage.getItem("userData"));
-  }
+  const [storedData, setStoredData] = useState(
+    JSON.parse(sessionStorage.getItem("userData"))
+  );
 
   useEffect(() => {
-    axios
-      .post("/profile")
-      .then((response) => {
-        setIntolerances(response.data.rows[0].intolerance);
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-      });
+    setStoredData(JSON.parse(sessionStorage.getItem("userData")));
   }, []);
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
+  axios
+    .post("/intolerances", {
+      sessionData: storedData.data.user.id,
+    })
+    .then((res) => {
+      setIntolerances(res.data.rows[0].intolerance);
+      console.log(res.data);
+    })
+    .catch((err) => console.error(err));
+
+  console.log(intolerances);
 
   return (
     <section>
@@ -64,6 +66,7 @@ const Profile = (props) => {
             <EditProfile
               toggle={toggleModal}
               state={(showModal, setShowModal)}
+              storedData={storedData}
             />
           )}
         </div>

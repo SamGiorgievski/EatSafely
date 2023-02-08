@@ -41,7 +41,6 @@ const EditProfile = ({
         sessionData: storedData.data.user.id,
         intolerances: intolerancesArr.join(", "),
       })
-
       .then((res) => {
         sessionStorage.setItem("userData", JSON.stringify(res.data));
         setStoredData(res.data);
@@ -49,6 +48,8 @@ const EditProfile = ({
         toggle();
       })
       .catch((err) => console.error(err.response.data));
+
+    setIntolerances(intolerancesArr);
   };
 
   return (
@@ -80,44 +81,44 @@ const EditProfile = ({
             allergies:
           </label>
           <div className="form-outline mb-4">
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 onChange={handleCeliacCheck}
                 value=""
                 id="flexCheckDefault"
               />
-              <label class="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" for="flexCheckDefault">
                 Celiac Disease - (Wheat, Rye, Barley)
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value=""
                 onChange={handlePeanutCheck}
                 id="flexCheckDefault"
               />
-              <label class="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" for="flexCheckDefault">
                 Peanut Allergy
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
               />
-              <label class="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" for="flexCheckDefault">
                 Vegetarian -(Beef, Pork, Chicken, Seafood)
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
@@ -133,8 +134,8 @@ const EditProfile = ({
             type="submit"
             className="btn btn-primary"
             onClick={() => {
-              updateUser();
               toggle();
+              updateUser();
             }}
           >
             Save Changes

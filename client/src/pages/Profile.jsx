@@ -20,16 +20,14 @@ const Profile = (props) => {
     setShowModal(!showModal);
   };
 
-  useEffect(() => {
-    axios
-      .post("/intolerances", {
-        sessionData: storedData.data.user.id,
-      })
-      .then((res) => {
-        setIntolerances(res.data.rows[0].intolerance);
-      })
-      .catch((err) => console.error(err.response.data));
-  });
+  axios
+    .post("/intolerances", {
+      sessionData: storedData.data.user.id,
+    })
+    .then((res) => {
+      setIntolerances(res.data.rows[0].intolerance);
+    })
+    .catch((err) => console.error(err.response.data));
 
   return (
     <section>

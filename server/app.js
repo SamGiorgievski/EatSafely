@@ -135,7 +135,7 @@ app.post('/update', (req, res) => {
 
   db.query(
     `
-  INSERT INTO intolerances (intolerance, user_id)
+INSERT INTO intolerances (intolerance, user_id)
   VALUES ($1, $2)
   `,
     [intolerance, dataID],

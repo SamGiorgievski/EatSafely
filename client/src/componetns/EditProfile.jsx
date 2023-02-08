@@ -7,44 +7,41 @@ const EditProfile = ({ storedData, setStoredData, toggle }) => {
 
   const [celiacChecked, setCeliacChecked] = useState(false);
   const [peanutsChecked, setPeanutsChecked] = useState(false);
+  const [special, setSpecial] = useState([]);
 
   const handleCeliacCheck = (event) => {
     setCeliacChecked(event.target.checked);
   };
-  
+
   const handlePeanutCheck = (event) => {
     setPeanutsChecked(event.target.checked);
   };
-
+  const handleSpecial = (event) => {
+    setSpecial(event.target.value);
+  };
   const updateUser = (event) => {
+    const intolerancesArr = [];
     if (celiacChecked) {
-      const intolerances = "Wheat, Rye, Barley";
-      axios
-        .post("/update", {
-          sessionData: storedData.data.user.id,
-          intolerances: intolerances,
-        })
-        .then((res) => {
-          sessionStorage.setItem("userData", JSON.stringify(res.data));
-          setStoredData(res.data);
-          toggle();
-        })
-        .catch((err) => console.error(err));
+      intolerancesArr.push("Wheat, Rye, Barley");
     }
     if (peanutsChecked) {
-      const intolerances = "Peanuts";
-      axios
-        .post("/update", {
-          sessionData: storedData.data.user.id,
-          intolerances: intolerances,
-        })
-        .then((res) => {
-          sessionStorage.setItem("userData", JSON.stringify(res.data));
-          setStoredData(res.data);
-          toggle();
-        })
-        .catch((err) => console.error(err));
+      intolerancesArr.push("Peanuts");
     }
+    if (special.length > 0) {
+      intolerancesArr.push(special);
+    }
+
+    axios
+      .post("/update", {
+        sessionData: storedData.data.user.id,
+        intolerances: intolerancesArr.join(", "),
+      })
+      .then((res) => {
+        sessionStorage.setItem("userData", JSON.stringify(res.data));
+        setStoredData(res.data);
+        toggle();
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -63,6 +60,7 @@ const EditProfile = ({ storedData, setStoredData, toggle }) => {
               id="intolerance--edit"
               placeholder="Please put any special ingredients here.."
               className="form-control"
+              onChange={handleSpecial}
             />
             <label className="form-label" for="password">
               Intolerances

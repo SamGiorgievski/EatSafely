@@ -127,47 +127,45 @@ app.use(
 );
 
 
-app.post('/update', (req, res) => {
+app.put('/update', (req, res) => {
   let intolerance = req.body.intolerances;
-  console.log(req.body);
   let dataID = req.body.sessionData;
-  console.log(dataID);
-  console.log(intolerance);
 
-  db.query(
-    `
-INSERT INTO intolerances (intolerance, user_id)
-  VALUES ($1, $2)
-  `,
-    [intolerance, dataID])
+  return db.query(
+    `SELECT * FROM intolerances WHERE user_id = $1`, [dataID]
+  )
+    .then(result => {
+      if (result.rows.length === 0) {
+        try {
+          return db.query(
+            `INSERT INTO intolerances (intolerance, user_id) 
+            VALUES ($1, $2)`,
+            [intolerance, dataID]
+          )
+            .then(response => {
+              res.json(response);
+            })
+            .catch(err => {
+              res.status(500).json({ error: err.message });
+            });
+        } catch (error) {
+          res.status(500).json({ error: error.message });
+        }
+      } else {
+        return db.query(
+          `UPDATE intolerances SET intolerance =$1 WHERE user_id=$2`,
+          [intolerance, dataID]
+        );
+      }
+    })
     .then(response => {
       res.json(response);
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+      res.status(500).json({ error: err.message });
     });
 });
 
-
-
-app.get('/intolerances', (req, res) => {
-  let dataID = req.body.sessionData;
-  console.log(dataID);
-  db.query(
-    `
-    SELECT * FROM intolerances WHERE user_id=$1
-    `, [dataID])
-    .then(response => {
-      res.json(response);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
-});
 
 app.post('/intolerances', (req, res) => {
   let dataID = req.body.sessionData;

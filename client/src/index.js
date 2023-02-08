@@ -12,7 +12,7 @@ import { AppProvider } from "./context";
 
 
 export default function App() {
-
+  const [intolerances, setIntolerances] = useState([]);
 
   return (
     <AppProvider>
@@ -20,9 +20,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/register" element={<Register />} />
-            <Route path="/scanimage" element={<ScanImage />} />
+            <Route path="/scanimage" element={<ScanImage intolerances={intolerances}/>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile getIntolerances={setIntolerances}/>} />
 
           </Route>
 

@@ -37,7 +37,7 @@ const EditProfile = ({
     }
 
     axios
-      .post("/update", {
+      .put("/update", {
         sessionData: storedData.data.user.id,
         intolerances: intolerancesArr.join(", "),
       })
@@ -45,11 +45,10 @@ const EditProfile = ({
       .then((res) => {
         sessionStorage.setItem("userData", JSON.stringify(res.data));
         setStoredData(res.data);
+        setIntolerances(res.data.rows[0].intolerance);
         toggle();
       })
       .catch((err) => console.error(err.response.data));
-
-    console.log(storedData);
   };
 
   return (

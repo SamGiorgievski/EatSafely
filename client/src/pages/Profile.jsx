@@ -22,7 +22,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     axios
-      .get("/intolerances", {
+      .post("/intolerances", {
         sessionData: storedData.data.user.id,
       })
       .then((res) => {
@@ -30,15 +30,6 @@ const Profile = (props) => {
       })
       .catch((err) => console.error(err.response.data));
   });
-
-  axios
-    .post("/intolerances", {
-      sessionData: storedData.data.user.id,
-    })
-    .then((res) => {
-      setIntolerances(res.data.rows[0].intolerance);
-    })
-    .catch((err) => console.error(err.response.data));
 
   return (
     <section>

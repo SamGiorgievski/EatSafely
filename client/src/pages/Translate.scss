@@ -1,0 +1,25 @@
+.main--section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.container--card {
+  padding: 40px;
+  border: 2px solid black;
+  border-radius: 5em;
+  height: 47em;
+  width: 25em;
+  margin-top: -1em;
+}
+
+.empty--card--img {
+  object-fit: contain;
+}
+
+.result {
+}
+
+.card--title {
+  margin-top: -35.5em;
+}

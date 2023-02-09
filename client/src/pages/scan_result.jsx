@@ -79,8 +79,6 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       }
     }
 
-    setMatches(matches);
-
     return (
       <div>
         {highlighterReturn}

@@ -99,7 +99,7 @@ function ScanImage({intolerances}) {
 
   };
 
-
+// returns array of text where each word is above a % of confidence
   function confidentTextArray (result) {
     const returnArray = [];
     const wordArray = result.data.words;
@@ -112,6 +112,8 @@ function ScanImage({intolerances}) {
 
     return returnArray;
   }
+
+  // Back/retry button
 
   function backButton () {
     setscanState(prev => ({

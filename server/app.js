@@ -159,7 +159,7 @@ app.put('/update', (req, res) => {
       }
     })
     .then(response => {
-      res.json(response);
+      // res.json(response);
     })
     .catch(err => {
       res.status(500).json({ error: err.message });

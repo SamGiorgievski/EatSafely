@@ -136,15 +136,6 @@ function ScanImage({intolerances}) {
     return returnArray;
   }
 
-
-  // function searchText (intolerances, text) {
-  //   const splitString = text.split(' ');
-  //   return intolerances.filter(item => splitString.every(word => item.includes(word)));
-  // }
-
-  // Testing this in useeffect:
-  // searchText(["Wheat", "cake"], intolerances);
-
   
   return (
     <main className="layout">
@@ -186,7 +177,6 @@ function ScanImage({intolerances}) {
         {scanState.page === "first" && <ScanFirst intolerances={intolerances} setOcrState={setOcrState} handleClick={handleClick} setConfidence={setConfidence} handleChange={handleChange}></ScanFirst>}
         {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
         {scanState.page === "result" && <ScanResult intolerances={intolerances} ocrState={ocrState} confidence={confidence} ></ScanResult>}
-        {/* searchText={searchText} */}
           
         {/* Nav buttons */}
         <div className="navigation">

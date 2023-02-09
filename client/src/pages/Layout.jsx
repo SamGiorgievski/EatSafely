@@ -4,12 +4,21 @@ import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
 import "./Layout.scss";
+import { Carousel } from "react-bootstrap";
+
 
 const Layout = () => {
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
+  
   function handleLogout() {
     axios
       .post("/logout", {
@@ -109,16 +118,17 @@ const Layout = () => {
         </nav>
         <Outlet />
         {location.pathname === "/" && (
+          
           <div className="container marketing">
             <img src="/images/eatsafely_logo.png" alt="logo" className="logo" />
-            <hr className="featurette-divider" />
-            <div className="row featurette">
+            {/* <hr className="featurette-divider" /> */}
+            {/* <div className="row featurette">
               <div className="col-md-7 text-input">
                 <h2 className="featurette-heading">
                   Input your personal food intolerances.{" "}
                 </h2>
                 <p className="lead">
-                  Signup and input your specfic food intolerances into your
+                  Signup and input your specific food intolerances into your
                   profile
                 </p>
               </div>
@@ -133,7 +143,7 @@ const Layout = () => {
             <br />
             <hr className="featurette-divider" />
             <br />
-            <div className="row featurette">
+            <div className="row featurette">           
               <div className="col-md-7 order-md-2 text-input">
                 <h2 className="featurette-heading">
                   Scan food ingredient labels based on your food intolerance
@@ -141,7 +151,7 @@ const Layout = () => {
                 </h2>
                 <p className="lead">
                   Once you have created an account and input your food
-                  intolerances. Simply take a photo the of ingredients label of
+                  intolerances. Simply take a photo of the ingredients label of
                   the item you want to check. The app will then scan the image
                   for the food intolerances and give you a result.
                 </p>
@@ -162,7 +172,7 @@ const Layout = () => {
                 <h2 className="featurette-heading">Traveling Abroad? </h2>
                 <p className="lead">
                   The EatSafely application can make you a resturant card to
-                  tell wait staff what your specfic food intolerances are.
+                  tell wait staff what your specific food intolerances are.
                   Simply select a language and receive a result.
                 </p>
               </div>
@@ -185,9 +195,59 @@ const Layout = () => {
                 </svg>
               </div>
             </div>
-            <br />
-            <hr className="featurette-divider" />
-            <br />
+            <br /> */}
+            {/* <hr className="featurette-divider" /> */}
+            {/* <br /> */}
+
+<Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel.Item>
+        <img
+          className="picture"
+          src="images/edit-pic.png"
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h3>Input your personal food intolerances.{" "}</h3>
+          <p> Signup and input your specific food intolerances into your
+                  profile</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="picture"
+          src="https://www.boldbusiness.com/wp-content/uploads/2017/02/Food-scanning-apps-for-nutritional-oversight-e1493732402445.jpg"
+          alt="Second slide"
+        />
+
+        <Carousel.Caption>
+        <div className="text-input">
+          <h3>Scan food ingredient labels based on your food intolerance
+                  input.{" "}</h3>        
+          <p>Once you have created an account and input your food
+                  intolerances. Simply take a photo of the ingredients label of
+                  the item you want to check. The app will then scan the image
+                  for the food intolerances and give you a result.</p>
+                  </div>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="col-md-5 order-md-1"
+          src="holder.js/800x400?text=Second slide&bg=282c34"
+          alt="Third slide"
+        />
+
+        <Carousel.Caption>
+          <h3>Traveling Abroad?</h3>
+          <p>
+          The EatSafely application can make you a resturant card to
+                  tell wait staff what your specific food intolerances are.
+                  Simply select a language and receive a result.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+
           </div>
         )}
         <br />

@@ -9,8 +9,7 @@ import Translate from "./pages/Translate";
 import Profile from './pages/Profile';
 import EditProfile from "./componetns/EditProfile";
 import { AppProvider } from "./context";
-
-
+// import LayoutCarousel from "./componetns/LayoutCarousel";
 
 export default function App() {
   const [intolerances, setIntolerances] = useState([]);

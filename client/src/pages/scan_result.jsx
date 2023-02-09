@@ -1,9 +1,11 @@
-import React from "react";
+import { useEffect } from "react";
 
 export default function ScanResult({ocrState, confidence, searchText, intolerances}) {
 
-  console.log(ocrState.text);
-  console.log(typeof(ocrState.text));
+  useEffect(() => {
+    console.log(ocrState.text);
+    console.log(typeof(ocrState.text));
+  }, [ocrState.text]);
 
   return (
     <main className="results">

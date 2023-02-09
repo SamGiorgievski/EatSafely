@@ -28,6 +28,7 @@ function ScanImage({intolerances}) {
   useEffect(() => {
     console.log(scanState);
     // searchText(["Wheat", "cake"], intolerances);
+    console.log(text);
   }, [scanState]);
 
   // onClick event handler

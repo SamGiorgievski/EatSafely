@@ -1,25 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ScanFirst from "./scan_first";
+import ScanResult from "./scan_result";
+import ScanLoading from "./scan_loading";
 import "./ScanImage.scss";
 const Tesseract = require("tesseract.js");
 
 
-
 function ScanImage({intolerances}) {
 
-  // States
-  const [imagePath, setImagePath] = useState("");
-  const [text, setText] = useState({});
+  // Page state
+  const [scanState, setscanState] = useState({
+    page: "first",
+    loading: false
+  });
+  // Ocr data states
+  const [ocrState, setOcrState] = useState({
+    text: "",
+    array: []
+  });
+  // Loading states
   const [loading, isLoading] = useState(false);
-  const [confidence, setConfidence] = useState();
   const [progress, setProgress] = useState(0);
+  const [confidence, setConfidence] = useState();
+  const [imagePath, setImagePath] = useState("");
   
-  // Event handler
+ 
+  // Upload file event handler
   const handleChange = (event) => {
     setImagePath(URL.createObjectURL(event.target.files[0]));
   };
 
-  // onClick event handler
+  // UseEffect for testing
+  useEffect(() => {
+    console.log(scanState);
+    // searchText(["Wheat", "cake"], intolerances);
+    console.log(ocrState.text);
+  }, [scanState, ocrState.text]);
+
+
+  // Scan image onClick event handler
   const handleClick = () => {
+
+    // Change page state to loading
+    setscanState(prev => ({
+      ...prev,
+      loading: true}));
+
+    // Start tesseract OCR
     Tesseract.recognize(imagePath, "eng", {
       logger: (m) => {
         m.progress < 1 ? isLoading(true) : isLoading(false);
@@ -31,64 +58,50 @@ function ScanImage({intolerances}) {
       })
       .then((result) => {
 
-        console.log(result);
-
-        console.log(confidentText (result));
-
         // Get Confidence score
         let confidenceResult = result.data.confidence;
         setConfidence(confidenceResult);
         let text = result.data.text;
-        console.log(result.data.text);
+
         if (confidenceResult < 55) {
-          return setText(
-            <img
+          return setOcrState( prev => ({
+            ...prev,
+            img: <img
               src="https://www.gran-turismo.com/gtsport/decal/5845681194092494864_1.png"
               alt="warning"
               className="checkmark"
             />
+          })
+          );
+        } else {
+
+          setOcrState( prev => ({
+            ...prev,
+            text,
+            array: confidentTextArray(result),
+            img: <img
+              src="https://www.gran-turismo.com/gtsport/decal/5845681194092494864_1.png"
+              alt="warning"
+              className="checkmark"
+            />
+          })
           );
         }
 
-        if (
-          text.includes("WHEAT") ||
-          text.includes("wheat") ||
-          text.includes("Wheat") ||
-          text.includes("RYE") ||
-          text.includes("Rye") ||
-          text.includes("rye") ||
-          text.includes("BARLEY") ||
-          text.includes("Barley") ||
-          text.includes("barley")
-        ) {
-          setText({
-            img: (
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cross_red_circle.svg/768px-Cross_red_circle.svg.png"
-                alt="checkmark"
-                className="checkmark"
-              ></img>
-            ),
-            text: <p>{text}</p>,
-          });
-        } else {
-          setText({
-            img: (
-              <img
-                src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3506993/green-checkmark-circle-icon-md.png"
-                alt="checkmark"
-                className="checkmark"
-              ></img>
-            ),
-            text: <p>{text}</p>,
-          });
-        }
       });
+
+      // Change scanState to view results
+      setscanState( prev => ({
+        ...prev,
+        page:"result",
+        loading: false
+      }));
+
   };
 
-  function confidentText (result) {
+// returns array of text where each word is above a % of confidence
+  function confidentTextArray (result) {
     const returnArray = [];
-
     const wordArray = result.data.words;
 
     wordArray.forEach(word => {
@@ -97,37 +110,42 @@ function ScanImage({intolerances}) {
       } 
     })
 
-    const returnString = returnArray.join(' ');
+    return returnArray;
+  }
 
-    console.log(returnString);
-    console.log(returnArray)
+  // Back/retry button
 
-  };
+  function backButton () {
+    setscanState(prev => ({
+      ...prev,
+      page: "first",
+    })
+    )
+
+    setOcrState(prev => ({
+      ...prev,
+      text: "",
+      array: []
+    }))
+
+  }
 
   
   return (
     <main className="layout">
       <section className="ocr">
-        <h3>Please upload an image to scan</h3>
+        <h3 className="instructions">Please upload an image to scan</h3>
         
+        {/* View uploaded image */}
         <div >
           {imagePath &&
-          <img src={imagePath}/>
+          <img src={imagePath} alt="Upload"/>
           }
         </div>
 
+        {/* Loading state */}
         {!loading ? (
           <div className="text-box">
-            <p className="results" id="inner">
-              {" "}
-              {text.img}
-              {text.text}
-              {confidence > 55 ? (
-                <p>High confidence : {confidence}%</p>
-              ) : (
-                <p></p>
-              )}
-            </p>
           </div>
         ) : (
           <label>
@@ -137,8 +155,8 @@ function ScanImage({intolerances}) {
             <progress value={progress}></progress>
           </label>
         )}
-        {/* <img src="/images/yogurt.jpg"></img> */}
 
+        {/* Confidence state */}
         {confidence < 55 ? (
           <p>
             The confidence score of this scan is: {confidence}% <br />
@@ -148,62 +166,23 @@ function ScanImage({intolerances}) {
           <p></p>
         )}
 
-        <div className="cam_buttons">
+        {/* Results rendering */}
 
-          {/* Choose file button */}
-          <input
-            type="file"
-            onChange={handleChange}
-          />
+        {scanState.page === "first" && <ScanFirst 
+        intolerances={intolerances} 
+        setOcrState={setOcrState} 
+        handleClick={handleClick} 
+        setConfidence={setConfidence} 
+        handleChange={handleChange} 
+        setImagePath={setImagePath}></ScanFirst>}
 
-          <section className="scan_clear">
-            <button 
-            type="button" 
-            className="btn btn-primary"
-            onClick={() => {
-              setText("");
-              window.location.reload(true);
-            }}>
-              Clear
-            </button>
-            <button 
-            type="button" 
-            className="btn btn-primary"
-            onClick={() => {
-              handleClick();
-              setConfidence(0);
-            }}>
-              Scan
-            </button>
-          </section>
-        </div>
+        {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
+        {scanState.page === "result" && <ScanResult 
+        intolerances={intolerances} 
+        ocrState={ocrState} 
+        confidence={confidence} 
+        backButton={backButton}></ScanResult>}
 
-            {/* Status alerts */}
-        <div className="scanner">
-          {/* <alert className="alert alert-secondary" role="alert">
-            Upload your image
-          </alert> */}
-        </div>
-
-          {/* User preferences */}
-        <section className="user_ingredients">
-          <div>
-            <p>Searching image for...</p>
-          </div>
-          <div>
-            <p>{intolerances}</p>
-          </div>
-        </section>
-
-
-        <div className="navigation">
-          <button type="button" className="btn btn-primary">
-            Back
-          </button>
-          <button type="button" className="btn btn-primary" disabled>
-            Next
-          </button>
-        </div>
       </section>
     </main>
   );

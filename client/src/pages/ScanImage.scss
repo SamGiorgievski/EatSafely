@@ -1,19 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
 
-// .App{
-//   display:flex;
-//   justify-content: space-around;
-//   text-align: center;
-// }
-
-// .App-header{
-//   display:flex;
-//   flex-direction: column;
-//   align-items:stretch;
-//   height: 300px;
-//   width: 400px;
-// }
-
 main {
   background-color: #e6e2d6;
   text-align: center;
@@ -30,12 +16,7 @@ main {
   background-color: #fff;
   color: black;
   justify-content: space-around;
-
-  img {
-    width: 80vw;
-    height: 10vh;
-  }
-
+  
   button {
     display: flex;
     justify-content: flex-end;
@@ -49,6 +30,11 @@ main {
   margin-top: 50px;
   align-items: center;
 
+  .instructions{
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
   .text-box {
     display: flex;
     align-items: center;
@@ -56,36 +42,8 @@ main {
   }
 
   img {
-    width: 30vw;
-    height: 50vh;
+    width: 300px;
+    height: 400px;
   }
-
-  .cam_buttons {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    .scan_clear {
-      display: flex;
-      justify-content: space-around;
-      height: 40px;
-    }
-  }
-
-  .user_ingredients {
-    height: 100px;
-  }
-
-  .scanner {
-    margin-top: 30px;
-
-    .alert {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  .navigation {
-    display: flex;
-    justify-content: space-around;
-  }
+ 
 }

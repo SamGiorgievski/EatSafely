@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ScanFirst({intolerances, setOcrState, handleClick, setConfidence, handleChange}) {
+export default function ScanFirst({intolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath}) {
   return (
     <main className="first">
       
@@ -18,8 +18,8 @@ export default function ScanFirst({intolerances, setOcrState, handleClick, setCo
         type="button" 
         className="btn btn-primary"
         onClick={() => {
-          setOcrState("");
-        }}>
+          setImagePath("")}
+      }>
           Clear
         </button>
         <button 

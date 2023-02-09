@@ -74,20 +74,8 @@ function ScanImage({intolerances}) {
             />
           })
           );
-        }
+        } else {
 
-        // Check text for ingredients
-        if (
-          text.includes("WHEAT") ||
-          text.includes("wheat") ||
-          text.includes("Wheat") ||
-          text.includes("RYE") ||
-          text.includes("Rye") ||
-          text.includes("rye") ||
-          text.includes("BARLEY") ||
-          text.includes("Barley") ||
-          text.includes("barley")
-        ) {
           setOcrState( prev => ({
             ...prev,
             text,
@@ -99,18 +87,8 @@ function ScanImage({intolerances}) {
             />
           })
           );
-        } else {
-          setOcrState( prev => ({
-            ...prev,
-            text: confidentTextArray(result).join(' '),
-            array: confidentTextArray(result),
-            img: <img
-              src="https://www.gran-turismo.com/gtsport/decal/5845681194092494864_1.png"
-              alt="warning"
-              className="checkmark"
-            />
-          })
-      )}
+        }
+
       });
 
       // Change scanState to view results
@@ -134,6 +112,21 @@ function ScanImage({intolerances}) {
     })
 
     return returnArray;
+  }
+
+  function backButton () {
+    setscanState(prev => ({
+      ...prev,
+      page: "first",
+    })
+    )
+
+    setOcrState(prev => ({
+      ...prev,
+      text: "",
+      array: []
+    }))
+
   }
 
   
@@ -174,17 +167,14 @@ function ScanImage({intolerances}) {
 
         {/* Results rendering */}
 
-        {scanState.page === "first" && <ScanFirst intolerances={intolerances} setOcrState={setOcrState} handleClick={handleClick} setConfidence={setConfidence} handleChange={handleChange}></ScanFirst>}
+        {scanState.page === "first" && <ScanFirst intolerances={intolerances} setOcrState={setOcrState} handleClick={handleClick} setConfidence={setConfidence} handleChange={handleChange} setImagePath={setImagePath}></ScanFirst>}
         {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
         {scanState.page === "result" && <ScanResult intolerances={intolerances} ocrState={ocrState} confidence={confidence} ></ScanResult>}
           
+
         {/* Nav buttons */}
         <div className="navigation">
-          <button type="button" className="btn btn-primary" onClick={() => setscanState(prev => ({
-            ...prev,
-            page: "first"
-          })
-          )}>
+          <button type="button" className="btn btn-primary" onClick={() => backButton()}>
             Back
           </button>
           <button type="button" className="btn btn-primary" disabled>

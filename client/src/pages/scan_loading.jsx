@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Scan_loading({progress, loading}) {
+export default function ScanLoading({progress, loading}) {
   return (
     <main className="loading">
 

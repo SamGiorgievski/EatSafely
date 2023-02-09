@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Scan_first({intolerances, setText, handleClick, setConfidence, handleChange}) {
+export default function ScanFirst({intolerances, setOcrState, handleClick, setConfidence, handleChange}) {
   return (
     <main className="first">
       
@@ -18,7 +18,7 @@ export default function Scan_first({intolerances, setText, handleClick, setConfi
         type="button" 
         className="btn btn-primary"
         onClick={() => {
-          setText("");
+          setOcrState("");
         }}>
           Clear
         </button>

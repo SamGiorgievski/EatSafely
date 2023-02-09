@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Scan_first from "./scan_first";
-import Scan_result from "./scan_result";
-import Scan_loading from "./scan_loading";
+import ScanFirst from "./scan_first";
+import ScanResult from "./scan_result";
+import ScanLoading from "./scan_loading";
 import "./ScanImage.scss";
 const Tesseract = require("tesseract.js");
 
@@ -9,35 +9,45 @@ const Tesseract = require("tesseract.js");
 
 function ScanImage({intolerances}) {
 
-  // States
-  const [imagePath, setImagePath] = useState("");
-  const [text, setText] = useState({});
-  const [loading, isLoading] = useState(false);
-  const [confidence, setConfidence] = useState();
-  const [progress, setProgress] = useState(0);
+  // Page state
   const [scanState, setscanState] = useState({
     page: "first",
     loading: false
   });
+  // Ocr data states
+  const [ocrState, setOcrState] = useState({
+    text: "",
+    array: [],
+  });
+  // Loading states
+  const [loading, isLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [confidence, setConfidence] = useState();
+  const [imagePath, setImagePath] = useState("");
   
-  // Event handler
+ 
+  // Upload file event handler
   const handleChange = (event) => {
     setImagePath(URL.createObjectURL(event.target.files[0]));
   };
 
+  // UseEffect for testing
   useEffect(() => {
     console.log(scanState);
     // searchText(["Wheat", "cake"], intolerances);
-    console.log(text);
-  }, [scanState]);
+    console.log(ocrState.text);
+  }, [scanState, ocrState.text]);
 
-  // onClick event handler
+
+  // Scan image onClick event handler
   const handleClick = () => {
 
+    // Change page state to loading
     setscanState(prev => ({
       ...prev,
       loading: true}));
 
+    // Start tesseract OCR
     Tesseract.recognize(imagePath, "eng", {
       logger: (m) => {
         m.progress < 1 ? isLoading(true) : isLoading(false);
@@ -55,12 +65,14 @@ function ScanImage({intolerances}) {
         let text = result.data.text;
 
         if (confidenceResult < 55) {
-          return setText(
-            <img
+          return setOcrState( prev => ({
+            ...prev,
+            img: <img
               src="https://www.gran-turismo.com/gtsport/decal/5845681194092494864_1.png"
               alt="warning"
               className="checkmark"
             />
+          })
           );
         }
 
@@ -76,31 +88,32 @@ function ScanImage({intolerances}) {
           text.includes("Barley") ||
           text.includes("barley")
         ) {
-          setText({
-            img: (
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cross_red_circle.svg/768px-Cross_red_circle.svg.png"
-                alt="checkmark"
-                className="checkmark"
-              ></img>
-            ),
-           text,
-          });
+          setOcrState( prev => ({
+            ...prev,
+            text,
+            array: confidentTextArray(result),
+            img: <img
+              src="https://www.gran-turismo.com/gtsport/decal/5845681194092494864_1.png"
+              alt="warning"
+              className="checkmark"
+            />
+          })
+          );
         } else {
-          setText({
-            img: (
-              <img
-                src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3506993/green-checkmark-circle-icon-md.png"
-                alt="checkmark"
-                className="checkmark"
-              ></img>
-            ),
+          setOcrState( prev => ({
+            ...prev,
             text: confidentTextArray(result).join(' '),
-          });
-        }
+            array: confidentTextArray(result),
+            img: <img
+              src="https://www.gran-turismo.com/gtsport/decal/5845681194092494864_1.png"
+              alt="warning"
+              className="checkmark"
+            />
+          })
+      )}
       });
 
-      // View result
+      // Change scanState to view results
       setscanState( prev => ({
         ...prev,
         page:"result",
@@ -124,10 +137,10 @@ function ScanImage({intolerances}) {
   }
 
 
-  function searchText (intolerances, text) {
-    const splitString = text.split(' ');
-    return intolerances.filter(item => splitString.every(word => item.includes(word)));
-  }
+  // function searchText (intolerances, text) {
+  //   const splitString = text.split(' ');
+  //   return intolerances.filter(item => splitString.every(word => item.includes(word)));
+  // }
 
   // Testing this in useeffect:
   // searchText(["Wheat", "cake"], intolerances);
@@ -141,7 +154,7 @@ function ScanImage({intolerances}) {
         {/* View uploaded image */}
         <div >
           {imagePath &&
-          <img src={imagePath}/>
+          <img src={imagePath} alt="Upload"/>
           }
         </div>
 
@@ -170,9 +183,10 @@ function ScanImage({intolerances}) {
 
         {/* Results rendering */}
 
-          {scanState.page === "first" && <Scan_first intolerances={intolerances} setText={setText} handleClick={handleClick} setConfidence={setConfidence} handleChange={handleChange} text={text.text}></Scan_first>}
+          {scanState.page === "first" && <ScanFirst intolerances={intolerances} setOcrState={setOcrState} handleClick={handleClick} setConfidence={setConfidence} handleChange={handleChange}></ScanFirst>}
           {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
-          {scanState.page === "result" && <Scan_result intolerances={intolerances} text={text.text} confidence={confidence} searchText={searchText}></Scan_result>}
+          {scanState.page === "result" && <ScanResult intolerances={intolerances} ocrState={ocrState} confidence={confidence} ></ScanResult>}
+          {/* searchText={searchText} */}
           
           {/* User preferences */}
         <div className="navigation">

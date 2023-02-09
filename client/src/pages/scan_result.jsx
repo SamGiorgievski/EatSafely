@@ -1,26 +1,20 @@
 import React from "react";
 
-export default function Scan_result({text, confidence, searchText, intolerances}) {
+export default function ScanResult({ocrState, confidence, searchText, intolerances}) {
 
-  console.log(text);
-console.log(typeof(text));
+  console.log(ocrState.text);
+  console.log(typeof(ocrState.text));
 
   return (
     <main className="results">
       <div className="text-box">
         <p className="results" id="inner">
-          {" "}
-          {/* {text.img} */}
-          {text}
-          {confidence > 55 ? (
-            <span>High confidence : {confidence}%</span>
-            ) : (
-            <span></span>
-            )}
+          {ocrState.text && <p> Results: {ocrState.text}</p>}
+          {confidence > 55 && <span>High confidence : {confidence}%</span>}
         </p>
       </div>
       <p>
-          MATCHES: {searchText(intolerances, text)}
+          
         </p>
     </main>
   );

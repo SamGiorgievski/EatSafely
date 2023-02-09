@@ -89,7 +89,7 @@ const Layout = ({isHomePage}) => {
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/travel">
+                      <Link className="nav-link" to="/travelcard">
                         Travel Cards
                       </Link>
                     </li>
@@ -116,6 +116,7 @@ const Layout = ({isHomePage}) => {
             </div>
           </div>
         </nav>
+
         <Outlet />
         {location.pathname === "/" && (
 

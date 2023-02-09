@@ -14,8 +14,9 @@ export default function App() {
   const [intolerances, setIntolerances] = useState([]);
 
   function NotFound() {
-    return <h3>Page Not Found</h3>
+    return <h3>Page Not Found</h3>;
   };
+
 
   return (
     <AppProvider>
@@ -23,11 +24,11 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/register" element={<Register />} />
-            <Route path="/scanimage" element={<ScanImage intolerances={intolerances}/>} />
+            <Route path="/scanimage" element={<ScanImage intolerances={intolerances} />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/travelcard" element={<Translate />} />
-            <Route path="/profile" element={<Profile getIntolerances={setIntolerances}/>} />
-            <Route path="*" element={<NotFound />}/>
+            <Route path="/travelcard" element={<Translate intolerances={intolerances} />} />
+            <Route path="/profile" element={<Profile getIntolerances={setIntolerances} />} />
+
           </Route>
 
 

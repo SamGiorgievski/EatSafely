@@ -13,6 +13,7 @@
   background-color: rgba(230, 226, 214, 255);
   height: 100vh;
   width: 100vw;
+  border: solid red 3px;
 }
 
 .picture {
@@ -27,3 +28,26 @@
   padding-top: 10em;
   border: solid black 3px;
 }
+
+// footer {
+//   background: white;
+//   position: fixed;
+//   bottom: 0;
+//   width: 100%;
+//   left: 0;
+// }
+
+.carousel-caption {
+  position: initial !important;
+  right: initial !important;
+  bottom: initial !important;
+  left: initial !important;
+}
+
+.carousel-caption h3 {
+  color: black !important;
+}
+.carousel-caption p {
+  color: black !important;
+}
+

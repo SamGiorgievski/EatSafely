@@ -7,7 +7,7 @@ import "./Layout.scss";
 import { Carousel } from "react-bootstrap";
 
 
-const Layout = () => {
+const Layout = ({isHomePage}) => {
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
   const location = useLocation();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Layout = () => {
     setIndex(selectedIndex);
   };
 
-  
+
   function handleLogout() {
     axios
       .post("/logout", {
@@ -118,7 +118,7 @@ const Layout = () => {
         </nav>
         <Outlet />
         {location.pathname === "/" && (
-          
+
           <div className="container marketing">
             <img src="/images/eatsafely_logo.png" alt="logo" className="logo" />
             {/* <hr className="featurette-divider" /> */}
@@ -199,64 +199,64 @@ const Layout = () => {
             {/* <hr className="featurette-divider" /> */}
             {/* <br /> */}
 
-<Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-        <img
-          className="picture"
-          src="images/edit-pic.png"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h3>Input your personal food intolerances.{" "}</h3>
-          <p> Signup and input your specific food intolerances into your
-                  profile</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="picture"
-          src="https://www.boldbusiness.com/wp-content/uploads/2017/02/Food-scanning-apps-for-nutritional-oversight-e1493732402445.jpg"
-          alt="Second slide"
-        />
+            <Carousel activeIndex={index} onSelect={handleSelect}>
+              <Carousel.Item>
+                <img
+                  className="picture"
+                  src="images/edit-pic.png"
+                  alt="First slide"
+                />
+                <Carousel.Caption>
+                  <h3>Input your personal food intolerances.{" "}</h3>
+                  <p> Signup and input your specific food intolerances into your
+                    profile</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="picture"
+                  src="https://www.boldbusiness.com/wp-content/uploads/2017/02/Food-scanning-apps-for-nutritional-oversight-e1493732402445.jpg"
+                  alt="Second slide"
+                />
 
-        <Carousel.Caption>
-        <div className="text-input">
-          <h3>Scan food ingredient labels based on your food intolerance
-                  input.{" "}</h3>        
-          <p>Once you have created an account and input your food
-                  intolerances. Simply take a photo of the ingredients label of
-                  the item you want to check. The app will then scan the image
-                  for the food intolerances and give you a result.</p>
-                  </div>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="col-md-5 order-md-1"
-          src="holder.js/800x400?text=Second slide&bg=282c34"
-          alt="Third slide"
-        />
+                <Carousel.Caption>
+                    <h3>Scan food ingredient labels based on your food intolerance
+                      input.{" "}</h3>
+                    <p>Once you have created an account and input your food
+                      intolerances. Simply take a photo of the ingredients label of
+                      the item you want to check. The app will then scan the image
+                      for the food intolerances and give you a result.</p>
+                
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="picture"
+                  src="images/travel-card.png"
+                  alt="Third slide"
+                />
 
-        <Carousel.Caption>
-          <h3>Traveling Abroad?</h3>
-          <p>
-          The EatSafely application can make you a resturant card to
-                  tell wait staff what your specific food intolerances are.
-                  Simply select a language and receive a result.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-
+                <Carousel.Caption>
+                  <h3>Traveling Abroad?</h3>
+                  <p>
+                    The EatSafely application can make you a resturant card to
+                    tell wait staff what your specific food intolerances are.
+                    Simply select a language and receive a result.
+                  </p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            </Carousel>
           </div>
         )}
         <br />
-        <footer className="container">
+        {!isHomePage &&
+      <footer className="container">
           <p className="float-end">
             <a href="#">Back to top</a>
           </p>
           <p>&copy; 2023 EatSafely.</p>
         </footer>
+        }
       </main>
     </>
   );

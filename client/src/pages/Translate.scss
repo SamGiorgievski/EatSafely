@@ -21,11 +21,11 @@
 }
 
 .card--title {
-  margin-top: -35.5em;
+  margin-top: -34em;
+  text-decoration: underline;
 }
 
 .card--contents--div {
-  border: 2px solid black;
   height: 30em;
   width: 15em;
   margin-left: 3.5em;
@@ -34,4 +34,6 @@
 
 .card--contents {
   object-fit: contain;
+  margin-top: 1em;
+  font-size: larger;
 }

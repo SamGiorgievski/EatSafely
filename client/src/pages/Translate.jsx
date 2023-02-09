@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Translate.scss";
+import { useEffect } from "react";
+import { getAllIntolerances } from "../../../server/db/queries/users";
 
-function Translate() {
+function Translate({ getIntolerances }) {
   const [lang, setLang] = useState();
   const [translation, setTranslation] = useState("");
   const [cardContents, setCardContents] = useState("");
+
+  const sentence = `Hello, my name is Brad. Please be aware that I have some food
+intolerances that I hope you will be able to accomadate. Could you
+please reccomend something on the menu that does not contain, or
+is not cooked with or around the following:${intolerances}`;
+
+  useEffect(() => {
+    getAllIntolerances(intolerances);
+  }, [intolerances]);
 
   const handleLangChange = (event) => {
     setLang(event.target.value);
@@ -33,11 +44,7 @@ function Translate() {
     }
   }
 
-  console.log(
-    translateTo(
-      "My name is Brad, I have Celiac Disease. I can not eat Wheat, Rye or Barley"
-    )
-  );
+  translateTo(sentence);
 
   return (
     <div>
@@ -63,7 +70,6 @@ function Translate() {
               <option value="tr">Turkish</option>
             </select>
           </form>
-          <p>{translation}</p>
         </div>
         <div className="result">
           <img src="images/empty-card.png" alt="" />
@@ -71,12 +77,7 @@ function Translate() {
             <h3>Restuarant Card</h3>
           </div>
           <div className="card--contents--div">
-            <p className="card--contents">
-              Hello, my name is Brad. Please be aware that I have some food
-              intolerances that I hope you will be able to accomadate. Could you
-              please reccomend something on the menu that does not contain, or
-              is not cooked with or around the following:{" "}
-            </p>
+            <p className="card--contents">{translation}</p>
           </div>
         </div>
       </section>

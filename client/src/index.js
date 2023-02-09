@@ -23,7 +23,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/scanimage" element={<ScanImage intolerances={intolerances} />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/travelcard" element={<Translate />} />
+            <Route path="/travelcard" element={<Translate intolerances={intolerances} />} />
             <Route path="/profile" element={<Profile getIntolerances={setIntolerances} />} />
 
           </Route>

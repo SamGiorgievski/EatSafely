@@ -1,39 +1,106 @@
 .main--section {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container--card {
+  width: 40%;
+  background-color: #f2f2f2;
   padding: 40px;
-  border: 2px solid black;
-  border-radius: 5em;
-  height: 47em;
-  width: 25em;
-  margin-top: -1em;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #ccc;
+  text-align: center;
 }
 
-.empty--card--img {
-  object-fit: contain;
+.container--card h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.container--card p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.container--card label {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.container--card select {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 40px;
 }
 
 .result {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
 }
 
-.card--title {
-  margin-top: -34em;
-  text-decoration: underline;
+.result img {
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #ccc;
 }
 
 .card--contents--div {
-  height: 30em;
-  width: 15em;
-  margin-left: 3.5em;
-  margin-top: 2em;
+  width: 50%;
+  background-color: #f2f2f2;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #ccc;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card--title {
+  margin-bottom: 40px;
+}
+
+.card--title h1 {
+  font-size: 32px;
+  font-weight: bold;
 }
 
 .card--contents {
-  object-fit: contain;
-  margin-top: 1em;
-  font-size: larger;
+  font-size: 18px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .main--section {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .container--card {
+    width: 80%;
+    margin-bottom: 40px;
+  }
+
+  .result {
+    width: 80%;
+    flex-direction: column;
+  }
+
+  .result img {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .card--contents--div {
+    width: 100%;
+  }
 }

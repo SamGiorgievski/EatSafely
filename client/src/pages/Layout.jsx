@@ -107,6 +107,7 @@ const Layout = () => {
             </div>
           </div>
         </nav>
+
         <Outlet />
         {location.pathname === "/" && (
           <div className="container marketing">

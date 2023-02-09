@@ -2,25 +2,28 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Translate.scss";
 import { useEffect } from "react";
-import { getAllIntolerances } from "../../../server/db/queries/users";
 
-function Translate({ getIntolerances }) {
+function Translate({ intolerances }) {
   const [lang, setLang] = useState();
   const [translation, setTranslation] = useState("");
   const [cardContents, setCardContents] = useState("");
 
-  const sentence = `Hello, my name is Brad. Please be aware that I have some food
+  const [storedData, setStoredData] = useState(
+    JSON.parse(sessionStorage.getItem("userData"))
+  );
+
+  const sentence = `Hello, my name is ${storedData.data.user.first_name}. Please be aware that I have some food
 intolerances that I hope you will be able to accomadate. Could you
 please reccomend something on the menu that does not contain, or
-is not cooked with or around the following:${intolerances}`;
-
-  useEffect(() => {
-    getAllIntolerances(intolerances);
-  }, [intolerances]);
+is not cooked with or around the following: ${intolerances}`;
 
   const handleLangChange = (event) => {
     setLang(event.target.value);
   };
+
+  useEffect(() => {
+    setStoredData(JSON.parse(sessionStorage.getItem("userData")));
+  }, []);
 
   async function translateTo(sentence) {
     try {
@@ -49,6 +52,12 @@ is not cooked with or around the following:${intolerances}`;
   return (
     <div>
       <section className="main--section">
+        <div>
+          {/* <img
+            src="https://www.internationalinsurance.com/wp-content/uploads/2022/12/iStock-1431699900.jpg"
+            alt=""
+          /> */}
+        </div>
         <div className="container--card">
           <h1>Travel Cards</h1>
           <p>
@@ -56,7 +65,7 @@ is not cooked with or around the following:${intolerances}`;
             staff that may speak a different language than you.
           </p>
           <form action="">
-            <label htmlFor="">Language</label>
+            <label htmlFor="">Select language to translate to:</label>
             <select name="lang" id="lang" onChange={handleLangChange}>
               <option value="en">English</option>
               <option value="fr">French</option>
@@ -71,13 +80,15 @@ is not cooked with or around the following:${intolerances}`;
             </select>
           </form>
         </div>
+
         <div className="result">
-          <img src="images/empty-card.png" alt="" />
-          <div className="card--title">
-            <h3>Restuarant Card</h3>
-          </div>
           <div className="card--contents--div">
-            <p className="card--contents">{translation}</p>
+            <div className="card--title">
+              <h1>Restaraunt Card</h1>
+            </div>
+            <div className="">
+              <p className="card--contents">{translation}</p>
+            </div>
           </div>
         </div>
       </section>

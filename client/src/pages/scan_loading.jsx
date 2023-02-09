@@ -1,4 +1,5 @@
 import React from "react";
+import "./scan_loading.scss";
 
 export default function ScanLoading({progress, loading}) {
   return (

@@ -1,0 +1,16 @@
+.user_ingredients {
+  height: 50px;
+  margin-top: 20px;
+
+}
+
+.cam_buttons {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  .scan_clear {
+    display: flex;
+    justify-content: space-around;
+    height:40px;
+  }
+}

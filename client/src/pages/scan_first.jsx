@@ -1,4 +1,5 @@
 import React from "react";
+import "./scan_first.scss";
 
 export default function ScanFirst({intolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath}) {
   return (
@@ -12,15 +13,14 @@ export default function ScanFirst({intolerances, setOcrState, handleClick, setCo
         onChange={handleChange}
       />
 
+        <section className="user_ingredients">
+          <div>
+            <p>Searching image for: {intolerances}</p>
+          </div>
+        </section>
+
       {/* Scan and clear buttons */}
       <section className="scan_clear">
-        <button 
-        type="button" 
-        className="btn btn-primary"
-        onClick={()=> handleChange(null)
-      }>
-          Clear
-        </button>
         <button 
         type="button" 
         className="btn btn-primary"
@@ -33,14 +33,6 @@ export default function ScanFirst({intolerances, setOcrState, handleClick, setCo
       </section>
       </div>
 
-      <section className="user_ingredients">
-          <div>
-            <p>Searching image for...</p>
-          </div>
-          <div>
-            <p>{intolerances}</p>
-          </div>
-        </section>
     </main>
   );
 }

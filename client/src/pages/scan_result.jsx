@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./scan_result.scss";
 
-export default function ScanResult({ocrState, confidence, intolerances}) {
+export default function ScanResult({ocrState, confidence, intolerances, backButton}) {
 
   const [matches, setMatches] = useState([]);
 
@@ -79,6 +79,8 @@ export default function ScanResult({ocrState, confidence, intolerances}) {
       }
     }
 
+    setMatches(matches);
+
     return (
       <div>
         {highlighterReturn}
@@ -101,9 +103,16 @@ export default function ScanResult({ocrState, confidence, intolerances}) {
           </div>
         </span>
       </div>
-      <p>
-          
-        </p>
+
+      {/* Scan new */}
+
+      {matches && 
+      <div className="navigation">
+      <button type="button" className="btn btn-primary" onClick={() => backButton()}>
+        retry
+      </button>
+    </div>}
+
     </main>
   );
 }

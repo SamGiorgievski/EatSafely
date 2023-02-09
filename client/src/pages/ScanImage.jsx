@@ -6,7 +6,6 @@ import "./ScanImage.scss";
 const Tesseract = require("tesseract.js");
 
 
-
 function ScanImage({intolerances}) {
 
   // Page state
@@ -133,7 +132,7 @@ function ScanImage({intolerances}) {
   return (
     <main className="layout">
       <section className="ocr">
-        <h3>Please upload an image to scan</h3>
+        <h3 className="instructions">Please upload an image to scan</h3>
         
         {/* View uploaded image */}
         <div >
@@ -167,20 +166,20 @@ function ScanImage({intolerances}) {
 
         {/* Results rendering */}
 
-        {scanState.page === "first" && <ScanFirst intolerances={intolerances} setOcrState={setOcrState} handleClick={handleClick} setConfidence={setConfidence} handleChange={handleChange} setImagePath={setImagePath}></ScanFirst>}
-        {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
-        {scanState.page === "result" && <ScanResult intolerances={intolerances} ocrState={ocrState} confidence={confidence} ></ScanResult>}
-          
+        {scanState.page === "first" && <ScanFirst 
+        intolerances={intolerances} 
+        setOcrState={setOcrState} 
+        handleClick={handleClick} 
+        setConfidence={setConfidence} 
+        handleChange={handleChange} 
+        setImagePath={setImagePath}></ScanFirst>}
 
-        {/* Nav buttons */}
-        <div className="navigation">
-          <button type="button" className="btn btn-primary" onClick={() => backButton()}>
-            Back
-          </button>
-          <button type="button" className="btn btn-primary" disabled>
-            Next
-          </button>
-        </div>
+        {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
+        {scanState.page === "result" && <ScanResult 
+        intolerances={intolerances} 
+        ocrState={ocrState} 
+        confidence={confidence} 
+        backButton={backButton}></ScanResult>}
 
       </section>
     </main>

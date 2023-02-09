@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Scan_first from "./scan_first";
+import Scan_result from "./scan_result";
+import Scan_loading from "./scan_loading";
 import "./ScanImage.scss";
 const Tesseract = require("tesseract.js");
 
@@ -12,14 +15,28 @@ function ScanImage({intolerances}) {
   const [loading, isLoading] = useState(false);
   const [confidence, setConfidence] = useState();
   const [progress, setProgress] = useState(0);
+  const [scanState, setscanState] = useState({
+    page: "first",
+    loading: false
+  });
   
   // Event handler
   const handleChange = (event) => {
     setImagePath(URL.createObjectURL(event.target.files[0]));
   };
 
+  useEffect(() => {
+    console.log(scanState);
+    // searchText(["Wheat", "cake"], intolerances);
+  }, [scanState]);
+
   // onClick event handler
   const handleClick = () => {
+
+    setscanState(prev => ({
+      ...prev,
+      loading: true}));
+
     Tesseract.recognize(imagePath, "eng", {
       logger: (m) => {
         m.progress < 1 ? isLoading(true) : isLoading(false);
@@ -31,15 +48,11 @@ function ScanImage({intolerances}) {
       })
       .then((result) => {
 
-        console.log(result);
-
-        console.log(confidentText (result));
-
         // Get Confidence score
         let confidenceResult = result.data.confidence;
         setConfidence(confidenceResult);
         let text = result.data.text;
-        console.log(result.data.text);
+
         if (confidenceResult < 55) {
           return setText(
             <img
@@ -50,6 +63,7 @@ function ScanImage({intolerances}) {
           );
         }
 
+        // Check text for ingredients
         if (
           text.includes("WHEAT") ||
           text.includes("wheat") ||
@@ -69,7 +83,7 @@ function ScanImage({intolerances}) {
                 className="checkmark"
               ></img>
             ),
-            text: <p>{text}</p>,
+           text,
           });
         } else {
           setText({
@@ -80,15 +94,23 @@ function ScanImage({intolerances}) {
                 className="checkmark"
               ></img>
             ),
-            text: <p>{text}</p>,
+            text: confidentTextArray(result).join(' '),
           });
         }
       });
+
+      // View result
+      setscanState( prev => ({
+        ...prev,
+        page:"result",
+        loading: false
+      }));
+
   };
 
-  function confidentText (result) {
-    const returnArray = [];
 
+  function confidentTextArray (result) {
+    const returnArray = [];
     const wordArray = result.data.words;
 
     wordArray.forEach(word => {
@@ -97,12 +119,17 @@ function ScanImage({intolerances}) {
       } 
     })
 
-    const returnString = returnArray.join(' ');
+    return returnArray;
+  }
 
-    console.log(returnString);
-    console.log(returnArray)
 
-  };
+  function searchText (intolerances, text) {
+    const splitString = text.split(' ');
+    return intolerances.filter(item => splitString.every(word => item.includes(word)));
+  }
+
+  // Testing this in useeffect:
+  // searchText(["Wheat", "cake"], intolerances);
 
   
   return (
@@ -110,24 +137,16 @@ function ScanImage({intolerances}) {
       <section className="ocr">
         <h3>Please upload an image to scan</h3>
         
+        {/* View uploaded image */}
         <div >
           {imagePath &&
           <img src={imagePath}/>
           }
         </div>
 
+        {/* Loading state */}
         {!loading ? (
           <div className="text-box">
-            <p className="results" id="inner">
-              {" "}
-              {text.img}
-              {text.text}
-              {confidence > 55 ? (
-                <p>High confidence : {confidence}%</p>
-              ) : (
-                <p></p>
-              )}
-            </p>
           </div>
         ) : (
           <label>
@@ -137,8 +156,8 @@ function ScanImage({intolerances}) {
             <progress value={progress}></progress>
           </label>
         )}
-        {/* <img src="/images/yogurt.jpg"></img> */}
 
+        {/* Confidence state */}
         {confidence < 55 ? (
           <p>
             The confidence score of this scan is: {confidence}% <br />
@@ -148,54 +167,13 @@ function ScanImage({intolerances}) {
           <p></p>
         )}
 
-        <div className="cam_buttons">
+        {/* Results rendering */}
 
-          {/* Choose file button */}
-          <input
-            type="file"
-            onChange={handleChange}
-          />
-
-          <section className="scan_clear">
-            <button 
-            type="button" 
-            className="btn btn-primary"
-            onClick={() => {
-              setText("");
-              window.location.reload(true);
-            }}>
-              Clear
-            </button>
-            <button 
-            type="button" 
-            className="btn btn-primary"
-            onClick={() => {
-              handleClick();
-              setConfidence(0);
-            }}>
-              Scan
-            </button>
-          </section>
-        </div>
-
-            {/* Status alerts */}
-        <div className="scanner">
-          {/* <alert className="alert alert-secondary" role="alert">
-            Upload your image
-          </alert> */}
-        </div>
-
+          {scanState.page === "first" && <Scan_first intolerances={intolerances} setText={setText} handleClick={handleClick} setConfidence={setConfidence} handleChange={handleChange} text={text.text}></Scan_first>}
+          {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
+          {scanState.page === "result" && <Scan_result intolerances={intolerances} text={text.text} confidence={confidence} searchText={searchText}></Scan_result>}
+          
           {/* User preferences */}
-        <section className="user_ingredients">
-          <div>
-            <p>Searching image for...</p>
-          </div>
-          <div>
-            <p>{intolerances}</p>
-          </div>
-        </section>
-
-
         <div className="navigation">
           <button type="button" className="btn btn-primary">
             Back

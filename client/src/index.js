@@ -27,7 +27,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/travelcard" element={<Translate />} />
             <Route path="/profile" element={<Profile getIntolerances={setIntolerances}/>} />
-            <Route path="*" element={< NotFound />}/>
+            <Route path="*" element={<NotFound />}/>
           </Route>
 
 

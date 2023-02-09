@@ -17,7 +17,7 @@ function ScanImage({intolerances}) {
   // Ocr data states
   const [ocrState, setOcrState] = useState({
     text: "",
-    array: [],
+    array: []
   });
   // Loading states
   const [loading, isLoading] = useState(false);

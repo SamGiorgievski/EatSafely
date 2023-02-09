@@ -17,8 +17,7 @@ export default function ScanFirst({intolerances, setOcrState, handleClick, setCo
         <button 
         type="button" 
         className="btn btn-primary"
-        onClick={() => {
-          setImagePath("")}
+        onClick={()=> handleChange(null)
       }>
           Clear
         </button>

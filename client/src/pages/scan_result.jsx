@@ -31,7 +31,6 @@ export default function ScanResult({ocrState, confidence, searchText, intoleranc
     // console.log(`find matches: intolerances - ${typeof intoleranceArray}`)
     
     for (let i = 0; i < intoleranceArray.length; i++) {
-      console.log(intoleranceArray[i])
       for (let j = 0; j < strArray.length; j++) {
         // console.log(strArray[j])
         if (intoleranceArray[i] === strArray[j]) {

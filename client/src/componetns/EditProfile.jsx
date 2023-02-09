@@ -12,14 +12,21 @@ const EditProfile = ({
 
   const [celiacChecked, setCeliacChecked] = useState(false);
   const [peanutsChecked, setPeanutsChecked] = useState(false);
+  const [dairyChecked, setDairyChecked] = useState(false);
+  const [veganChecked, setVeganChecked] = useState(false);
   const [special, setSpecial] = useState([]);
 
   const handleCeliacCheck = (event) => {
     setCeliacChecked(event.target.checked);
   };
-
   const handlePeanutCheck = (event) => {
     setPeanutsChecked(event.target.checked);
+  };
+  const handleDairyCheck = (event) => {
+    setDairyChecked(event.target.checked);
+  };
+  const handleVeganCheck = (event) => {
+    setVeganChecked(event.target.checked);
   };
   const handleSpecial = (event) => {
     setSpecial(event.target.value);
@@ -27,10 +34,18 @@ const EditProfile = ({
   const updateUser = (event) => {
     const intolerancesArr = [];
     if (celiacChecked) {
-      intolerancesArr.push("Wheat, Rye, Barley");
+      intolerancesArr.push("Wheat, Rye, Barley, Malt, Triticale");
     }
     if (peanutsChecked) {
       intolerancesArr.push("Peanuts");
+    }
+    if (dairyChecked) {
+      intolerancesArr.push("Milk Sugar", "Lactose");
+    }
+    if (veganChecked) {
+      intolerancesArr.push(
+        "Casein, Lactose, Whey, Collagen, Elastin, Keratin, Gelatine/gelatin, Aspic, Lard/tallow, Shellac, Honey, Propolis, D3, Albumen/albumin, Isinglass, Cod liver oil, Pepsin"
+      );
     }
     if (special.length > 0) {
       intolerancesArr.push(special);
@@ -109,11 +124,12 @@ const EditProfile = ({
               <input
                 className="form-check-input"
                 type="checkbox"
+                onChange={handleVeganCheck}
                 value=""
                 id="flexCheckDefault"
               />
               <label className="form-check-label" for="flexCheckDefault">
-                Vegetarian -(Beef, Pork, Chicken, Seafood)
+                Vegan -(Any Animal derived product)
               </label>
             </div>
             <div className="form-check">
@@ -121,6 +137,7 @@ const EditProfile = ({
                 className="form-check-input"
                 type="checkbox"
                 value=""
+                onChange={handleDairyCheck}
                 id="flexCheckDefault"
               />
               <label class="form-check-label" for="flexCheckDefault">

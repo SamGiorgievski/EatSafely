@@ -4,6 +4,10 @@ import axios from "axios";
 import "./Profile.scss";
 import { useGlobalContext } from "../context";
 
+//Function that if the sting passed is greater than nth number of char, hides the remaining after 150 and adds ...
+// function truncate(string, n) {
+//   return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+
 const Profile = ({getIntolerances}) => {
   const [showModal, setShowModal] = useState(false);
   const [intolerances, setIntolerances] = useState([]);

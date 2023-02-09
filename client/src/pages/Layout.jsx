@@ -1,12 +1,13 @@
 import axios from "axios";
 import React from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
+import "./Layout.scss";
 
 const Layout = () => {
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
-
+  const location = useLocation();
   const navigate = useNavigate();
 
   function handleLogout() {
@@ -28,84 +29,175 @@ const Layout = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-white">
-        <div className="container-fluid">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i className="fas fa-bars"></i>
-          </button>
+      <main>
+        <nav className="navbar navbar-expand-lg navbar--style">
+          <div className="container-fluid">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i className="fas fa-bars"></i>
+            </button>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <a href="/">
-              <img
-                src="images/eatsafely_logo.png"
-                height="30"
-                alt="EatSafely Logo"
-                loading="lazy"
-              />
-            </a>
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <a href="/">
+                <img
+                  src="images/cropped.png"
+                  height="30"
+                  alt="EatSafely Logo"
+                  loading="lazy"
+                />
+              </a>
 
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {!isLoggedIn && (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">
-                      Register
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      Login
-                    </Link>
-                  </li>
-                </>
-              )}
-              {isLoggedIn && (
-                <>
-                  <li className="nav-item">
-                    <Link className="btn btn-primary" to="/scanimage">
-                      Scan Image
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="btn btn-primary" to="/profile">
-                      Profile
-                    </Link>
-                  </li>
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                {!isLoggedIn && (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/register">
+                        Register
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login">
+                        Login
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {isLoggedIn && (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/scanimage">
+                        Scan Image
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/travel">
+                        Travel Cards
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/profile">
+                        Profile
+                      </Link>
+                    </li>
 
-                  <li className="nav-item">
-                    {/* Double Check This! */}
-                    <Link to={"./login"}>
-                      <button
-                        className="btn btn-primary"
-                        type="submit"
+                    <li className="nav-item">
+                      {/* Double Check This! */}
+                      <Link
+                        to={"./login"}
+                        className="nav-link"
                         onClick={handleLogout}
+                        type="submit"
                       >
                         Logout
-                      </button>
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
           </div>
-
-          <div className="d-flex align-items-center">
-            <a className="link-secondary me-3" href="#">
-              <i className="fas fa-shopping-cart"></i>
-            </a>
+        </nav>
+        <Outlet />
+        {location.pathname === "/" && (
+          <div className="container marketing">
+            <img src="/images/eatsafely_logo.png" alt="logo" className="logo" />
+            <hr className="featurette-divider" />
+            <div className="row featurette">
+              <div className="col-md-7 text-input">
+                <h2 className="featurette-heading">
+                  Input your personal food intolerances.{" "}
+                </h2>
+                <p className="lead">
+                  Signup and input your specfic food intolerances into your
+                  profile
+                </p>
+              </div>
+              <div className="col-md-5">
+                <img
+                  src="images/edit-pic.png"
+                  alt="edit-pic"
+                  className="picture"
+                />
+              </div>
+            </div>
+            <br />
+            <hr className="featurette-divider" />
+            <br />
+            <div className="row featurette">
+              <div className="col-md-7 order-md-2 text-input">
+                <h2 className="featurette-heading">
+                  Scan food ingredient labels based on your food intolerance
+                  input.{" "}
+                </h2>
+                <p className="lead">
+                  Once you have created an account and input your food
+                  intolerances. Simply take a photo the of ingredients label of
+                  the item you want to check. The app will then scan the image
+                  for the food intolerances and give you a result.
+                </p>
+              </div>
+              <div className="col-md-5 order-md-1">
+                <img
+                  src="https://www.boldbusiness.com/wp-content/uploads/2017/02/Food-scanning-apps-for-nutritional-oversight-e1493732402445.jpg"
+                  alt=""
+                  className="picture"
+                />
+              </div>
+            </div>
+            <br />
+            <hr className="featurette-divider" />
+            <br />
+            <div className="row featurette">
+              <div className="col-md-7 text-input">
+                <h2 className="featurette-heading">Traveling Abroad? </h2>
+                <p className="lead">
+                  The EatSafely application can make you a resturant card to
+                  tell wait staff what your specfic food intolerances are.
+                  Simply select a language and receive a result.
+                </p>
+              </div>
+              <div className="col-md-5">
+                <svg
+                  className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                  width="500"
+                  height="500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="img"
+                  aria-label="Placeholder: 500x500"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+                  <rect width="100%" height="100%" fill="#eee" />
+                  <text x="50%" y="50%" fill="#aaa" dy=".3em">
+                    500x500
+                  </text>
+                </svg>
+              </div>
+            </div>
+            <br />
+            <hr className="featurette-divider" />
+            <br />
           </div>
-        </div>
-      </nav>
-
-      <Outlet />
+        )}
+        <br />
+        <footer className="container">
+          <p className="float-end">
+            <a href="#">Back to top</a>
+          </p>
+          <p>&copy; 2023 EatSafely.</p>
+        </footer>
+      </main>
     </>
   );
 };

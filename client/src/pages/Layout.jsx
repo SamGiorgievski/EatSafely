@@ -249,14 +249,13 @@ const Layout = ({isHomePage}) => {
           </div>
         )}
         <br />
-        {!isHomePage &&
       <footer className="container">
           <p className="float-end">
             <a href="#">Back to top</a>
           </p>
           <p>&copy; 2023 EatSafely.</p>
         </footer>
-        }
+
       </main>
     </>
   );

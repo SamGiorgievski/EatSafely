@@ -11,7 +11,7 @@ const EditProfile = ({
   // let [storedData, setStoredData] = useState({});
 
   const [celiacChecked, setCeliacChecked] = useState(false);
-  const [peanutsChecked, setPeanutsChecked] = useState(false);
+  const [nutsChecked, setNutsChecked] = useState(false);
   const [dairyChecked, setDairyChecked] = useState(false);
   const [veganChecked, setVeganChecked] = useState(false);
   const [special, setSpecial] = useState([]);
@@ -19,8 +19,8 @@ const EditProfile = ({
   const handleCeliacCheck = (event) => {
     setCeliacChecked(event.target.checked);
   };
-  const handlePeanutCheck = (event) => {
-    setPeanutsChecked(event.target.checked);
+  const handleNutCheck = (event) => {
+    setNutsChecked(event.target.checked);
   };
   const handleDairyCheck = (event) => {
     setDairyChecked(event.target.checked);
@@ -34,17 +34,17 @@ const EditProfile = ({
   const updateUser = (event) => {
     const intolerancesArr = [];
     if (celiacChecked) {
-      intolerancesArr.push("Wheat, Rye, Barley, Malt, Triticale");
+      intolerancesArr.push("Wheat, Rye, Barley, Malt, Triticale, Semolina, Soy");
     }
-    if (peanutsChecked) {
-      intolerancesArr.push("Peanuts");
+    if (nutsChecked) {
+      intolerancesArr.push("Peanuts, Cashews, Almonds, Pistachios, Macadamia Nut, Walnuts, Pecan, Hazelnut, Chestnut, Pine Nut, Praline");
     }
     if (dairyChecked) {
-      intolerancesArr.push("Milk Sugar", "Lactose");
+      intolerancesArr.push("Milk Sugar, Lactose, Casein");
     }
     if (veganChecked) {
       intolerancesArr.push(
-        "Casein, Lactose, Whey, Collagen, Elastin, Keratin, Gelatine/gelatin, Aspic, Lard/tallow, Shellac, Honey, Propolis, D3, Albumen/albumin, Isinglass, Cod liver oil, Pepsin"
+        "Casein, Lactose, Whey, Collagen, Elastin, Keratin, Gelatine/gelatin, Aspic, Lard/tallow, Shellac, Honey, Propolis, D3, Albumen/albumin, Isinglass, Cod liver oil, Pepsin, Rennet"
       );
     }
     if (special.length > 0) {
@@ -113,11 +113,11 @@ const EditProfile = ({
                 className="form-check-input"
                 type="checkbox"
                 value=""
-                onChange={handlePeanutCheck}
+                onChange={handleNutCheck}
                 id="flexCheckDefault"
               />
               <label className="form-check-label" for="flexCheckDefault">
-                Peanut Allergy
+                Nut Allergy - (Peanuts, Cashews, Almonds, Pistachios)
               </label>
             </div>
             <div className="form-check">
@@ -129,7 +129,7 @@ const EditProfile = ({
                 id="flexCheckDefault"
               />
               <label className="form-check-label" for="flexCheckDefault">
-                Vegan -(Any Animal derived product)
+                Vegan - (Any Animal derived product)
               </label>
             </div>
             <div className="form-check">

@@ -45,7 +45,7 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
   function highlightText (intolerances, str) {
     let matches = [];
     let newStr = "";
-    let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+    let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     let intoleranceArray = intolerances.split(", ");
     
     for (let i = 0; i < str.length; i++) {

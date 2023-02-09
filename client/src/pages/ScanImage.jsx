@@ -4,8 +4,8 @@ const Tesseract = require("tesseract.js");
 
 
 
-function ScanImage() {
-  
+function ScanImage({intolerances}) {
+
   // States
   const [imagePath, setImagePath] = useState("");
   const [text, setText] = useState({});
@@ -191,7 +191,7 @@ function ScanImage() {
             <p>Searching image for...</p>
           </div>
           <div>
-            <p>Wheat, Barley, Rye</p>
+            <p>{intolerances}</p>
           </div>
         </section>
 

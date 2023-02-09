@@ -8,7 +8,7 @@ import { useGlobalContext } from "../context";
 // function truncate(string, n) {
 //   return string?.length > n ? string.substr(0, n - 1) + "..." : string;
 
-const Profile = (props) => {
+const Profile = ({getIntolerances}) => {
   const [showModal, setShowModal] = useState(false);
   const [intolerances, setIntolerances] = useState([]);
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
@@ -20,6 +20,10 @@ const Profile = (props) => {
     setStoredData(JSON.parse(sessionStorage.getItem("userData")));
   }, []);
 
+  useEffect(() => {
+    getIntolerances(intolerances);
+  }, [intolerances]);
+
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -30,6 +34,7 @@ const Profile = (props) => {
     })
     .then((res) => {
       setIntolerances(res.data.rows[0].intolerance);
+      // getIntolerances(res.data.rows[0].intolerance);
     })
     .catch((err) => console.error(err.response.data));
 

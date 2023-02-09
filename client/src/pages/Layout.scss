@@ -1,9 +1,28 @@
 .container-fluid {
   background-color: rgba(230, 226, 214, 255);
-  height: 50px;
+  height: 60px;
 }
 
-.navbar {
-  padding: 0;
-  margin: 0;
+.navbar--style {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 4em;
+}
+
+.background {
+  background-color: rgba(230, 226, 214, 255);
+  height: 100vh;
+  width: 100vw;
+}
+
+.picture {
+  height: 500px;
+}
+
+.logo {
+  height: 15em;
+}
+
+.text-input {
+  padding-top: 10em;
 }

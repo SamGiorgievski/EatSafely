@@ -15,6 +15,6 @@ CREATE TABLE users (
 -- CREATE INTOLERANCES
 CREATE TABLE intolerances (
   id SERIAL PRIMARY KEY,
-  intolerance VARCHAR(255),
+  intolerance VARCHAR(1000),
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );

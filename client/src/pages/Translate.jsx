@@ -5,6 +5,7 @@ import "./Translate.scss";
 function Translate() {
   const [lang, setLang] = useState();
   const [translation, setTranslation] = useState("");
+  const [cardContents, setCardContents] = useState("");
 
   const handleLangChange = (event) => {
     setLang(event.target.value);
@@ -50,6 +51,7 @@ function Translate() {
           <form action="">
             <label htmlFor="">Language</label>
             <select name="lang" id="lang" onChange={handleLangChange}>
+              <option value="en">English</option>
               <option value="fr">French</option>
               <option value="es">Spanish</option>
               <option value="zh">Chinese</option>
@@ -67,6 +69,14 @@ function Translate() {
           <img src="images/empty-card.png" alt="" />
           <div className="card--title">
             <h3>Restuarant Card</h3>
+          </div>
+          <div className="card--contents--div">
+            <p className="card--contents">
+              Hello, my name is Brad. Please be aware that I have some food
+              intolerances that I hope you will be able to accomadate. Could you
+              please reccomend something on the menu that does not contain, or
+              is not cooked with or around the following:{" "}
+            </p>
           </div>
         </div>
       </section>

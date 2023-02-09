@@ -3,8 +3,10 @@ import "./scan_result.scss";
 
 export default function ScanResult({ocrState, confidence, intolerances}) {
 
+  const [matches, setMatches] = useState([]);
+
   // useEffect(() => {
-  //   findMatches
+  //   findMatches(intolerances, ocrState.text)
   // }, [findMatches]);
 
   function findMatches(intolerances, str) {
@@ -36,6 +38,7 @@ export default function ScanResult({ocrState, confidence, intolerances}) {
       }
     }
 
+    setMatches(matches);
     return matches;
   }
 
@@ -64,13 +67,14 @@ export default function ScanResult({ocrState, confidence, intolerances}) {
     }
 
     let highlighterReturn = [];
-
+    let key = 0;
     for (let i = 0; i < matches.length; i++) {
       for (let j = 0; j < strArray.length; j++) {
+        key += 1;
         if (matches[i] === strArray[j]) {
-          highlighterReturn.push(<span className="highlight"> {strArray[j]} </span>);
+          highlighterReturn.push(<span className="highlight" key={key}> {strArray[j]} </span>);
         } else {
-          highlighterReturn.push(<span> {strArray[j]} </span>)
+          highlighterReturn.push(<span key={key}> {strArray[j]} </span>)
         }
       }
     }
@@ -86,16 +90,16 @@ export default function ScanResult({ocrState, confidence, intolerances}) {
   return (
     <main className="results">
       <div className="text-box">
-        <p className="results" id="inner">
+        <span className="results" id="inner">
           {/* {ocrState.text && <span> Results: {ocrState.text}</span>} */}
           {confidence > 55 && <span>High confidence : {confidence}%</span>}
           <div className="text_with_highlight">
             {highlightText(intolerances, ocrState.text)}
           </div>
           <div className="matches">
-            {intolerances && <span> Matches: {findMatches(intolerances, ocrState.text)}</span>}
+            {/* {intolerances && <span> Matches: {findMatches(intolerances, ocrState.text)}</span>} */}
           </div>
-        </p>
+        </span>
       </div>
       <p>
           

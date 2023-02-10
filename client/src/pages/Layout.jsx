@@ -6,8 +6,7 @@ import { useGlobalContext } from "../context";
 import "./Layout.scss";
 import { Carousel } from "react-bootstrap";
 
-
-const Layout = ({isHomePage}) => {
+const Layout = ({ isHomePage }) => {
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ const Layout = ({isHomePage}) => {
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-
 
   function handleLogout() {
     axios
@@ -119,7 +117,6 @@ const Layout = ({isHomePage}) => {
 
         <Outlet />
         {location.pathname === "/" && (
-
           <div className="container marketing">
             <img src="/images/eatsafely_logo.png" alt="logo" className="logo" />
             <Carousel activeIndex={index} onSelect={handleSelect}>
@@ -130,9 +127,12 @@ const Layout = ({isHomePage}) => {
                   alt="First slide"
                 />
                 <Carousel.Caption>
-                  <h3>Input your personal food intolerances.{" "}</h3>
-                  <p> Signup and input your specific food intolerances into your
-                    profile</p>
+                  <h3>Input your personal food intolerances. </h3>
+                  <p>
+                    {" "}
+                    Signup and input your specific food intolerances into your
+                    profile
+                  </p>
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
@@ -143,13 +143,16 @@ const Layout = ({isHomePage}) => {
                 />
 
                 <Carousel.Caption>
-                    <h3>Scan food ingredient labels based on your food intolerance
-                      input.{" "}</h3>
-                    <p>Once you have created an account and input your food
-                      intolerances. Simply take a photo of the ingredients label of
-                      the item you want to check. The app will then scan the image
-                      for the food intolerances and give you a result.</p>
-                
+                  <h3>
+                    Scan food ingredient labels based on your food intolerance
+                    input.{" "}
+                  </h3>
+                  <p>
+                    Once you have created an account and input your food
+                    intolerances. Simply take a photo of the ingredients label
+                    of the item you want to check. The app will then scan the
+                    image for the food intolerances and give you a result.
+                  </p>
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
@@ -171,14 +174,6 @@ const Layout = ({isHomePage}) => {
             </Carousel>
           </div>
         )}
-        <br />
-      <footer className="container">
-          <p className="float-end">
-            <a href="#">Back to top</a>
-          </p>
-          <p>&copy; 2023 EatSafely.</p>
-        </footer>
-
       </main>
     </>
   );

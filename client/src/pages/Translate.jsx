@@ -50,14 +50,15 @@ is not cooked with or around the following: ${intolerances}`;
   translateTo(sentence);
 
   return (
-    <div>
+    <div className="full--content">
+      <div className="images--div">
+        <img
+          src="https://www.internationalinsurance.com/wp-content/uploads/2022/12/iStock-1431699900.jpg"
+          alt=""
+          className="pic1"
+        />
+      </div>
       <section className="main--section">
-        <div>
-          {/* <img
-            src="https://www.internationalinsurance.com/wp-content/uploads/2022/12/iStock-1431699900.jpg"
-            alt=""
-          /> */}
-        </div>
         <div className="container--card">
           <h1>Travel Cards</h1>
           <p>

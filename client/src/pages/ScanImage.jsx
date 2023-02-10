@@ -57,6 +57,7 @@ function ScanImage({intolerances}) {
         console.error(err);
       })
       .then((result) => {
+        console.log(result);
 
         // Get Confidence score
         let confidenceResult = result.data.confidence;
@@ -105,7 +106,7 @@ function ScanImage({intolerances}) {
     const wordArray = result.data.words;
 
     wordArray.forEach(word => {
-      if (word.confidence >= 65) {
+      if (word.confidence >= 60) {
         returnArray.push(word.text);
       } 
     })
@@ -141,6 +142,9 @@ function ScanImage({intolerances}) {
           {imagePath &&
           <img src={imagePath} alt="Upload"/>
           }
+          {/* https://placeholder.com/ */}
+          {!imagePath &&
+          <img src={"https://via.placeholder.com/300/808080.png/fff "}/>}
         </div>
 
         {/* Loading state */}

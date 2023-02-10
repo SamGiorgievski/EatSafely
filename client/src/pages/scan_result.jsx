@@ -43,11 +43,11 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
   }
 
   function highlightText (intolerances, str) {
-    let matches = [];
+  
+    // take out punctuation
     let newStr = "";
     let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-    let intoleranceArray = intolerances.split(", ");
-    
+
     for (let i = 0; i < str.length; i++) {
       let char = str[i];
       if (validChars.indexOf(char) !== -1) {
@@ -55,8 +55,20 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       }
     }
 
-    let strArray = newStr.split(" ");
+    // format inputs
+    let matches = [];
+    let intoleranceLowerCase = intolerances.toLowerCase();
+    let intoleranceArray = intoleranceLowerCase.split(", ");
+    let newStrLowerCase = newStr.toLowerCase();
+    let strArray = newStrLowerCase.split(" ");
+
+    console.log(`ocrState.array: ${ocrState.array}`)
+    console.log(`str: ${str}`)
+    console.log(`newStr: ${newStr}`)
+    console.log(`newStrLowerCase: ${newStrLowerCase}`)
+    console.log(`strArray: ${strArray}`)
     
+    // find matches
     for (let i = 0; i < intoleranceArray.length; i++) {
       for (let j = 0; j < strArray.length; j++) {
         if (intoleranceArray[i] === strArray[j]) {
@@ -66,6 +78,7 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       }
     }
 
+    // highlight text
     let highlighterReturn = [];
     let key = 0;
     for (let i = 0; i < matches.length; i++) {
@@ -79,10 +92,18 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       }
     }
 
+    if (matches[0]) {
     return (
       <div>
         {highlighterReturn}
       </div>);
+    } else {
+      return (
+        <div>
+          {str}
+        </div>
+      )
+    }
 
   }
 

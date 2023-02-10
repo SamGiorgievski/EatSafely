@@ -9,9 +9,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  .scan_clear {
+  .scan_edit {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     height:40px;
+    .edit{
+      margin-top: 10px;
+    }
+    .scan{
+      margin-top:10px;
+    }
   }
 }

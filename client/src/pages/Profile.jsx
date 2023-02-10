@@ -8,12 +8,10 @@ import { useGlobalContext } from "../context";
 // function truncate(string, n) {
 //   return string?.length > n ? string.substr(0, n - 1) + "..." : string;
 
-const Profile = ({getIntolerances, showModal, setShowModal, toggleModal}) => {
+const Profile = ({getIntolerances, showModal, setShowModal, toggleModal, storedData, setStoredData}) => {
   const [intolerances, setIntolerances] = useState([]);
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
-  const [storedData, setStoredData] = useState(
-    JSON.parse(sessionStorage.getItem("userData"))
-  );
+
 
   useEffect(() => {
     setStoredData(JSON.parse(sessionStorage.getItem("userData")));

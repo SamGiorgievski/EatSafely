@@ -1,7 +1,7 @@
 import React from "react";
 import "./scan_first.scss";
 
-export default function ScanFirst({intolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath}) {
+export default function ScanFirst({intolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath, toggleModal}) {
   return (
     <main className="first">
       
@@ -19,17 +19,26 @@ export default function ScanFirst({intolerances, setOcrState, handleClick, setCo
           </div>
         </section>
 
-      {/* Scan and clear buttons */}
-      <section className="scan_clear">
+      {/* Scan and edit buttons */}
+      <section className="scan_edit">
+
+        <button 
+        type="button"
+        onClick={toggleModal} 
+        className="btn btn-primary edit">
+            Edit Intolerances
+        </button>
+
         <button 
         type="button" 
-        className="btn btn-primary"
+        className="btn btn-primary scan"
         onClick={() => {
           handleClick();
           setConfidence(0);
         }}>
-          Scan
+          Scan image
         </button>
+        
       </section>
       </div>
 

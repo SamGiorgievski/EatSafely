@@ -13,6 +13,9 @@ import { AppProvider } from "./context";
 export default function App() {
   const [intolerances, setIntolerances] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [storedData, setStoredData] = useState(
+    JSON.parse(sessionStorage.getItem("userData"))
+  );
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -29,7 +32,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/register" element={<Register />} />
-            <Route path="/scanimage" element={<ScanImage intolerances={intolerances} />} />
+            <Route path="/scanimage" element={<ScanImage 
+            intolerances={intolerances}
+            setIntolerances={setIntolerances}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            toggleModal={toggleModal}
+            storedData={storedData}
+             />} />
             <Route path="/login" element={<Login />} />
             <Route path="/travelcard" element={<Translate intolerances={intolerances} />} />
             <Route path="/profile" element={<Profile 
@@ -37,6 +47,8 @@ export default function App() {
             showModal={showModal}
             setShowModal={setShowModal}
             toggleModal={toggleModal}
+            storedData={storedData}
+            setStoredData={setStoredData}
              />} />
 
           </Route>

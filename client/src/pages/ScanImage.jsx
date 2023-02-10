@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import ScanFirst from "./scan_first";
 import ScanResult from "./scan_result";
 import ScanLoading from "./scan_loading";
+import EditProfile from "../componetns/EditProfile";
 import "./ScanImage.scss";
 const Tesseract = require("tesseract.js");
 
 
-function ScanImage({intolerances}) {
+function ScanImage({intolerances, setIntolerances, showModal, setShowModal, toggleModal, storedData}) {
 
   // Page state
   const [scanState, setscanState] = useState({
@@ -178,7 +179,8 @@ function ScanImage({intolerances}) {
         handleClick={handleClick} 
         setConfidence={setConfidence} 
         handleChange={handleChange} 
-        setImagePath={setImagePath}></ScanFirst>}
+        setImagePath={setImagePath}
+        toggleModal={toggleModal}></ScanFirst>}
 
         {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
         {scanState.page === "result" && <ScanResult 
@@ -186,6 +188,16 @@ function ScanImage({intolerances}) {
         ocrState={ocrState} 
         confidence={confidence} 
         backButton={backButton}></ScanResult>}
+
+          {/* Edit Intolerances */}
+          {showModal && (
+            <EditProfile
+              toggle={toggleModal}
+              state={(showModal, setShowModal)}
+              storedData={storedData}
+              setIntolerances={setIntolerances}
+            />
+          )}
 
       </section>
     </main>

@@ -147,7 +147,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
           }
           {/* https://placeholder.com/ */}
           {!imagePath &&
-          <img src={"https://via.placeholder.com/300/808080.png/fff "}/>}
+          <img src={"https://via.placeholder.com/300/808080.png/fff?text=Upload+image+to+begin"}/>}
         </div>
 
         {/* Loading state */}

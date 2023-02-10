@@ -61,12 +61,17 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
     let intoleranceArray = intoleranceLowerCase.split(", ");
     let newStrLowerCase = newStr.toLowerCase();
     let strArray = newStrLowerCase.split(" ");
+    let lowercaseOcrState = ocrState.array.map((index) => {
+     return index.toLowerCase();
+    });
 
-    console.log(`ocrState.array: ${ocrState.array}`)
-    console.log(`str: ${str}`)
-    console.log(`newStr: ${newStr}`)
-    console.log(`newStrLowerCase: ${newStrLowerCase}`)
-    console.log(`strArray: ${strArray}`)
+    // console.log(`ocrState.array: ${ocrState.array}`)
+    // console.log(`str: ${str}`)
+    // console.log(`newStr: ${newStr}`)
+    // console.log(`newStrLowerCase: ${newStrLowerCase}`)
+    // console.log(`strArray: ${strArray}`)
+    // // str.includes(combination)
+    // console.log(`lowercaseOcrState: ${lowercaseOcrState}`)
     
     // find matches
     for (let i = 0; i < intoleranceArray.length; i++) {
@@ -82,12 +87,14 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
     let highlighterReturn = [];
     let key = 0;
     for (let i = 0; i < matches.length; i++) {
-      for (let j = 0; j < strArray.length; j++) {
+      for (let j = 0; j < lowercaseOcrState.length; j++) {
         key += 1;
-        if (matches[i] === strArray[j]) {
-          highlighterReturn.push(<span className="highlight" key={key}> {strArray[j]} </span>);
+        if (lowercaseOcrState[j].includes(matches[i])) {
+          highlighterReturn.push(<span className="highlight" key={key}> {matches[i]}</span>);
+          key += 1;
+          highlighterReturn.push(<span key={key}>,</span>)
         } else {
-          highlighterReturn.push(<span key={key}> {strArray[j]} </span>)
+          highlighterReturn.push(<span key={key}> {lowercaseOcrState[j]} </span>)
         }
       }
     }

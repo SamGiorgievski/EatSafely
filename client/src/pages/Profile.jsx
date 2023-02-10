@@ -8,8 +8,7 @@ import { useGlobalContext } from "../context";
 // function truncate(string, n) {
 //   return string?.length > n ? string.substr(0, n - 1) + "..." : string;
 
-const Profile = ({getIntolerances}) => {
-  const [showModal, setShowModal] = useState(false);
+const Profile = ({getIntolerances, showModal, setShowModal, toggleModal}) => {
   const [intolerances, setIntolerances] = useState([]);
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
   const [storedData, setStoredData] = useState(
@@ -23,10 +22,7 @@ const Profile = ({getIntolerances}) => {
   useEffect(() => {
     getIntolerances(intolerances);
   }, [intolerances]);
-
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
+  
 
   axios
     .post("/intolerances", {

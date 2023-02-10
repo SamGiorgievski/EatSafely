@@ -12,6 +12,11 @@ import { AppProvider } from "./context";
 
 export default function App() {
   const [intolerances, setIntolerances] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   function NotFound() {
     return <h3>Page Not Found</h3>;
@@ -27,7 +32,12 @@ export default function App() {
             <Route path="/scanimage" element={<ScanImage intolerances={intolerances} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/travelcard" element={<Translate intolerances={intolerances} />} />
-            <Route path="/profile" element={<Profile getIntolerances={setIntolerances} />} />
+            <Route path="/profile" element={<Profile 
+            getIntolerances={setIntolerances}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            toggleModal={toggleModal}
+             />} />
 
           </Route>
 

@@ -130,6 +130,8 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
       array: []
     }))
 
+    setImagePath("");
+
   }
 
   

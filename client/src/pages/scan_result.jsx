@@ -141,7 +141,7 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
 
       {matches && 
       <div className="navigation">
-      <button type="button" className="btn btn-primary" onClick={() => backButton()}>
+      <button type="button" className="btn btn-primary" onClick={backButton}>
         retry
       </button>
     </div>}

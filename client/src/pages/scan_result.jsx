@@ -90,24 +90,34 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       for (let j = 0; j < lowercaseOcrState.length; j++) {
         key += 1;
         if (lowercaseOcrState[j].includes(matches[i])) {
-          highlighterReturn.push(<span className="highlight" key={key}> {matches[i]}</span>);
+          highlighterReturn.push(<span className="highlight" key={key}> {matches[i].toUpperCase()}</span>);
           key += 1;
           highlighterReturn.push(<span key={key}>,</span>)
         } else {
-          highlighterReturn.push(<span key={key}> {lowercaseOcrState[j]} </span>)
+          highlighterReturn.push(<span key={key}> {ocrState.array[j]} </span>)
         }
       }
     }
 
     if (matches[0]) {
     return (
-      <div>
-        {highlighterReturn}
+      <div className="result_matches">
+        <div className="result_matches_warning">
+          Results: Warning, this product contains harmful ingredients!
+        </div>
+        <div className="result_matches_text">
+          {highlighterReturn}
+        </div>
       </div>);
     } else {
       return (
-        <div>
-          {str}
+        <div className="result_nomatches">
+          <div className="result_nomatches_warning">
+            Results: This product is safe for consumption!
+          </div>
+          <div className="result_nomatches_text">
+            {ocrState.array.join(" ")}
+          </div>
         </div>
       )
     }
@@ -120,12 +130,9 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       <div className="text-box">
         <span className="results" id="inner">
           {/* {ocrState.text && <span> Results: {ocrState.text}</span>} */}
-          {confidence > 55 && <span>High confidence : {confidence}%</span>}
+          {/* {confidence > 55 && <span>High confidence : {confidence}%</span>} */}
           <div className="text_with_highlight">
             {highlightText(intolerances, ocrState.text)}
-          </div>
-          <div className="matches">
-            {/* {intolerances && <span> Matches: {findMatches(intolerances, ocrState.text)}</span>} */}
           </div>
         </span>
       </div>

@@ -46,7 +46,8 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
   
     // take out punctuation
     let newStr = "";
-    let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    const validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    // /[A-Z]\i/
 
     for (let i = 0; i < str.length; i++) {
       let char = str[i];
@@ -56,7 +57,7 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
     }
 
     // format inputs
-    let matches = [];
+    const matches = [];
     let intoleranceLowerCase = intolerances.toLowerCase();
     let intoleranceArray = intoleranceLowerCase.split(", ");
     let newStrLowerCase = newStr.toLowerCase();
@@ -84,7 +85,7 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
     }
 
     // highlight text
-    let highlighterReturn = [];
+    const highlighterReturn = [];
     let key = 0;
     for (let i = 0; i < matches.length; i++) {
       for (let j = 0; j < lowercaseOcrState.length; j++) {
@@ -94,7 +95,7 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
           key += 1;
           highlighterReturn.push(<span key={key}>,</span>)
         } else {
-          highlighterReturn.push(<span key={key}> {ocrState.array[j]} </span>)
+          highlighterReturn.push(`${ocrState.array[j]} `)
         }
       }
     }

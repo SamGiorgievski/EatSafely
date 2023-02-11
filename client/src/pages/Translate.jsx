@@ -1,25 +1,29 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
 import axios from "axios";
 import "./Translate.scss";
 import { useEffect } from "react";
 
 function Translate({ intolerances }) {
-  const [lang, setLang] = useState();
+  const [lang, setLang] = useState("en");
   const [translation, setTranslation] = useState("");
   const [cardContents, setCardContents] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleLangChange = (event) => {
+    setLang(event.target.value);
+    setModalIsOpen(true);
+    translateTo(sentence);
+  };
 
   const [storedData, setStoredData] = useState(
     JSON.parse(sessionStorage.getItem("userData"))
   );
 
   const sentence = `Hello, my name is ${storedData.data.user.first_name}. Please be aware that I have some food
-intolerances that I hope you will be able to accomadate. Could you
+intolerances that I hope you will be able to accomodate. Could you
 please reccomend something on the menu that does not contain, or
 is not cooked with or around the following: ${intolerances}`;
-
-  const handleLangChange = (event) => {
-    setLang(event.target.value);
-  };
 
   useEffect(() => {
     setStoredData(JSON.parse(sessionStorage.getItem("userData")));
@@ -40,7 +44,6 @@ is not cooked with or around the following: ${intolerances}`;
       });
       const data = await response.json();
       setTranslation(data.translatedText);
-      console.log(data);
     } catch (error) {
       console.error(error);
       return "Error occurred while translating the text.";
@@ -81,18 +84,29 @@ is not cooked with or around the following: ${intolerances}`;
             </select>
           </form>
         </div>
-
-        <div className="result">
-          <div className="card--contents--div">
-            <div className="card--title">
-              <h1>Restaraunt Card</h1>
-            </div>
-            <div className="">
-              <p className="card--contents">{translation}</p>
-            </div>
-          </div>
-        </div>
       </section>
+      {translation ? (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          className="modal--card"
+        >
+          <h2 className="card--title">Restaraunt Card</h2>
+          <p>{translation}</p>
+          <button
+            onClick={() => {
+              setModalIsOpen(false);
+              setTranslation("");
+            }}
+            className="close--button"
+          >
+            Close
+          </button>
+        </Modal>
+      ) : (
+        <p></p>
+      )}
+      ;
     </div>
   );
 }

@@ -6,9 +6,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ScanImage from './pages/ScanImage';
 import Translate from "./pages/Translate";
+import Recipe from "./pages/Recipe";
 import Profile from './pages/Profile';
 import EditProfile from "./componetns/EditProfile";
 import { AppProvider } from "./context";
+
 
 export default function App() {
   const [intolerances, setIntolerances] = useState([]);
@@ -28,6 +30,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/travelcard" element={<Translate intolerances={intolerances} />} />
             <Route path="/profile" element={<Profile getIntolerances={setIntolerances} />} />
+            <Route path="/recipes" element={<Recipe />} />
 
           </Route>
 

@@ -97,6 +97,11 @@ const Layout = ({ isHomePage }) => {
                           </Link>
                         </li>
                         <li className="nav-item">
+                          <Link className="nav-link" to="/recipes">
+                            Recipes
+                          </Link>
+                        </li>
+                        <li className="nav-item">
                           <Link className="nav-link" to="/travelcard">
                             Travel Cards
                           </Link>

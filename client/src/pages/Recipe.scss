@@ -1,0 +1,149 @@
+.recipe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+
+  img {
+    width: 60%;
+    height: 300px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 15%;
+    &:hover {
+      scale: 1.05;
+    }
+  }
+
+  .inputs--selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .images {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  h1 {
+    margin-top: 20px;
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .diet--div,
+  .intolerance--div {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px;
+
+    h4 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      text-decoration: underline;
+    }
+
+    select {
+      width: 200px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      text-align: center;
+      &:hover {
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+    }
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+
+    &.btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 10px;
+      width: 12em;
+      height: 3em;
+      &:hover {
+        background-color: #0069d9;
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      &[disabled] {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .selected-recipe {
+    text-align: left;
+    padding: 20px;
+
+    h2 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    ol {
+      margin-top: 20px;
+      font-size: 16px;
+
+      h3 {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 28px;
+    }
+
+    .diet--div,
+    .intolerance--div {
+      h4 {
+        font-size: 18px;
+      }
+
+      select {
+        width: 100%;
+      }
+    }
+
+    button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+
+    .selected-recipe {
+      h2 {
+        font-size: 28px;
+      }
+
+      ol {
+        font-size: 14px;
+      }
+    }
+  }
+}

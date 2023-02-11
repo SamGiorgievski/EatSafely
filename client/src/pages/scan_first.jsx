@@ -15,7 +15,7 @@ export default function ScanFirst({intolerances, setOcrState, handleClick, setCo
 
         <section className="user_ingredients">
           <div>
-            <p>Searching image for: {intolerances}</p>
+            <p>Searching: {intolerances}</p>
           </div>
         </section>
 

@@ -41,7 +41,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
 
   // Scan image onClick event handler
   const handleClick = () => {
-
+    isLoading(true);
     // Change page state to loading
     setscanState(prev => ({
       ...prev,
@@ -50,7 +50,6 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
     // Start tesseract OCR
     Tesseract.recognize(imagePath, "eng", {
       logger: (m) => {
-        m.progress < 1 ? isLoading(true) : isLoading(false);
         setProgress(m.progress);
       },
     })
@@ -59,6 +58,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
       })
       .then((result) => {
         console.log(result);
+        isLoading(false);
 
         // Get Confidence score
         let confidenceResult = result.data.confidence;
@@ -163,7 +163,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
           </label>
         )}
 
-        {/* Confidence state */}
+        {/* Confidence state
         {confidence < 55 ? (
           <p>
             The confidence score of this scan is: {confidence}% <br />
@@ -171,7 +171,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
           </p>
         ) : (
           <p></p>
-        )}
+        )} */}
 
         {/* Results rendering */}
 
@@ -189,7 +189,9 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
         intolerances={intolerances} 
         ocrState={ocrState} 
         confidence={confidence} 
-        backButton={backButton}></ScanResult>}
+        backButton={backButton}
+        progress={progress}
+        loading={loading}></ScanResult>}
 
           {/* Edit Intolerances */}
           {showModal && (

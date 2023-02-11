@@ -28,7 +28,9 @@ function Login(props) {
         console.log("---------------");
         // console.log(response);
         setIsLoggedIn(true);
-        sessionStorage.setItem("userData", JSON.stringify(response));
+        // sessionStorage.setItem("userData", JSON.stringify(response));
+        sessionStorage.setItem("userData", JSON.stringify([response.data.user]));
+
         navigate("/profile");
       })
       .catch((err) => {

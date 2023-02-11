@@ -2,7 +2,7 @@ import React, { useState, useEffect, useNavigate } from "react";
 import axios from "axios";
 import "./AddProfile.scss";
 
-function AddProfile({ toggle, storedData, setNewProfile }) {
+function AddProfile({ toggle, setNewProfile, setStoredData }) {
 
   const [showModal, setShowModal] = useState(true);
   const [firstName, setFirstName] = useState("");
@@ -27,6 +27,17 @@ function AddProfile({ toggle, storedData, setNewProfile }) {
 
     })
     .catch((err) => console.error());
+
+    const sessionArray = JSON.parse(sessionStorage.getItem("userData"));
+    sessionStorage.setItem("userData", JSON.stringify([...sessionArray, {
+      first_name: firstName,
+      last_name: lastName
+    }]));
+
+    setStoredData([...sessionArray, {
+      first_name: firstName,
+      last_name: lastName
+    }]);
   }
 
   return (

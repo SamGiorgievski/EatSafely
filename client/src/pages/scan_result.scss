@@ -6,3 +6,37 @@
   display: flex;
   justify-content: space-around;
 }
+
+.results {
+  word-wrap: normal;
+  width: 50vw;
+
+  .text_with_highlight {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  
+    .result_matches{
+      .result_matches_warning{
+        font-size: 22px;
+        border-style: solid;
+        border-color: red;
+        color: red;
+      }
+      .result_matches_text{
+        margin-top: 10px;
+      }
+    }
+
+    .result_nomatches{
+      .result_nomatches_warning{
+        font-size: 22px;
+        border-style: solid;
+        border-color: green;
+        color:green;
+      }
+      .result_nomatches_text{
+        margin-top: 10px;
+      }
+    }
+  }
+}

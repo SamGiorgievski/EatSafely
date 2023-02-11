@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./scan_result.scss";
 
-export default function ScanResult({ocrState, confidence, intolerances, backButton}) {
+export default function ScanResult({ocrState, confidence, intolerances, backButton, progress, loading}) {
 
   const [matches, setMatches] = useState([]);
 
@@ -43,11 +43,12 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
   }
 
   function highlightText (intolerances, str) {
-    let matches = [];
+  
+    // take out punctuation
     let newStr = "";
-    let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-    let intoleranceArray = intolerances.split(", ");
-    
+    const validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    // /[A-Z]\i/
+
     for (let i = 0; i < str.length; i++) {
       let char = str[i];
       if (validChars.indexOf(char) !== -1) {
@@ -55,8 +56,25 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       }
     }
 
-    let strArray = newStr.split(" ");
+    // format inputs
+    const matches = [];
+    let intoleranceLowerCase = intolerances.toLowerCase();
+    let intoleranceArray = intoleranceLowerCase.split(", ");
+    let newStrLowerCase = newStr.toLowerCase();
+    let strArray = newStrLowerCase.split(" ");
+    let lowercaseOcrState = ocrState.array.map((index) => {
+     return index.toLowerCase();
+    });
+
+    // console.log(`ocrState.array: ${ocrState.array}`)
+    // console.log(`str: ${str}`)
+    // console.log(`newStr: ${newStr}`)
+    // console.log(`newStrLowerCase: ${newStrLowerCase}`)
+    // console.log(`strArray: ${strArray}`)
+    // // str.includes(combination)
+    // console.log(`lowercaseOcrState: ${lowercaseOcrState}`)
     
+    // find matches
     for (let i = 0; i < intoleranceArray.length; i++) {
       for (let j = 0; j < strArray.length; j++) {
         if (intoleranceArray[i] === strArray[j]) {
@@ -66,24 +84,45 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       }
     }
 
-    let highlighterReturn = [];
+    // highlight text
+    const highlighterReturn = [];
     let key = 0;
     for (let i = 0; i < matches.length; i++) {
-      for (let j = 0; j < strArray.length; j++) {
+      for (let j = 0; j < lowercaseOcrState.length; j++) {
         key += 1;
-        if (matches[i] === strArray[j]) {
-          highlighterReturn.push(<span className="highlight" key={key}> {strArray[j]} </span>);
+        if (lowercaseOcrState[j].includes(matches[i])) {
+          highlighterReturn.push(<span className="highlight" key={key}> {matches[i].toUpperCase()}</span>);
+          key += 1;
+          highlighterReturn.push(<span key={key}>,</span>)
         } else {
-          highlighterReturn.push(<span key={key}> {strArray[j]} </span>)
+          highlighterReturn.push(`${ocrState.array[j]} `)
         }
       }
     }
 
+    if (matches[0] && !loading) {
     return (
-      <div>
-        {highlighterReturn}
+      <div className="result_matches">
+        <div className="result_matches_warning">
+          Results: Warning, this product contains harmful ingredients!
+        </div>
+        <div className="result_matches_text">
+          {highlighterReturn}
+        </div>
       </div>);
-
+    } else if (!matches[0] && !loading){
+      return (
+        <div className="result_nomatches">
+          <div className="result_nomatches_warning">
+            Results: This product is safe for consumption!
+          </div>
+          <div className="result_nomatches_text">
+            {ocrState.array.join(" ")}
+          </div>
+        </div>
+      )
+    }
+    
   }
 
 
@@ -92,12 +131,9 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
       <div className="text-box">
         <span className="results" id="inner">
           {/* {ocrState.text && <span> Results: {ocrState.text}</span>} */}
-          {confidence > 55 && <span>High confidence : {confidence}%</span>}
+          {/* {confidence > 55 && <span>High confidence : {confidence}%</span>} */}
           <div className="text_with_highlight">
             {highlightText(intolerances, ocrState.text)}
-          </div>
-          <div className="matches">
-            {/* {intolerances && <span> Matches: {findMatches(intolerances, ocrState.text)}</span>} */}
           </div>
         </span>
       </div>
@@ -106,8 +142,8 @@ export default function ScanResult({ocrState, confidence, intolerances, backButt
 
       {matches && 
       <div className="navigation">
-      <button type="button" className="btn btn-primary" onClick={() => backButton()}>
-        retry
+      <button type="button" className="btn btn-primary" onClick={backButton}>
+        Scan again
       </button>
     </div>}
 

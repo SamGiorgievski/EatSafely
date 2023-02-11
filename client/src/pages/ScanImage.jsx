@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import ScanFirst from "./scan_first";
 import ScanResult from "./scan_result";
 import ScanLoading from "./scan_loading";
+import EditProfile from "../componetns/EditProfile";
 import "./ScanImage.scss";
 const Tesseract = require("tesseract.js");
 
-function ScanImage({ intolerances }) {
+
+function ScanImage({intolerances, setIntolerances, showModal, setShowModal, toggleModal, storedData}) {
+
   // Page state
   const [scanState, setscanState] = useState({
     page: "first",
@@ -36,6 +39,7 @@ function ScanImage({ intolerances }) {
 
   // Scan image onClick event handler
   const handleClick = () => {
+    isLoading(true);
     // Change page state to loading
     setscanState((prev) => ({
       ...prev,
@@ -45,7 +49,6 @@ function ScanImage({ intolerances }) {
     // Start tesseract OCR
     Tesseract.recognize(imagePath, "eng", {
       logger: (m) => {
-        m.progress < 1 ? isLoading(true) : isLoading(false);
         setProgress(m.progress);
       },
     })
@@ -53,6 +56,9 @@ function ScanImage({ intolerances }) {
         console.error(err);
       })
       .then((result) => {
+        console.log(result);
+        isLoading(false);
+
         // Get Confidence score
         let confidenceResult = result.data.confidence;
         setConfidence(confidenceResult);
@@ -98,8 +104,8 @@ function ScanImage({ intolerances }) {
     const returnArray = [];
     const wordArray = result.data.words;
 
-    wordArray.forEach((word) => {
-      if (word.confidence >= 65) {
+    wordArray.forEach(word => {
+      if (word.confidence >= 60) {
         returnArray.push(word.text);
       }
     });
@@ -118,8 +124,11 @@ function ScanImage({ intolerances }) {
     setOcrState((prev) => ({
       ...prev,
       text: "",
-      array: [],
-    }));
+      array: []
+    }))
+
+    setImagePath("");
+
   }
 
   return (
@@ -128,7 +137,14 @@ function ScanImage({ intolerances }) {
         <h3 className="instructions">Please upload an image to scan</h3>
 
         {/* View uploaded image */}
-        <div>{imagePath && <img src={imagePath} alt="Upload" />}</div>
+        <div >
+          {imagePath &&
+          <img src={imagePath} alt="Upload"/>
+          }
+          {/* https://placeholder.com/ */}
+          {!imagePath &&
+          <img src={"https://via.placeholder.com/300/808080.png/fff?text=Upload+image+to+begin"}/>}
+        </div>
 
         {/* Loading state */}
         {!loading ? (
@@ -142,7 +158,7 @@ function ScanImage({ intolerances }) {
           </label>
         )}
 
-        {/* Confidence state */}
+        {/* Confidence state
         {confidence < 55 ? (
           <p>
             The confidence score of this scan is: {confidence}% <br />
@@ -150,30 +166,38 @@ function ScanImage({ intolerances }) {
           </p>
         ) : (
           <p></p>
-        )}
+        )} */}
 
         {/* Results rendering */}
 
-        {scanState.page === "first" && (
-          <ScanFirst
-            intolerances={intolerances}
-            setOcrState={setOcrState}
-            handleClick={handleClick}
-            setConfidence={setConfidence}
-            handleChange={handleChange}
-            setImagePath={setImagePath}
-          ></ScanFirst>
-        )}
+        {scanState.page === "first" && <ScanFirst 
+        intolerances={intolerances} 
+        setOcrState={setOcrState} 
+        handleClick={handleClick} 
+        setConfidence={setConfidence} 
+        handleChange={handleChange} 
+        setImagePath={setImagePath}
+        toggleModal={toggleModal}></ScanFirst>}
 
         {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
-        {scanState.page === "result" && (
-          <ScanResult
-            intolerances={intolerances}
-            ocrState={ocrState}
-            confidence={confidence}
-            backButton={backButton}
-          ></ScanResult>
-        )}
+        {scanState.page === "result" && <ScanResult 
+        intolerances={intolerances} 
+        ocrState={ocrState} 
+        confidence={confidence} 
+        backButton={backButton}
+        progress={progress}
+        loading={loading}></ScanResult>}
+
+          {/* Edit Intolerances */}
+          {showModal && (
+            <EditProfile
+              toggle={toggleModal}
+              state={(showModal, setShowModal)}
+              storedData={storedData}
+              setIntolerances={setIntolerances}
+            />
+          )}
+
       </section>
     </main>
   );

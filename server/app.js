@@ -185,5 +185,28 @@ app.post('/intolerances', (req, res) => {
 });
 
 
+app.post("/adduser", (req, res) => {
+  
+  const newUserFirstName = req.body.first_name;
+  const newUserLastName = req.body.last_name;
+  const dataID = req.body.sessionData;
+
+  db.query(
+    `
+    SELECT users.first_name, users.last_name, secondary_users.first_name, secondary_users.last_name FROM users JOIN secondary_users ON users.id = secondary_users.user_id WHERE users.id = $1
+  `, [dataID])
+    .then(response => {
+      console.log("newUser")
+      res.json(response);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
+
+
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

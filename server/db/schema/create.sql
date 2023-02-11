@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS intolerances CASCADE;
+DROP TABLE IF EXISTS secondary_users CASCADE;
 
 
 -- CREATE USERS
@@ -17,4 +18,14 @@ CREATE TABLE intolerances (
   id SERIAL PRIMARY KEY,
   intolerance VARCHAR(1000),
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+-- SECONDARY USER
+CREATE TABLE secondary_users (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  intolerance_id INTEGER REFERENCES intolerances(id) ON DELETE CASCADE
 );

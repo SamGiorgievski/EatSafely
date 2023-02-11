@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import "./Register.scss";
 import axios from "axios";
 import { Link } from "react-router-dom";
+// import { useGlobalContext } from "../context";
 
 function Register(props) {
   const [user, setUser] = useState(props.user || "");
+  // const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
+
+  // const navigate = useNavigate();
 
   function registerUser() {
     const first_name = user.firstName;
@@ -21,6 +25,8 @@ function Register(props) {
       })
       .then((response) => {
         console.log(response);
+        // navigate("/profile");
+        // // setIsLoggedIn(true);
       });
   }
 
@@ -132,6 +138,7 @@ function Register(props) {
                     onClick={(event) => {
                       event.preventDefault();
                       registerUser();
+                      // setIsLoggedIn(true);
                     }}
                   >
                     Sign up

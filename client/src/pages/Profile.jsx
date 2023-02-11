@@ -3,18 +3,25 @@ import EditProfile from "../componetns/EditProfile";
 import axios from "axios";
 import "./Profile.scss";
 import { useGlobalContext } from "../context";
+import AddProfile from "../componetns/AddProfile";
+
 
 //Function that if the sting passed is greater than nth number of char, hides the remaining after 150 and adds ...
 // function truncate(string, n) {
 //   return string?.length > n ? string.substr(0, n - 1) + "..." : string;
 
-const Profile = ({getIntolerances}) => {
+const Profile = ({ getIntolerances }) => {
   const [showModal, setShowModal] = useState(false);
   const [intolerances, setIntolerances] = useState([]);
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
   const [storedData, setStoredData] = useState(
     JSON.parse(sessionStorage.getItem("userData"))
   );
+  const [newProfile, setNewProfile] = useState({
+    first_name: "",
+    last_name: ""
+  });
+  const [showNewProfileModal, setShowNewProfileModal] = useState(false);
 
   useEffect(() => {
     setStoredData(JSON.parse(sessionStorage.getItem("userData")));
@@ -28,6 +35,11 @@ const Profile = ({getIntolerances}) => {
     setShowModal(!showModal);
   };
 
+  const toggleAddProfileModal = () => {
+    setShowNewProfileModal(!showNewProfileModal);
+  };
+
+
   axios
     .post("/intolerances", {
       sessionData: storedData.data.user.id,
@@ -37,6 +49,26 @@ const Profile = ({getIntolerances}) => {
       // getIntolerances(res.data.rows[0].intolerance);
     })
     .catch((err) => console.error(err.response.data));
+
+
+    function addNewProfile() {
+      axios.post("/adduser", {
+        sessionData: storedData.data.user.id,
+        
+      })
+      .then((res) => {
+        setNewProfile({
+          first_name: res.data.rows[0].first_name,
+          last_name: res.data.rows[0].last_name
+        })
+        toggleAddProfileModal();
+
+      })
+      .catch((err) => console.error());
+    }
+
+
+
 
   return (
     <section>
@@ -60,12 +92,17 @@ const Profile = ({getIntolerances}) => {
             Email: {storedData.data.user.email}
           </li>
           <li className="list-group-item">Intolerances: {intolerances}</li>
+          <li className="list-group-item">New Profile: {newProfile.first_name}</li>
         </ul>
         <div className="card-body">
           <div>
             <button onClick={toggleModal} className="btn btn-primary">
               Edit
             </button>
+            <button onClick={toggleAddProfileModal} className="btn btn-primary">
+              Add Profile
+            </button>
+
           </div>
 
           {showModal && (
@@ -75,7 +112,12 @@ const Profile = ({getIntolerances}) => {
               storedData={storedData}
               setIntolerances={setIntolerances}
             />
+
           )}
+          {showNewProfileModal && (
+            <AddProfile />
+          )}
+
         </div>
       </div>
     </section>

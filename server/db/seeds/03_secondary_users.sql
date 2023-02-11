@@ -1,0 +1,1 @@
+INSERT INTO secondary_users (first_name, last_name, user_id, intolerance_id) VALUES ('Dina', 'Hassan', 3, 1);

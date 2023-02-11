@@ -142,7 +142,7 @@ const Layout = ({ isHomePage }) => {
                       Input your personal food intolerances.{" "}
                     </h2>
                     <p className="lead">
-                      Signup and input your specfic food intolerances into your
+                      Signup and input your specific food intolerances into your
                       profile
                     </p>
                   </div>
@@ -186,7 +186,7 @@ const Layout = ({ isHomePage }) => {
                     <h2 className="featurette-heading">Traveling Abroad? </h2>
                     <p className="lead">
                       The EatSafely application can make you a resturant card to
-                      tell wait staff what your specfic food intolerances are.
+                      tell wait staff what your specific food intolerances are.
                       Simply select a language and receive a result.
                     </p>
                   </div>

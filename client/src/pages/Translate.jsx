@@ -13,8 +13,8 @@ function Translate({ intolerances }) {
   );
 
   const sentence = `Hello, my name is ${storedData.data.user.first_name}. Please be aware that I have some food
-intolerances that I hope you will be able to accomadate. Could you
-please reccomend something on the menu that does not contain, or
+intolerances that I hope you will be able to accommodate. Could you
+please recommend something on the menu that does not contain, or
 is not cooked with or around the following: ${intolerances}`;
 
   const handleLangChange = (event) => {
@@ -62,11 +62,11 @@ is not cooked with or around the following: ${intolerances}`;
         <div className="container--card">
           <h1>Travel Cards</h1>
           <p>
-            Here you can create a custom travel card that you can show resturant
+            Here you can create a custom travel card that you can show restaurant
             staff that may speak a different language than you.
           </p>
           <form action="">
-            <label htmlFor="">Select language to translate to:</label>
+            <label htmlFor="">Select language to translate to: </label>
             <select name="lang" id="lang" onChange={handleLangChange}>
               <option value="en">English</option>
               <option value="fr">French</option>
@@ -85,7 +85,7 @@ is not cooked with or around the following: ${intolerances}`;
         <div className="result">
           <div className="card--contents--div">
             <div className="card--title">
-              <h1>Restaraunt Card</h1>
+              <h1>Restaurant Card</h1>
             </div>
             <div className="">
               <p className="card--contents">{translation}</p>

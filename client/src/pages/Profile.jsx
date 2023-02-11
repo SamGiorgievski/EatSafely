@@ -40,33 +40,19 @@ const Profile = ({ getIntolerances }) => {
   };
 
 
-  axios
-    .post("/intolerances", {
-      sessionData: storedData.data.user.id,
-    })
-    .then((res) => {
-      setIntolerances(res.data.rows[0].intolerance);
-      // getIntolerances(res.data.rows[0].intolerance);
-    })
-    .catch((err) => console.error(err.response.data));
-
-
-    function addNewProfile() {
-      axios.post("/adduser", {
-        sessionData: storedData.data.user.id,
-        
-      })
+  useEffect(() => {
+    axios
+      .get(`/intolerances/${storedData.data.user.id}`
+        // sessionData: storedData.data.user.id,
+      )
       .then((res) => {
-        setNewProfile({
-          first_name: res.data.rows[0].first_name,
-          last_name: res.data.rows[0].last_name
-        })
-        toggleAddProfileModal();
-
+        console.log("RES", res);
+        setIntolerances(res.data.intolerance);
+        // getIntolerances(res.data.rows[0].intolerance);
       })
-      .catch((err) => console.error());
-    }
+      .catch((err) => console.error(err.response.data));
 
+  }, []);  
 
 
 
@@ -92,7 +78,7 @@ const Profile = ({ getIntolerances }) => {
             Email: {storedData.data.user.email}
           </li>
           <li className="list-group-item">Intolerances: {intolerances}</li>
-          <li className="list-group-item">New Profile: {newProfile.first_name}</li>
+          {/* <li className="list-group-item">New Profile: {newProfile.first_name}</li> */}
         </ul>
         <div className="card-body">
           <div>
@@ -115,7 +101,11 @@ const Profile = ({ getIntolerances }) => {
 
           )}
           {showNewProfileModal && (
-            <AddProfile />
+            <AddProfile 
+            toggle={toggleAddProfileModal}
+            storedData={storedData}
+            setNewProfile={setNewProfile}
+            />
           )}
 
         </div>

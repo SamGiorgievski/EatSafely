@@ -167,15 +167,16 @@ app.put('/update', (req, res) => {
 });
 
 
-app.post('/intolerances', (req, res) => {
-  let dataID = req.body.sessionData;
+app.get('/intolerances/:userid', (req, res) => {
+  // let dataID = req.body.sessionData;
+  const dataID = req.params.userid
   console.log(dataID);
   db.query(
     `
     SELECT * FROM intolerances WHERE user_id=$1
     `, [dataID])
     .then(response => {
-      res.json(response);
+      res.json(response.rows[0]);
     })
     .catch(err => {
       res
@@ -187,17 +188,19 @@ app.post('/intolerances', (req, res) => {
 
 app.post("/adduser", (req, res) => {
   
-  const newUserFirstName = req.body.first_name;
-  const newUserLastName = req.body.last_name;
-  const dataID = req.body.sessionData;
+  console.log("REQBODY", req.body);
+  const first_name = req.body.first_name;
+  const last_name = req.body.last_name;
+  
 
   db.query(
     `
-    SELECT users.first_name, users.last_name, secondary_users.first_name, secondary_users.last_name FROM users JOIN secondary_users ON users.id = secondary_users.user_id WHERE users.id = $1
-  `, [dataID])
+    INSERT INTO secondary_users (first_name, last_name) VALUES ($1, $2)
+  RETURNING *`, [first_name, last_name])
     .then(response => {
-      console.log("newUser")
-      res.json(response);
+      console.log("newUser", response);
+
+      res.json(response.rows[0]);
     })
     .catch(err => {
       res

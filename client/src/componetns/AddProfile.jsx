@@ -2,14 +2,32 @@ import React, { useState, useEffect, useNavigate } from "react";
 import axios from "axios";
 import "./AddProfile.scss";
 
-function AddProfile({ toggle }) {
+function AddProfile({ toggle, storedData, setNewProfile }) {
 
   const [showModal, setShowModal] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-  function toggle() {
+  function toggleCard() {
     setShowModal(!showModal);
   };
 
+  function addNewProfileCard() {
+    axios.post("/adduser", {
+      first_name: firstName,
+      last_name: lastName
+    })
+    .then((res) => {
+      console.log("----", res);
+      setNewProfile({
+        first_name: res.data.first_name,
+        last_name: res.data.last_name
+      })
+      toggle();
+
+    })
+    .catch((err) => console.error());
+  }
 
   return (
     <section>
@@ -26,6 +44,8 @@ function AddProfile({ toggle }) {
               id="firstName"
               placeholder="Please enter name here"
               className="form-control"
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
             />
           
             <label htmlFor="lastName">Last Name</label>
@@ -33,6 +53,8 @@ function AddProfile({ toggle }) {
               id="lastName"
               placeholder="Please enter name here"
               className="form-control"
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
             />
         </ul>
         <div className="card-body">
@@ -40,14 +62,14 @@ function AddProfile({ toggle }) {
           <button
             type="submit"
             className="btn btn-primary"
-            // onClick={() => {
-            //   toggle();
-            //   updateUser();
-            // }}
+            onClick={() => {
+              toggle();
+              addNewProfileCard();
+            }}
           >
             Save Changes
           </button>
-          <button onClick={toggle} className="btn btn-primary">
+          <button onClick={toggleCard} className="btn btn-primary">
             Close
           </button>
 

@@ -34,27 +34,28 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/register" element={<Register />} />
-            <Route path="/scanimage" element={<ScanImage 
-            intolerances={intolerances}
-            setIntolerances={setIntolerances}
-            showModal={showModal}
-            setShowModal={setShowModal}
-            toggleModal={toggleModal}
-            storedData={storedData}
-             />} />
+            <Route path="/recipes" element={<Recipe />} />
+            <Route path="/scanimage" element={<ScanImage
+              intolerances={intolerances}
+              setIntolerances={setIntolerances}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              toggleModal={toggleModal}
+              storedData={storedData}
+            />} />
             <Route path="/login" element={<Login />} />
             <Route path="/travelcard" element={<Translate intolerances={intolerances} />} />
-            <Route path="/profile" element={<Profile 
-            getIntolerances={setIntolerances}
-            showModal={showModal}
-            setShowModal={setShowModal}
-            toggleModal={toggleModal}
-            storedData={storedData}
-            setStoredData={setStoredData}
-             />} />
+            <Route path="/profile" element={<Profile
+              getIntolerances={setIntolerances}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              toggleModal={toggleModal}
+              storedData={storedData}
+              setStoredData={setStoredData}
+            />} />
 
           </Route>
-
+          <Route path="/recipes" element={<Recipe />} />
 
         </Routes>
       </BrowserRouter>

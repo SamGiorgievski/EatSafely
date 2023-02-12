@@ -144,7 +144,7 @@ export default function ScanResult({
   return (
     <main className="results">
       <div className="text-box">
-        <span className="results" id="inner">
+        <span className="results_main" id="inner">
           {/* {ocrState.text && <span> Results: {ocrState.text}</span>} */}
           {/* {confidence > 55 && <span>High confidence : {confidence}%</span>} */}
           <div className="text_with_highlight">

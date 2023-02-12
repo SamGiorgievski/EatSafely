@@ -9,21 +9,30 @@
 
 .results {
   word-wrap: normal;
-  width: 50vw;
+  width: auto;
+
+
 
   .text_with_highlight {
     margin-top: 10px;
     margin-bottom: 10px;
   
     .result_matches{
+      align-items:center;
+      display: flex;
+      flex-direction:column;
+      
       .result_matches_warning{
+        width: 80%;
         font-size: 22px;
         border-style: solid;
         border-color: red;
         color: red;
+        text-align:center;
       }
       .result_matches_text{
         margin-top: 10px;
+        width:80%;
       }
     }
 
@@ -39,4 +48,8 @@
       }
     }
   }
+}
+
+.results_main{
+  text-align:center;
 }

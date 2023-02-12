@@ -1,5 +1,8 @@
+.first {}
+
 .user_ingredients {
-  height: 50px;
+  height: auto;
+  width:80%;
   margin-top: 20px;
   margin-bottom: 40px;
   border-style: solid;
@@ -7,6 +10,10 @@
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  .user_ingredients_text{
+    height:auto;
+    
+  }
 }
 
 .cam_buttons {

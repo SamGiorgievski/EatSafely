@@ -39,6 +39,10 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
 
   // Scan image onClick event handler
   const handleClick = () => {
+    if (!imagePath) {
+      return;
+    }
+
     isLoading(true);
     // Change page state to loading
     setscanState((prev) => ({
@@ -132,7 +136,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
   }
 
   return (
-    <main className="layout">
+    <main className="scan_card">
       <section className="ocr">
         <h3 className="instructions">Please upload an image to scan</h3>
 
@@ -178,6 +182,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
         setConfidence={setConfidence} 
         handleChange={handleChange} 
         setImagePath={setImagePath}
+        imagePath={imagePath}
         toggleModal={toggleModal}
         storedData={storedData}></ScanFirst>}
 

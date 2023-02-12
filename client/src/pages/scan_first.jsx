@@ -2,7 +2,7 @@ import React from "react";
 import "./scan_first.scss";
 import axios from "axios";
 
-export default function ScanFirst({intolerances, setIntolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath, toggleModal, storedData}) {
+export default function ScanFirst({intolerances, setIntolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath, imagePath, toggleModal, storedData}) {
 
   axios
   .post("/intolerances", {
@@ -26,8 +26,8 @@ export default function ScanFirst({intolerances, setIntolerances, setOcrState, h
       />
 
         <section className="user_ingredients">
-          <div>
-            <p>Searching: {intolerances}</p>
+          <div className="user_ingredients_text">
+            Searching: {intolerances}
           </div>
         </section>
 
@@ -35,14 +35,12 @@ export default function ScanFirst({intolerances, setIntolerances, setOcrState, h
       <section className="scan_edit">
 
         <button 
-        type="button"
         onClick={toggleModal} 
         className="btn btn-primary edit">
             Edit Intolerances
         </button>
 
         <button 
-        type="button" 
         className="btn btn-primary scan"
         onClick={() => {
           handleClick();

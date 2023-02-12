@@ -136,7 +136,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
   }
 
   return (
-    <main className="scan_card">
+    <div className="scan_card">
       <section className="ocr">
         <h3 className="instructions">Please upload an image to scan</h3>
 
@@ -206,7 +206,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
           )}
 
       </section>
-    </main>
+    </div>
   );
 }
 

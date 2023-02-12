@@ -46,7 +46,7 @@ const Profile = ({ getIntolerances }) => {
   // useEffect(() => {
   //   axios
   //     .get(`/intolerances/${storedData.data.user.id}`
-  //       // sessionData: storedData.data.user.id,
+  //       sessionData: storedData.data.user.id,
   //     )
   //     .then((res) => {
   //       console.log("RES", res);

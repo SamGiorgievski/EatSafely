@@ -191,6 +191,7 @@ app.post("/adduser", (req, res) => {
   console.log("REQBODY", req.body);
   const first_name = req.body.first_name;
   const last_name = req.body.last_name;
+  // const id = req.body.userid;
   
 
   db.query(

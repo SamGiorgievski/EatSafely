@@ -8,6 +8,8 @@ function AddProfile({ toggle, setNewProfile, setStoredData }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+  // const [childIntolerances, setChildIntolerances] = useState([]);
+
   function toggleCard() {
     setShowModal(!showModal);
   };
@@ -15,13 +17,13 @@ function AddProfile({ toggle, setNewProfile, setStoredData }) {
   function addNewProfileCard() {
     axios.post("/adduser", {
       first_name: firstName,
-      last_name: lastName
+      last_name: lastName,
     })
     .then((res) => {
       console.log("----", res);
       setNewProfile({
         first_name: res.data.first_name,
-        last_name: res.data.last_name
+        last_name: res.data.last_name,
       })
       toggle();
 

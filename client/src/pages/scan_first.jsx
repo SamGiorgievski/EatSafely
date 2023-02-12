@@ -1,7 +1,19 @@
 import React from "react";
 import "./scan_first.scss";
+import axios from "axios";
 
-export default function ScanFirst({intolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath, toggleModal}) {
+export default function ScanFirst({intolerances, setIntolerances, setOcrState, handleClick, setConfidence, handleChange, setImagePath, toggleModal, storedData}) {
+
+  axios
+  .post("/intolerances", {
+    sessionData: storedData.data.user.id,
+  })
+  .then((res) => {
+    setIntolerances(res.data.rows[0].intolerance);
+    // getIntolerances(res.data.rows[0].intolerance);
+  })
+  .catch((err) => console.error(err.response.data));
+
   return (
     <main className="first">
       

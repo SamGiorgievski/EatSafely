@@ -171,13 +171,15 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
         {/* Results rendering */}
 
         {scanState.page === "first" && <ScanFirst 
-        intolerances={intolerances} 
+        intolerances={intolerances}
+        setIntolerances={setIntolerances} 
         setOcrState={setOcrState} 
         handleClick={handleClick} 
         setConfidence={setConfidence} 
         handleChange={handleChange} 
         setImagePath={setImagePath}
-        toggleModal={toggleModal}></ScanFirst>}
+        toggleModal={toggleModal}
+        storedData={storedData}></ScanFirst>}
 
         {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
         {scanState.page === "result" && <ScanResult 

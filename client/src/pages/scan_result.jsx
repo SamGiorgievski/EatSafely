@@ -13,43 +13,6 @@ export default function ScanResult({
   const [matches, setMatches] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   findMatches(intolerances, ocrState.text)
-  // }, [findMatches]);
-
-  function findMatches(intolerances, str) {
-    let matches = [];
-    let newStr = "";
-    let validChars =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
-    let intoleranceArray = intolerances.split(", ");
-
-    for (let i = 0; i < str.length; i++) {
-      let char = str[i];
-      if (validChars.indexOf(char) !== -1) {
-        newStr += char;
-      }
-    }
-
-    let strArray = newStr.split(" ");
-    // console.log(`find matches: newStr ${newStr}`);
-    // console.log(`find matches: strArray ${strArray}`);
-    // console.log(`find matches: strArray ${typeof strArray}`);
-    // console.log(`find matches: intolerances - ${intoleranceArray}`)
-    // console.log(`find matches: intolerances - ${typeof intoleranceArray}`)
-
-    for (let i = 0; i < intoleranceArray.length; i++) {
-      for (let j = 0; j < strArray.length; j++) {
-        if (intoleranceArray[i] === strArray[j]) {
-          matches.push(intoleranceArray[i]);
-          break;
-        }
-      }
-    }
-
-    setMatches(matches);
-    return matches;
-  }
 
   function highlightText(intolerances, str) {
     console.log(intolerances);
@@ -97,26 +60,46 @@ export default function ScanResult({
       }
     }
 
+    // function to see if a word contains any word in an array
+    function includesAny(str, arr) {
+      return arr.some(function(word) {
+        return str.includes(word);
+      });
+    }
+
     // highlight text
     const highlighterReturn = [];
     let key = 0;
-    for (let i = 0; i < matches.length; i++) {
-      for (let j = 0; j < lowercaseOcrState.length; j++) {
+      for (let j = 0; j < strArray.length; j++) {
         key += 1;
-        if (lowercaseOcrState[j].includes(matches[i])) {
-          highlighterReturn.push(
-            <span className="highlight" key={key}>
-              {" "}
-              {matches[i].toUpperCase()}
-            </span>
-          );
-          key += 1;
-          highlighterReturn.push(<span key={key}>,</span>);
+        if (includesAny(lowercaseOcrState[j], matches)) {
+
+          let formattedMatchString = "";
+
+          for (let i = 0; i < matches.length; i++) {
+            if (lowercaseOcrState[j].includes(matches[i])) {
+              formattedMatchString = matches[i];
+            }
+          }
+            
+            highlighterReturn.push(
+              <span className="highlight" key={key}>
+                {`${formattedMatchString.toUpperCase()}`}
+              </span>
+            );
+
+            // Check if bracket is at end of the word, then push ", " or "), " so they're not highlighted
+            key += 1;
+            if (lowercaseOcrState[j].charAt(lowercaseOcrState[j].length - 2) === ")") {
+              highlighterReturn.push(<span key={key}>), </span>);
+            } else {
+              highlighterReturn.push(<span key={key}>, </span>);
+            }
+          
         } else {
           highlighterReturn.push(`${ocrState.array[j]} `);
         }
       }
-    }
 
     if (matches[0] && !loading) {
       return (

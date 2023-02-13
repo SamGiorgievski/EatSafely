@@ -69,6 +69,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
         let text = result.data.text;
 
         if (confidenceResult < 55) {
+          console.log("HELPPPPP");
           return setOcrState((prev) => ({
             ...prev,
             img: (
@@ -147,7 +148,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
           }
           {/* https://placeholder.com/ */}
           {!imagePath &&
-          <img src={"https://via.placeholder.com/300/808080.png/fff?text=Upload+image+to+begin"}/>}
+          <img src={"https://via.placeholder.com/300/808080.png/fff?text=Upload+image+to+begin"} alt="scanned_image"/>}
         </div>
 
         {/* Loading state */}

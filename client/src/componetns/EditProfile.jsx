@@ -34,10 +34,10 @@ const EditProfile = ({
   const updateUser = (event) => {
     const intolerancesArr = [];
     if (celiacChecked) {
-      intolerancesArr.push("Wheat, Rye, Barley, Malt, Triticale, Semolina, Soy");
+      intolerancesArr.push("Wheat, Rye, Barley, Malt, Triticale, Semolina");
     }
     if (nutsChecked) {
-      intolerancesArr.push("Peanuts, Cashews, Almonds, Pistachios, Macadamia Nut, Walnuts, Pecan, Hazelnut, Chestnut, Pine Nut, Praline");
+      intolerancesArr.push("Peanut, Cashew, Almond, Pistachio, Macadamia Nut, Walnut, Pecan, Hazelnut, Chestnut, Pine Nut, Praline");
     }
     if (dairyChecked) {
       intolerancesArr.push("Milk Sugar, Lactose, Casein");

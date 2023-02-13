@@ -15,22 +15,34 @@ const Profile = ({getIntolerances, showModal, setShowModal, toggleModal, storedD
 
   useEffect(() => {
     setStoredData(JSON.parse(sessionStorage.getItem("userData")));
-  }, []);
+
+    
+
+    console.log("first");
+   
+  }, [setStoredData]);
+
+  useEffect(() => { 
+    axios
+    .post("/intolerances", {
+      sessionData: storedData.data.user.id,
+    })
+    .then((res) => {
+      console.log("second");
+      if (res.data.rows[0].intolerance) {
+      setIntolerances(res.data.rows[0].intolerance);
+      // getIntolerances(res.data.rows[0].intolerance);
+      }
+    })
+    .catch((err) => console.error(err.response.data));
+
+  }, [])
+
 
   useEffect(() => {
     getIntolerances(intolerances);
   }, [intolerances]);
   
-
-  axios
-    .post("/intolerances", {
-      sessionData: storedData.data.user.id,
-    })
-    .then((res) => {
-      setIntolerances(res.data.rows[0].intolerance);
-      // getIntolerances(res.data.rows[0].intolerance);
-    })
-    .catch((err) => console.error(err.response.data));
 
   return (
     <section>

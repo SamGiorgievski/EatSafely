@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import "./Register.scss";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register(props) {
   const [user, setUser] = useState(props.user || "");
+  const navigate = useNavigate();
 
   function registerUser() {
-    const first_name = user.firstName;
-    const last_name = user.lastName;
-    const email = user.userEmail;
-    const password = user.userPassword;
-
-    axios
+    return axios
       .post("/register", {
         first_name: user.firstName,
         last_name: user.lastName,
@@ -20,8 +16,13 @@ function Register(props) {
         password: user.userPassword,
       })
       .then((response) => {
+        props.setStoredData()
+        navigate("/login");
         console.log(response);
-      });
+      })
+      .catch((err) => {
+        console.err(err);
+      })
   }
 
   return (
@@ -40,7 +41,7 @@ function Register(props) {
                 <h2 className="fw-bold mb-5">Sign up now</h2>
 
                 {/* Form */}
-                <form method="POST" action="/register">
+                <form method="POST" action="/register" onSubmit={registerUser}>
                   <div className="row">
                     <div className="col-md-6 mb-4">
                       <div className="form-outline">
@@ -129,10 +130,6 @@ function Register(props) {
                   <button
                     type="submit"
                     className="btn btn-primary btn-block mb-4"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      registerUser();
-                    }}
                   >
                     Sign up
                   </button>

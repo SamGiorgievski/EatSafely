@@ -50,13 +50,14 @@ app.post("/register", (req, res) => {
   INSERT INTO users (first_name,last_name, email, password)
   VALUES ($1, $2, $3, $4)
   `, [first_name, last_name, email, password])
+  .then(response => {
+    res.redirect("/login");
+  })
     .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+      return res.json({ error: err.message });
     });
 
-  res.redirect("/login");
+
 });
 
 app.post("/login", (req, res) => {

@@ -68,7 +68,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
         setConfidence(confidenceResult);
         let text = result.data.text;
 
-        if (confidenceResult < 55) {
+        if (confidenceResult < 50) {
           console.log("HELPPPPP");
           return setOcrState((prev) => ({
             ...prev,
@@ -110,7 +110,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
     const wordArray = result.data.words;
 
     wordArray.forEach(word => {
-      if (word.confidence >= 60) {
+      if (word.confidence >= 50) {
         returnArray.push(word.text);
       }
     });

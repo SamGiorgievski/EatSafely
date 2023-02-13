@@ -25,10 +25,12 @@ function Login(props) {
         password: user.userPassword,
       })
       .then((response) => {
+        sessionStorage.setItem("userData", JSON.stringify(response));
+        props.setStoredData(JSON.parse(sessionStorage.getItem("userData")));
         console.log("---------------");
         // console.log(response);
         setIsLoggedIn(true);
-        sessionStorage.setItem("userData", JSON.stringify(response));
+        
         navigate("/profile");
       })
       .catch((err) => {

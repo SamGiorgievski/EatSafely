@@ -26,6 +26,8 @@ export default function ScanResult({
     const validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     // /[A-Z]\i/
 
+  console.log(`str:${str}`)
+
     for (let i = 0; i < str.length; i++) {
       let char = str[i];
       if (validChars.indexOf(char) !== -1) {
@@ -39,7 +41,8 @@ export default function ScanResult({
     let intoleranceArray = intoleranceLowerCase.split(", ");
     let newStrLowerCase = newStr.toLowerCase();
     let strArray = newStrLowerCase.split(" ");
-    let lowercaseOcrState = ocrState.array.map((index) => {
+    let ocrStatespread = {...ocrState};
+    let lowercaseOcrState = ocrStatespread.array.map((index) => {
       return index.toLowerCase();
     });
     // console.log(`ocrState.array: ${ocrState.array}`)
@@ -62,7 +65,9 @@ export default function ScanResult({
 
     // function to see if a word contains any word in an array
     function includesAny(str, arr) {
+
       return arr.some(function(word) {
+        console.log(`word: ${word}`)
         return str.includes(word);
       });
     }
@@ -70,8 +75,15 @@ export default function ScanResult({
     // highlight text
     const highlighterReturn = [];
     let key = 0;
-      for (let j = 0; j < strArray.length; j++) {
+      for (let j = 0; j < lowercaseOcrState.length; j++) {
         key += 1;
+        console.log(`strArray[j]:${strArray[j]}`)
+        console.log(`lowercaseOcrState[j]:${strArray[j]}`)
+
+        if (!lowercaseOcrState[j]) { 
+          console.log(`if undefined: ${lowercaseOcrState[j]}`)
+          break;}
+
         if (includesAny(lowercaseOcrState[j], matches)) {
 
           let formattedMatchString = "";
@@ -97,8 +109,10 @@ export default function ScanResult({
             }
           
         } else {
-          highlighterReturn.push(`${ocrState.array[j]} `);
+          highlighterReturn.push(`${lowercaseOcrState[j]} `);
         }
+
+      
       }
 
     if (matches[0] && !loading) {

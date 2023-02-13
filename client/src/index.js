@@ -43,7 +43,10 @@ export default function App() {
               toggleModal={toggleModal}
               storedData={storedData}
             />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login 
+            setStoredData={setStoredData}
+            storedData={storedData}
+            />} />
             <Route path="/travelcard" element={<Translate intolerances={intolerances} />} />
             <Route path="/profile" element={<Profile
               getIntolerances={setIntolerances}

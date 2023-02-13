@@ -7,22 +7,20 @@ function Register(props) {
   const [user, setUser] = useState(props.user || "");
   const navigate = useNavigate();
 
-  function registerUser() {
-    return axios
-      .post("/register", {
+  async function registerUser() {
+    try {
+      const response = await axios.post("/register", {
         first_name: user.firstName,
         last_name: user.lastName,
         email: user.userEmail,
         password: user.userPassword,
-      })
-      .then((response) => {
-        props.setStoredData()
-        navigate("/login");
-        console.log(response);
-      })
-      .catch((err) => {
-        console.err(err);
-      })
+      });
+      props.setStoredData();
+      navigate("/login");
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (

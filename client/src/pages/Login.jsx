@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// import { useNavigate } from "react-router-dom";
-
 import "./Login.scss";
 import { useGlobalContext } from "../context";
 
@@ -12,6 +10,7 @@ function Login(props) {
   const [user, setUser] = useState("");
 
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
+  const { storedData, setStoredData } = useGlobalContext();
 
   const navigate = useNavigate();
 
@@ -25,12 +24,13 @@ function Login(props) {
         password: user.userPassword,
       })
       .then((response) => {
-        sessionStorage.setItem("userData", JSON.stringify(response));
-        props.setStoredData(JSON.parse(sessionStorage.getItem("userData")));
+        localStorage.setItem("userData", JSON.stringify(response));
+
+        // props.setStoredData(JSON.parse(localStorage.getItem("userData")));
         console.log("---------------");
         // console.log(response);
         setIsLoggedIn(true);
-        
+
         navigate("/profile");
       })
       .catch((err) => {

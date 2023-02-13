@@ -37,14 +37,16 @@ const EditProfile = ({
       intolerancesArr.push("Wheat, Rye, Barley, Malt, Triticale, Semolina");
     }
     if (nutsChecked) {
-      intolerancesArr.push("Peanut, Cashew, Almond, Pistachio, Macadamia Nut, Walnut, Pecan, Hazelnut, Chestnut, Pine Nut, Praline");
+      intolerancesArr.push(
+        "Peanut, Cashew, Almond, Pistachio, Macadamia Nut, Walnut, Pecan, Hazelnut, Chestnut, Pine Nut, Praline"
+      );
     }
     if (dairyChecked) {
-      intolerancesArr.push("Milk Sugar, Lactose, Casein");
+      intolerancesArr.push("Milk Sugar, Lactose, Casein, Cheese");
     }
     if (veganChecked) {
       intolerancesArr.push(
-        "Casein, Lactose, Whey, Collagen, Elastin, Keratin, Gelatine/gelatin, Aspic, Lard/tallow, Shellac, Honey, Propolis, D3, Albumen/albumin, Isinglass, Cod liver oil, Pepsin, Rennet"
+        "Casein, Lactose, Whey, Collagen, Elastin, Keratin, Gelatine/gelatin, Aspic, Lard/tallow, Shellac, Honey, Propolis, D3, Albumen/albumin, Isinglass, Cod liver oil, Pepsin, Rennet, Chicken, Beef, Pork"
       );
     }
     if (special.length > 0) {
@@ -64,7 +66,7 @@ const EditProfile = ({
       })
       .catch((err) => console.error(err.response.data));
 
-    setIntolerances(intolerancesArr);
+    setIntolerances(intolerancesArr.join(", "));
   };
 
   return (

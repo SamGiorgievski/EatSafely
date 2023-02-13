@@ -5,10 +5,10 @@ import { Cursor, useTypewriter } from "react-simple-typewriter";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
 import "./Layout.scss";
-// import { Carousel } from "react-bootstrap";
 
 const Layout = ({ isHomePage }) => {
   const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -33,8 +33,9 @@ const Layout = ({ isHomePage }) => {
       })
       .then((response) => {
         console.log(response);
-        sessionStorage.clear();
         setIsLoggedIn(false);
+        localStorage.clear();
+
         navigate("/");
       })
       .catch((err) => {
@@ -147,8 +148,9 @@ const Layout = ({ isHomePage }) => {
                       Input your personal food intolerances.{" "}
                     </h2>
                     <p className="lead">
-                      Signup and input your specfic food intolerances into your
-                      profile
+                      Once your profile has been created, you can customize your
+                      account with preset food intolerances and/or input
+                      individual ingredients.
                     </p>
                   </div>
                   <div className="col-md-5">
@@ -169,16 +171,35 @@ const Layout = ({ isHomePage }) => {
                       input.{" "}
                     </h2>
                     <p className="lead">
-                      Once you have created an account and input your food
-                      intolerances. Simply take a photo the of ingredients label
-                      of the item you want to check. The app will then scan the
-                      image for the food intolerances and give you a result.
+                      Once your profile has been customized, simply take a photo
+                      of the ingredients label of the item you want to check.
+                      The app will then scan the image, compare it with your
+                      intolerances, and let you know if it's safe or not.
                     </p>
                   </div>
                   <div className="col-md-5 order-md-1">
                     <img
                       src="https://www.boldbusiness.com/wp-content/uploads/2017/02/Food-scanning-apps-for-nutritional-oversight-e1493732402445.jpg"
                       alt=""
+                      className="picture"
+                    />
+                  </div>
+                </div>
+                <hr className="featurette-divider" />
+                <div className="row featurette">
+                  <div className="col-md-7 text-input">
+                    <h2 className="featurette-heading">
+                      Not sure what to eat?{" "}
+                    </h2>
+                    <p className="lead">
+                      With the random recipe generator you'll have an easier
+                      time selecting a meal based on your dietary needs.
+                    </p>
+                  </div>
+                  <div className="col-md-5">
+                    <img
+                      src="images/edit-pic.png"
+                      alt="edit-pic"
                       className="picture"
                     />
                   </div>
@@ -190,9 +211,9 @@ const Layout = ({ isHomePage }) => {
                   <div className="col-md-7 text-input">
                     <h2 className="featurette-heading">Traveling Abroad? </h2>
                     <p className="lead">
-                      The EatSafely application can make you a resturant card to
-                      tell wait staff what your specfic food intolerances are.
-                      Simply select a language and receive a result.
+                      The EatSafely application will generate a card in many
+                      different languages to help you communicate your
+                      intolerances to restaurants around the world
                     </p>
                   </div>
                   <div className="col-md-5 order-md-1">

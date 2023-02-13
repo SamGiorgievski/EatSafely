@@ -50,9 +50,9 @@ app.post("/register", (req, res) => {
   INSERT INTO users (first_name,last_name, email, password)
   VALUES ($1, $2, $3, $4)
   `, [first_name, last_name, email, password])
-  .then(response => {
-    res.redirect("/login");
-  })
+    .then(response => {
+      res.redirect("/login");
+    })
     .catch(err => {
       return res.json({ error: err.message });
     });
@@ -76,10 +76,10 @@ app.post("/login", (req, res) => {
         console.log("req.session", req.session.userEmail);
         console.log("Success");
 
-        return res.status(200).json({ message: "Login Succesful", user });
+        return res.status(200).json({ user });
       } else {
         console.log("Fail");
-        return res.status(400).json({ message: "Login Unsuccesful" });
+        return res.status(400);
 
       }
     })

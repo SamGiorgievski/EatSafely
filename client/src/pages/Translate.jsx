@@ -9,7 +9,9 @@ function Translate({ intolerances }) {
   const [translation, setTranslation] = useState("");
   const [cardContents, setCardContents] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  useEffect(() => {
+    setStoredData(JSON.parse(localStorage.getItem("userData")));
+  }, []);
   const handleLangChange = (event) => {
     setLang(event.target.value);
     setModalIsOpen(true);
@@ -17,17 +19,13 @@ function Translate({ intolerances }) {
   };
 
   const [storedData, setStoredData] = useState(
-    JSON.parse(sessionStorage.getItem("userData"))
+    JSON.parse(localStorage.getItem("userData"))
   );
 
   const sentence = `Hello, my name is ${storedData.data.user.first_name}. Please be aware that I have some food
-intolerances that I hope you will be able to accomodate. Could you
-please reccomend something on the menu that does not contain, or
+intolerances that I hope you will be able to accommodate. Could you
+please recommend something on the menu that does not contain, or
 is not cooked with or around the following: ${intolerances}`;
-
-  useEffect(() => {
-    setStoredData(JSON.parse(sessionStorage.getItem("userData")));
-  }, []);
 
   async function translateTo(sentence) {
     try {
@@ -65,8 +63,8 @@ is not cooked with or around the following: ${intolerances}`;
         <div className="container--card">
           <h1>Travel Cards</h1>
           <p>
-            Here you can create a custom travel card that you can show resturant
-            staff that may speak a different language than you.
+            Here you can create a custom travel card that you can show
+            restaurant staff that may speak a different language than you.
           </p>
           <form action="">
             <label htmlFor="">Select language to translate to:</label>
@@ -74,7 +72,6 @@ is not cooked with or around the following: ${intolerances}`;
               <option value="en">English</option>
               <option value="fr">French</option>
               <option value="es">Spanish</option>
-              <option value="zh">Chinese</option>
               <option value="de">German</option>
               <option value="it">Italian</option>
               <option value="ja">Japanese</option>
@@ -91,7 +88,7 @@ is not cooked with or around the following: ${intolerances}`;
           onRequestClose={() => setModalIsOpen(false)}
           className="modal--card"
         >
-          <h2 className="card--title">Restaraunt Card</h2>
+          <h2 className="card--title">Restaurant Card</h2>
           <p>{translation}</p>
           <button
             onClick={() => {

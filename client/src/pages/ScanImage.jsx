@@ -4,10 +4,17 @@ import ScanResult from "./scan_result";
 import ScanLoading from "./scan_loading";
 import EditProfile from "../componetns/EditProfile";
 import "./ScanImage.scss";
+import { useGlobalContext } from "../context";
 const Tesseract = require("tesseract.js");
 
-
-function ScanImage({intolerances, setIntolerances, showModal, setShowModal, toggleModal, storedData}) {
+function ScanImage({
+  intolerances,
+  setIntolerances,
+  showModal,
+  setShowModal,
+  toggleModal,
+}) {
+  const { storedData, setStoredData } = useGlobalContext();
 
   // Page state
   const [scanState, setscanState] = useState({
@@ -109,7 +116,7 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
     const returnArray = [];
     const wordArray = result.data.words;
 
-    wordArray.forEach(word => {
+    wordArray.forEach((word) => {
       if (word.confidence >= 50) {
         returnArray.push(word.text);
       }
@@ -129,11 +136,10 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
     setOcrState((prev) => ({
       ...prev,
       text: "",
-      array: []
-    }))
+      array: [],
+    }));
 
     setImagePath("");
-
   }
 
   return (
@@ -142,13 +148,17 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
         <h3 className="instructions">Please upload an image to scan</h3>
 
         {/* View uploaded image */}
-        <div >
-          {imagePath &&
-          <img src={imagePath} alt="Upload"/>
-          }
+        <div>
+          {imagePath && <img src={imagePath} alt="Upload" />}
           {/* https://placeholder.com/ */}
-          {!imagePath &&
-          <img src={"https://via.placeholder.com/300/808080.png/fff?text=Upload+image+to+begin"} alt="scanned_image"/>}
+          {!imagePath && (
+            <img
+              src={
+                "https://via.placeholder.com/300/808080.png/fff?text=Upload+image+to+begin"
+              }
+              alt="scanned_image"
+            />
+          )}
         </div>
 
         {/* Loading state */}
@@ -175,37 +185,42 @@ function ScanImage({intolerances, setIntolerances, showModal, setShowModal, togg
 
         {/* Results rendering */}
 
-        {scanState.page === "first" && <ScanFirst 
-        intolerances={intolerances}
-        setIntolerances={setIntolerances} 
-        setOcrState={setOcrState} 
-        handleClick={handleClick} 
-        setConfidence={setConfidence} 
-        handleChange={handleChange} 
-        setImagePath={setImagePath}
-        imagePath={imagePath}
-        toggleModal={toggleModal}
-        storedData={storedData}></ScanFirst>}
+        {scanState.page === "first" && (
+          <ScanFirst
+            intolerances={intolerances}
+            setIntolerances={setIntolerances}
+            setOcrState={setOcrState}
+            handleClick={handleClick}
+            setConfidence={setConfidence}
+            handleChange={handleChange}
+            setImagePath={setImagePath}
+            imagePath={imagePath}
+            toggleModal={toggleModal}
+            storedData={storedData}
+          ></ScanFirst>
+        )}
 
         {/* {scanState.loading === true && <Scan_loading progress={progress} loading={loading}></Scan_loading>} */}
-        {scanState.page === "result" && <ScanResult 
-        intolerances={intolerances} 
-        ocrState={ocrState} 
-        confidence={confidence} 
-        backButton={backButton}
-        progress={progress}
-        loading={loading}></ScanResult>}
+        {scanState.page === "result" && (
+          <ScanResult
+            intolerances={intolerances}
+            ocrState={ocrState}
+            confidence={confidence}
+            backButton={backButton}
+            progress={progress}
+            loading={loading}
+          ></ScanResult>
+        )}
 
-          {/* Edit Intolerances */}
-          {showModal && (
-            <EditProfile
-              toggle={toggleModal}
-              state={(showModal, setShowModal)}
-              storedData={storedData}
-              setIntolerances={setIntolerances}
-            />
-          )}
-
+        {/* Edit Intolerances */}
+        {showModal && (
+          <EditProfile
+            toggle={toggleModal}
+            state={(showModal, setShowModal)}
+            storedData={storedData}
+            setIntolerances={setIntolerances}
+          />
+        )}
       </section>
     </div>
   );

@@ -226,16 +226,9 @@ const Layout = ({ isHomePage }) => {
               <br />
               <div className="row featurette">
                 <div className="col-md-7 text-input">
-                  <h2 className="featurette-heading">About Us. </h2>
+                  <h2 className="featurette-heading">About Us </h2>
                   <p className="lead">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Laboriosam quia eaque totam officia, iure, temporibus
-                    dolores excepturi fugit deleniti corporis esse optio
-                    accusantium necessitatibus natus. Impedit eos autem labore
-                    consequuntur. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Itaque recusandae modi quasi hic fugiat ut
-                    fuga vero, qui numquam rerum quo officiis delectus,
-                    perspiciatis ab laudantium beatae, neque nisi animi.
+                    Sam Giorgievski, Brad Williams and Dihni Hassan came together to create EatSafely after personal struggles navigating a world unfit to suit their dietary needs. Sam and Brad live with celiac disease, and Dihni is lactose intolerant and eats halal. We are inspired by tough journeys of people with allergies, intolerances, and diseases trying to live a normal life. The world is a step behind catering the needs of those of need, and we're here to make it easier. Through our personal journeys, it was the community that always came together to help us, and guide us. It is our duty to give back. Our mission, and everything that we work for comes down to one basic idea: Everyone should feel safe eating everywhere.
                   </p>
                 </div>
                 <div className="col-md-5 ">

@@ -195,7 +195,7 @@ const Layout = ({ isHomePage }) => {
                 </div>
                 <div className="col-md-5">
                   <img
-                    src="images/edit-pic.png"
+                    src="images/recipes.png"
                     alt="edit-pic"
                     className="picture"
                   />

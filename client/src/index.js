@@ -29,7 +29,9 @@ export default function App() {
     <AppProvider>
       <BrowserRouter>
         <Routes>
+
           <Route path="/" element={<Layout />}>
+
             <Route path="/register" element={<Register />} />
             <Route path="/recipes" element={<Recipe />} />
             <Route path="/scanimage" element={<ScanImage

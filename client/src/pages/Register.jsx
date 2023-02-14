@@ -39,7 +39,12 @@ function Register(props) {
                 <h2 className="fw-bold mb-5">Sign up now</h2>
 
                 {/* Form */}
-                <form method="POST" action="/register" onSubmit={registerUser}>
+                <form
+                  method="POST"
+                  action="/register"
+                  onSubmit={registerUser}
+                  className="register-form"
+                >
                   <div className="row">
                     <div className="col-md-6 mb-4">
                       <div className="form-outline">

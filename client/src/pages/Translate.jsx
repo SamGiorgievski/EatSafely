@@ -52,11 +52,21 @@ is not cooked with or around the following: ${intolerances}`;
 
   return (
     <div className="full--content">
-      <div className="images--div">
+      <div className="img--div">
         <img
-          src="https://www.internationalinsurance.com/wp-content/uploads/2022/12/iStock-1431699900.jpg"
+          src="https://whatsupusana.com/wp-content/uploads/2016/08/TravelFood.jpg"
           alt=""
-          className="pic1"
+          className="picture"
+        />
+        <img
+          src="https://khni.kerry.com/wp-content/uploads/2018/12/Travel-eating-1024x683.jpg"
+          alt=""
+          className="picture"
+        />
+        <img
+          src="https://www.smartertravel.com/wp-content/uploads/2017/06/asian-food-from-above-shutterstock_446808100.jpg"
+          alt=""
+          className="picture"
         />
       </div>
       <section className="main--section">

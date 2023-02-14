@@ -235,7 +235,10 @@ const Layout = ({ isHomePage }) => {
                       Laboriosam quia eaque totam officia, iure, temporibus
                       dolores excepturi fugit deleniti corporis esse optio
                       accusantium necessitatibus natus. Impedit eos autem labore
-                      consequuntur.
+                      consequuntur. Lorem ipsum dolor sit amet consectetur
+                      adipisicing elit. Itaque recusandae modi quasi hic fugiat
+                      ut fuga vero, qui numquam rerum quo officiis delectus,
+                      perspiciatis ab laudantium beatae, neque nisi animi.
                     </p>
                   </div>
                   <div className="col-md-5 order-md-1">

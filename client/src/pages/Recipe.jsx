@@ -91,18 +91,6 @@ const Recipe = () => {
     }
   };
 
-  const getNutritionFacts = async (recipeId) => {
-    try {
-      const response = await axios.get(
-        `https://api.spoonacular.com/recipes/${recipeId}/nutritionLabel.png?apiKey=596c8cbb08394a8482c1a10627c3d85d`
-      );
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleSelectRecipe = async (recipe) => {
     setSelectedRecipe(null);
     setSelectedRecipe({
@@ -111,7 +99,6 @@ const Recipe = () => {
       ingredients: await getIngredients(recipe.id),
       amounts: await getAmounts(recipe.id),
       units: await getUnits(recipe.id),
-      label: await getNutritionFacts(recipe.id),
     });
   };
 

@@ -6,7 +6,7 @@
 - Express
 - PostgreSQL
 
-@SamGiorgievski ,@dihnihassan and I came together to create EatSafely based on our shared experience with dietary restrictions.Sam and myself both live with celiac disease, and Dihni eats dairy-free and halal.
+@SamGiorgievski ,@dihnihassan , @Brad-Williams-Dev came together to create EatSafely based on our shared experience with dietary restrictions.Sam and Brad both live with celiac disease, and Dihni eats dairy-free and halal.
 
 As you can imagine, having these restrictions makes it hard to do basic things: eating with friends, trying new foods, etc. Through these experiences, we found it was the community that helped us most and guided us. Now, we feel it is our turn to give back.
 

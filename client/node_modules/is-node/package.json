@@ -1,0 +1,38 @@
+{
+  "name": "is-node",
+  "version": "1.0.2",
+  "description": "Detect if current process is a node application or not.",
+  "author": {
+    "name": "matthewh",
+    "email": "hello@matthewh.in",
+    "url": "http://matthewh.in/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": false,
+  "main": "index.js",
+  "homepage": "https://github.com/MatthewNPM/is-node",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MatthewNPM/is-node"
+  },
+  "bugs": {
+    "url": "https://github.com/MatthewNPM/is-node/issues"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "keywords": [
+    "is",
+    "node",
+    "detect",
+    "process"
+  ],
+  "files": [
+    "examples/",
+    "README.md",
+    "index.js"
+  ],
+  "license": "MIT"
+}

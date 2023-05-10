@@ -17,6 +17,8 @@ const catsRoutes = require('./routes/catsRoutes');
 const app = express();
 
 // middleware setup
+app.use(express.static('build'));
+
 app.use(morgan(ENVIROMENT));
 app.use(bodyParser.json());
 
